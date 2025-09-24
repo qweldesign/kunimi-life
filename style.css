@@ -21,12 +21,12 @@
   --color--lighter--active: #a6a6a6;
   --color--lightest: #ffffff;
   --color--lightest--active: #cccccc;
-  --color--primary: #209fdf;
-  --color--primary--active: #79c5ec;
-  --color--secondary: #ffc080;
-  --color--secondary--active: #ff8d1a;
-  --color--tertiary: #9fdf20;
-  --color--tertiary--active: #5f8613;
+  --color--primary: hsl(200, 75%, 50%);
+  --color--primary--active: hsl(200, 75%, 70%);
+  --color--secondary: hsl(30, 100%, 75%);
+  --color--secondary--active: hsl(30, 100%, 55%);
+  --color--tertiary: hsl(80, 75%, 50%);
+  --color--tertiary--active: hsl(80, 75%, 30%);
   --container-width--sm: 37.5rem;
   --container-width--md: 56.25rem;
   --container-width--lg: 75rem;
@@ -221,12 +221,12 @@ button, input, select, textarea {
   font-style: normal;
   font-size: 0.875rem;
   color: var(--color--darker);
-  background-color: rgba(255, 192, 128, 0.15);
+  background-color: rgba(255, 191.25, 127.5, 0.15);
   padding: 0 0.2em;
   border-radius: 0.2em;
 }
 .breadcrumb__item span {
-  background-color: rgba(32, 159, 223, 0.1);
+  background-color: rgba(31.875, 159.375, 223.125, 0.1);
 }
 
 /**
@@ -447,6 +447,11 @@ button, input, select, textarea {
 }
 .form__table th {
   width: 12rem;
+}
+.form__table input, .form__table select, .form__table textarea {
+  border: none;
+  border-radius: var(--spacing--x-small);
+  background-color: rgba(31.875, 159.375, 223.125, 0.05);
 }
 .form__buttons {
   text-align: center;
