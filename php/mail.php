@@ -10,13 +10,13 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) { // PHP5.1.0以上の場合の
 //
 
 // トップページURL ※送信完了後に「トップページへ戻る」ボタンが表示される
-$site_top = "https://qwel.design/";
+$site_top = "https://kunimi.life/";
 
 //管理者のメールアドレス ※複数指定する場合は「,」で区切る 例 $to = "aa@aa.aa,bb@bb.bb";
-$to = "webmaster@qwel.design";
+$to = "welcome@kunimi.life";
 
 //送信元メールアドレス ※設置先サイトと同じドメイン推奨
-$from = "webmaster@qwel.design";
+$from = "welcome@kunimi.life";
 
 //フォームのメールアドレス入力箇所のname属性の値
 $Email = "Email";
@@ -28,7 +28,7 @@ $Email = "Email";
 
 //スパム防止のためのリファラチェック (する=1, しない=0)
 $Referer_check = 1;
-$Referer_check_domain = "tools.qwel.design";
+$Referer_check_domain = "kunimi.life";
 
 // セッションによるワンタイムトークン（CSRF対策、及びスパム防止）(する=1, しない=0)
 $useToken = 1;
@@ -51,13 +51,13 @@ $confirmDsp = 1;
 // CV率を解析したい場合などはサンクスページを別途用意し、URLをこの下の項目で指定する
 // 0にすると、デフォルトの送信完了画面が表示される
 $jumpPage = 0;
-$thanksPage = "https://qwel.design/thanks.html";
+$thanksPage = "https://kunimi.life/thanks.html";
 
 // 必須入力項目を設定 (する=1, しない=0)
 $requireCheck = 1;
 
 // 必須入力項目 (入力フォームで指定したname属性の値をカンマで区切って指定)
-$require = array('氏名','Email');
+$require = array('代表者様氏名','Email');
 
 
 //
@@ -95,10 +95,12 @@ $mailFooterDsp = 0;
 $mailSignature = <<< TEXT
 
 ────────────────────────
-福井の物作りのためのweb制作&プログラミング教室
-QWEL.DESIGN (クヴェル・デザイン)
+海辺に暮らそう
+国見 海・人・暮らし相談室
 
-伊藤 大悟 (代表)
+お問い合わせ:
+0776-88-2004(国見公民館)
+welcome@kunimi.life
 ────────────────────────
 
 TEXT;

@@ -13,8 +13,12 @@ class AutoCopyright {
 
   generate(startYear, companyName) {
     const currentYear = new Date().getFullYear();
-    return `&copy; ${startYear} - ${currentYear} ${companyName}`;
+    if (startYear == currentYear) {
+      return `&copy; ${startYear} ${companyName}`
+    } else {
+      return `&copy; ${startYear} - ${currentYear} ${companyName}`;
+    }
   }
 }
 
-new AutoCopyright(2019, 'QWEL.DESIGN');
+new AutoCopyright(2025, '国見公民館');

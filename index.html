@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Form | QWEL in Action</title>
+    <title>空き家マッチングツアーお申込みフォーム | 国見 海・人・暮らし相談室</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Noto+Sans:wght@100..900&family=Noto+Serif:wght@100..900&display=swap" rel="stylesheet">
@@ -11,39 +11,48 @@
   </head>
   <body>
     <header class="header">
-      <h1 id="logo"><a href="https://qwel.design/"><img src="./logo_animation.svg" alt="QWEL in Action"></a></h1>
-      <ul class="breadcrumb">
-        <li class="breadcrumb__item"><a href="https://qwel.design/">QWEL in Action</a></li>
-        <li class="breadcrumb__item"><a href="../">Creative Tools</a></li>
-        <li class="breadcrumb__item  breadcrumb__item--current"><span>Contact Form</span></li>
-      </ul>
+      <h1>国見 海・人・暮らし相談室</h1>
     </header>
     <main class="main">
-      <h2 class="main__title">Contact Form | Created by <span> ― QWEL.DESIGN</span></h2>
-      <p>このページは、<strong>QWEL.DESIGN</strong> への<strong>お問い合わせフォーム</strong>です。
-        <br>お気軽にお問い合わせください。</p>
+      <h2 class="main__title">空き家マッチングツアーお申込みフォーム</h2>
+      <p>福井県福井市国見地区での「空き家マッチングツアー」に関するお申込みフォームです。</p>
+      <ul class="main__list">
+        <li class="main__listItem">日時: 2026年4月18日(土) 9:00 - 16:00</li>
+        <li class="main__listItem">集合: 福井駅9:00 (もしくは国見公民館10:00)</li>
+        <li class="main__listItem">参加費: 3,000円/1名 (昼食込み) *小学生以下は無料</li>
+        <li class="main__listItem">お問い合わせ: 0776-88-2004 (国見公民館)</li>
+      </ul>
       <form class="form" method="post" action="./php/mail.php">
         <table class="form__table">
           <tr>
-            <th><label for="yourname">氏名<span class="required">*必須</span></label></th>
-            <td><input id="yourname" size="30" type="text" name="氏名" required></td>
+            <th><label for="yourname">代表者様氏名<span class="required">*必須</span></label></th>
+            <td><input id="yourname" size="30" type="text" name="代表者様氏名" required></td>
           </tr>
           <tr>
             <th><label for="youremail">メールアドレス<span class="required">*必須</span></label></th>
             <td><input id="youremail" size="30" type="email" name="Email" required></td>
           </tr>
           <tr>
-            <th><label for="yoursubject">題名</label></th>
-            <td>
-              <select id="yoursubject" name="題名">
-                <option value="ご質問・お問い合わせ">ご質問・お問い合わせ</option>
-                <option value="その他">その他</option>
-              </select>
-            </td>
+            <th><label for="yourtel">電話番号</label></th>
+            <td><input id="yourtel" size="30" type="tel" name="電話番号"></td>
           </tr>
           <tr>
-            <th><label for="yourcontent">メッセージ本文</label></th>
-            <td><textarea id="yourcontent" name="メッセージ本文" cols="30" rows="6"></textarea></td>
+            <th><label for="yournum">参加人数</label></th>
+            <td><select id="yournum" name="参加人数">
+              <option value="大人1名">大人1名</option>
+              <option value="大人2名">大人2名</option>
+              <option value="大人1名, 子供1名">大人1名, 子供1名</option>
+              <option value="大人2名, 子供1名">大人2名, 子供1名</option>
+              <option value="大人1名, 子供2名">大人1名, 子供2名</option>
+              <option value="大人2名, 子供2名">大人2名, 子供2名</option>
+              <option value="大人1名, 子供3名">大人1名, 子供3名</option>
+              <option value="大人2名, 子供3名">大人2名, 子供3名</option>
+              <option>その他（備考欄に記入してください）</option>
+            </select></td>
+          </tr>
+          <tr>
+            <th><label for="yourcontent">備考</label></th>
+            <td><textarea id="yourcontent" name="備考" cols="30" rows="6"></textarea></td>
           </tr>
         </table>
         <div class="form__buttons">
@@ -53,19 +62,20 @@
     </main>
     <footer id="footer" class="footer">
       <div class="footer__inner">
-        <a class="footer__item footer__item--github" href="https://github.com/qweldesign" target="_blank" rel="noopener">
-          <svg class="icon icon--si icon--github icon--md" width="36" height="36" aria-hidden="true">
-            <use href="./icons.svg#si-github"></use>
-          </svg>
-          <span>GitHub</span>
-        </a>
-        <a class="footer__item footer__item--contact" href="https://tools.qwel.design/contact-form/" target="_blank" rel="noopener">
-          <svg class="icon icon--si icon--mail icon--md" width="36" height="36" aria-hidden="true">
-            <use href="./icons.svg#si-mail"></use>
-          </svg>
-          <span>Contact Me</span>
-        </a>
-        <small class="footer__copyright"></small>
+        <table class="footer__table">
+          <tr>
+            <td>主催:</td>
+            <td>国見 海・人・暮らし相談室 (国見移住促進委員会)</td>
+          </tr>
+          <tr>
+            <td>協力:</td>
+            <td>国見地区自治会連合会、国見公民館、越前海岸盛り上げ隊</td>
+          </tr>
+          <tr>
+            <td>特別協力:</td>
+            <td>ふるさと福井サポートセンター</td>
+          </tr>
+        </table>
       </div>
     </footer>
     <script src="./init.js"></script>
