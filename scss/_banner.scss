@@ -5,10 +5,12 @@
 $color-primary:  #033f69;
 
 .banner {
+  @extend %__section;
+  
   &__title {
     & > span {
       display: block;
-      color: $color-primary;
+      color: darken(map-get($theme-colors, $theme-accent), 25%);;
       font-weight: bold;
       text-align: center;
       line-height: 1.5;

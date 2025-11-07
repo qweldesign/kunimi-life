@@ -10,23 +10,23 @@
  */
 :root {
   --color--darkest: #262626;
-  --color--darkest--active: #595959;
+  --color--darkest--active: rgb(101.75, 101.75, 101.75);
   --color--darker: #4d4d4d;
-  --color--darker--active: gray;
+  --color--darker--active: rgb(140.75, 140.75, 140.75);
   --color--dark: #808080;
-  --color--dark--active: #b3b3b3;
+  --color--dark--active: rgb(191.75, 191.75, 191.75);
   --color--light: #b3b3b3;
-  --color--light--active: gray;
+  --color--light--active: rgb(115.25, 115.25, 115.25);
   --color--lighter: #d9d9d9;
-  --color--lighter--active: #a6a6a6;
+  --color--lighter--active: rgb(153.25, 153.25, 153.25);
   --color--lightest: #ffffff;
-  --color--lightest--active: #cccccc;
+  --color--lightest--active: rgb(191.25, 191.25, 191.25);
   --color--primary: hsl(200, 75%, 50%);
-  --color--primary--active: hsl(200, 75%, 70%);
+  --color--primary--active: hsl(200, 75%, 75%);
   --color--secondary: hsl(30, 100%, 75%);
-  --color--secondary--active: hsl(30, 100%, 55%);
+  --color--secondary--active: hsl(30, 100%, 50%);
   --color--tertiary: hsl(80, 75%, 50%);
-  --color--tertiary--active: hsl(80, 75%, 30%);
+  --color--tertiary--active: hsl(80, 75%, 25%);
   --container-width--sm: 37.5rem;
   --container-width--md: 56.25rem;
   --container-width--lg: 75rem;
@@ -222,14 +222,22 @@ button, input, select, textarea {
   writing-mode: vertical-rl;
   text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
 }
+.header__social {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  color: #fff;
+  transition: all 0.35s ease;
+}
 
 /**
  * Main
  */
-.main {
+.form, .intro, .banner {
   width: min(100%, 768px);
   margin: 0 auto;
-  padding: 3rem clamp(0.75rem, 2%, 1.5rem);
+  padding: 1.5rem clamp(0.75rem, 2%, 1.5rem);
 }
 
 /**
@@ -237,7 +245,7 @@ button, input, select, textarea {
  */
 .banner__title > span {
   display: block;
-  color: #033f69;
+  color: hsl(200, 75%, 25%);
   font-weight: bold;
   text-align: center;
   line-height: 1.5;
@@ -261,6 +269,106 @@ button, input, select, textarea {
   padding-inline-end: 0.5em;
   color: var(--color--primary--active);
   font-size: 1.5em;
+}
+
+/**
+ * Intro
+ */
+.intro__logo {
+  width: min(48vw, 12rem);
+  margin: 1.5rem auto;
+  text-align: center;
+}
+.intro__logo img {
+  filter: brightness(85%);
+}
+.intro__content {
+  padding-inline: 0.75rem;
+}
+
+/**
+ * flow
+ */
+.flow {
+  padding-block-start: 6vw;
+  padding-block-end: 3vw;
+  background: url("./assets/wave.png") no-repeat center top/contain, var(--color--primary--active);
+}
+.flow__title {
+  text-align: center;
+}
+.flow__inner {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: min(100%, 1000px);
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+.flow__item {
+  padding: 0 2.25rem;
+}
+.flow__item:nth-child(1) {
+  flex: 1 0 300px;
+  max-width: 300px;
+}
+.flow__item:nth-child(2) {
+  flex: 1 0 300px;
+  max-width: 300px;
+}
+@media (min-width: 1000px) {
+  .flow__item:nth-child(2) {
+    flex: 1 0 400px;
+    max-width: 400px;
+  }
+}
+.flow__item:nth-child(3) {
+  flex: 1 0 300px;
+  max-width: 300px;
+}
+.flow__itemImage--1 {
+  display: block;
+  width: 180px;
+  margin: 0 auto;
+}
+.flow__itemImage--2 {
+  display: block;
+  width: 120px;
+  margin: 0 auto;
+}
+.flow__itemImage--3 {
+  display: block;
+  width: 180px;
+  margin: 0 auto;
+}
+.flow__itemImage--4 {
+  display: block;
+  width: 210px;
+  margin: 0 auto;
+}
+.flow__itemImage--5 {
+  display: block;
+  width: 180px;
+  margin: 0 auto;
+}
+.flow__itemImage--6 {
+  display: block;
+  width: 210px;
+  margin: 0 auto;
+}
+.flow__itemTitle {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0.75rem auto;
+  padding: 0.375rem;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.flow__itemHeading {
+  font-size: 1.25rem;
+}
+.flow__itemText {
+  font-size: 1rem;
 }
 
 /**
@@ -396,6 +504,44 @@ button, input, select, textarea {
   border-block-start-width: 2px;
   border-inline-end-width: 2px;
   transform: rotate(45deg) translate(-10%, 10%);
+}
+
+/**
+ * Component - Embedded
+ */
+.embed {
+  position: relative;
+  width: 100%;
+  height: min(62.5vh, 450px);
+}
+.embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.embed__cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: rgba(38, 38, 38, 0.3);
+  color: var(--color--lightest);
+  transition: opacity 0.25s linear;
+}
+.embed__cover:not(.is-active) {
+  opacity: 0;
+}
+.embed__info {
+  font-size: var(--font-size--small);
 }
 
 /**

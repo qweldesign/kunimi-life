@@ -3,6 +3,7 @@
  */
 
 .form {
+  @extend %__section;
   @include form();
   margin-block-end: space("large");
 

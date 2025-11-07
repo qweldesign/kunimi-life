@@ -2,9 +2,9 @@
  * Main
  */
 
-.main {
+%__section {
   width: min(100%, 768px);
   //min-height: calc(100vh - 18rem);
   margin: 0 auto;
-  padding: 3rem clamp(0.75rem, 2%, 1.5rem);
+  padding: 1.5rem clamp(0.75rem, 2%, 1.5rem);
 }
