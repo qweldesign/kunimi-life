@@ -231,34 +231,36 @@ button, input, select, textarea {
   margin: 0 auto;
   padding: 3rem clamp(0.75rem, 2%, 1.5rem);
 }
-.main__title::after {
-  content: "✶";
-  color: var(--color--secondary);
-  font-size: 1.25em;
-  margin-inline-start: var(--spacing--x-small);
+
+/**
+ * Banner
+ */
+.banner__title > span {
+  display: block;
+  color: #033f69;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.5;
 }
-.main__list {
+.banner__title > span:nth-child(1) {
+  font-size: 1.5rem;
+}
+.banner__title > span:nth-child(2) {
+  font-size: 2rem;
+}
+.banner__title > span:nth-child(3) {
+  font-size: 1.5rem;
+}
+.banner__list {
   list-style-type: none;
   margin: var(--spacing--medium) 0;
   padding: 0;
 }
-.main__listItem::before {
+.banner__listItem::before {
   content: "✶";
   padding-inline-end: 0.5em;
   color: var(--color--primary--active);
   font-size: 1.5em;
-}
-.main__listItem--spec {
-  color: var(--color--dark);
-  font-size: 0.875rem;
-  letter-spacing: var(--heading-letter-spacing);
-}
-.main__listItem--spec::before {
-  content: "―";
-  margin-inline-end: var(--spacing--x-small);
-  padding-inline-end: 0.5em;
-  color: var(--color--secondary);
-  font-weight: 700;
 }
 
 /**
@@ -421,6 +423,12 @@ button, input, select, textarea {
 }
 .form textarea {
   resize: vertical;
+}
+.form__title::after {
+  content: "✶";
+  color: var(--color--secondary);
+  font-size: 1.25em;
+  margin-inline-start: var(--spacing--x-small);
 }
 .form__table {
   width: 100%;

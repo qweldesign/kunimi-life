@@ -6,6 +6,15 @@
   @include form();
   margin-block-end: space("large");
 
+  &__title {
+    &::after {
+      content: "✶";
+      color: theme-color("secondary");
+      font-size: 1.25em;
+      margin-inline-start: space("x-small");
+    }
+  }
+
   &__table {
     @include table();
     margin-block-end: space("large");
