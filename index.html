@@ -94,7 +94,7 @@
         <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6636.840592572494!2d136.02399843776843!3d36.094672706721205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8c664ffffffff%3A0xb566330c5634157!2z56aP5LqV5biC5Zu96KaL5YWs5rCR6aSo!5e0!3m2!1sja!2sjp!4v1762513024586!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </section>
       <section class="contact">
-        <form class="form">
+        <form class="form" data-contact-form>
           <h2 class="form__title">お申込みフォーム</h2>
           <p>福井県福井市国見地区での「空き家マッチングツアー」に関するお申込みフォームです。</p>
           <table class="form__table">
@@ -109,6 +109,13 @@
             <tr>
               <th><label for="your-tel">電話番号</label></th>
               <td><input id="your-tel" size="30" type="tel" name="電話番号"></td>
+            </tr>
+            <tr>
+              <th><label for="your-subject">件名</label></th>
+              <td><select id="your-subject" name="件名">
+                <option value="ツアーへの参加申し込み">ツアーへの参加申し込み</option>
+                <option value="ご質問・ご意見・その他">ご質問・ご意見・その他</option>
+              </select></td>
             </tr>
             <tr>
               <th><label for="your-num">参加人数</label></th>
