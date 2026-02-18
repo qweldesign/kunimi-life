@@ -1,21 +1,10 @@
 /**
- * Main
+ * Project - Main
  */
 
-.main {
-  &__container {
-    @include container("md");
-  }
-
-  &__row {
-    @include row(flex-start, flex-start);
-  }
-
-  &__article {
-    @include col(6, false, "md");
-  }
-
-  &__aside {
-    @include col(3, false, "md");
-  }
+%__section {
+  width: min(100%, 768px);
+  //min-height: calc(100vh - 18rem);
+  margin: 0 auto;
+  padding: 1.5rem clamp(0.75rem, 2%, 1.5rem);
 }

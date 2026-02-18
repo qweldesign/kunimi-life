@@ -1,0 +1,97 @@
+/**
+ * Project - Flow
+ */
+
+.flow {
+  padding-block-start: 6vw;
+  padding-block-end: 3vw;
+  background: url("./assets/wave.png") no-repeat center top / contain, color-active("primary");
+
+  &__title {
+    text-align: center;
+  }
+
+  &__inner {
+    @include row(center, flex-start);
+    width: min(100%, 1000px);
+    margin: 0 auto;
+    padding: 1.5rem 0;
+  }
+
+  &__item {
+    padding: 0 2.25rem;
+
+    &:nth-child(1) {
+      flex: 1 0 300px;
+      max-width: 300px;
+    }
+
+    &:nth-child(2) {
+      flex: 1 0 300px;
+      max-width: 300px;
+
+      @media (min-width: 1000px) {
+        flex: 1 0 400px;
+        max-width: 400px;
+      }
+    }
+
+    &:nth-child(3) {
+      flex: 1 0 300px;
+      max-width: 300px;
+    }
+  }
+
+  &__itemImage {
+    &--1 {
+      display: block;
+      width: 180px;
+      margin: 0 auto;
+    }
+    
+    &--2 {
+      display: block;
+      width: 120px;
+      margin: 0 auto;
+    }
+    
+    &--3 {
+      display: block;
+      width: 180px;
+      margin: 0 auto;
+    }
+    
+    &--4 {
+      display: block;
+      width: 210px;
+      margin: 0 auto;
+    }
+    
+    &--5 {
+      display: block;
+      width: 180px;
+      margin: 0 auto;
+    }
+    
+    &--6 {
+      display: block;
+      width: 210px;
+      margin: 0 auto;
+    }
+  }
+
+  &__itemTitle {
+    width: fit-content;
+    margin: 0.75rem auto;
+    padding: 0.375rem;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  &__itemHeading {
+    font-size: 1.25rem;
+  }
+
+  &__itemText {
+    font-size: 1rem;
+  }
+}

@@ -3,7 +3,26 @@
  */
 
 .footer {
-  padding: space("x-large");
+  padding: space("x-large") 0;
   @include background($theme-accent);
-  text-align: center;
+
+  &__inner {
+    @include container("sm");
+  }
+
+  &__table {
+    @include table();
+
+    tr {
+      border-block-end: none;
+
+      &:first-child {
+        border-block-start: none;
+      }
+    }
+
+    td:nth-child(1) {
+      width: 6rem;
+    }
+  }
 }

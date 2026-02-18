@@ -3,213 +3,154 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAMPLE DEMO | QWEL in Action</title>
+    <title>空き家マッチングツアーお申込みフォーム | 国見 海・人・暮らし相談室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico">
   </head>
   <body>
-    <div data-scroll-sentinel></div>
-    <div id="app">
-      <header id="header" class="header" data-active-header>
-        <div class="header__container">
-          <nav id="gNav" class="gNav">
-            <h1 class="gNav__siteBrand" data-site-brand>
-              <a href="/demo/">Sample Demo</a>
-            </h1>
-            <ul class="gNav__primaryMenu visible-md" data-primary-menu>
-              <li class="gNav__menuItem" data-spy-nav v-for="section in sections">
-                <a :href="`#${section.id}`" v-html="section.name"></a>
-              </li>
-            </ul>
-            <ul class="gNav__socialMenu visible-md" data-social-menu>
-              <template v-for="(item, key) in social">
-                <li class="gNav__menuItem is-social" v-if="item">
-                  <a :href="`https://${key}.com/qweldesign`">
-                    <svg :class="`icon is-si-${key} is-md`" width="36" height="36" aria-hidden="true">
-                      <use :href="`./assets/icons.svg#si-${key}`"></use>
-                    </svg>
-                  </a>
-                </li>
-              </template>
-            </ul>
-          </nav>
+    <header class="header">
+      <h1 class="header__logo"><img src="./assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室"></h1>
+      <p class="header__lead">海辺に暮らそう</p>
+      <a class="header__social" href="https://www.instagram.com/kunimi.life" target="_blank">
+        <svg class="icon is-instagram is-md" width="36" height="36" aria-hidden="true">
+          <use href="./assets/icons.svg#si-instagram"></use>
+        </svg>
+      </a>
+    </header>
+    <main class="main">
+      <section class="banner">
+        <h2 class="banner__title">
+          <span>福井県福井市国見地区</span>
+          <span>空き家マッチングツアー</span>
+          <span>参加者募集！！</span>
+        </h2>
+        <ul class="banner__list">
+          <li class="banner__listItem">日時: 2026年4月18日(土) 9:00 - 16:00</li>
+          <li class="banner__listItem">集合: 福井駅9:00 (もしくは国見公民館10:00)</li>
+          <li class="banner__listItem">参加費: 無料 (昼食代は実費)</li>
+          <li class="banner__listItem">お問い合わせ: 0776-88-2004 (国見公民館)</li>
+        </ul>
+      </section>
+      <section class="intro">
+        <h2 class="intro__logo">
+          <img src="./assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
+        </h2>
+        <div class="intro__content">
+          <p>福井県福井市にある越前海岸沿いの小さな町、国見地区。</p>
+          <p>少子化の進む地域ですが、豊かな自然の中での暮らしに魅せられて移り住む人も少しずつ増えてきました。</p>
+          <p>空き家ありますか？それっていくら？スーパーは近くにある？学校はどんなかんじ？舟って持てるもの？などなど、移住希望者の素朴な疑問に答える窓口として、また移住者を受け入れる意思があることを伝えるためのアイコンとして、当相談室を設けることにしました。</p>
+          <p>海辺の暮らしに興味のある方は、ぜひお気軽にお問い合わせください。</p>
         </div>
-      </header>
-      <main id="main" class="main">
-        <header id="hero" class="hero">
-          <div class="hero__content">
-            <p>Welcome to our website.
-              <br>This page is a Sample Demo, 
-              <br>so some links and buttons may not work.</p>
-            <a class="button is-primary is-md" href="https://qwel.design/">QWEL.DESIGN</a>
+      </section>
+      <section class="flow">
+        <h2 class="flow__title">空き家マッチングまでの流れ</h2>
+        <div class="flow__inner">
+          <div class="flow__item">
+            <h3 class="flow__itemTitle">準備</h3>
+            <figure class="flow__itemImage--1">
+              <img src="./assets/icon_01.png" alt="空き家の掘り起こし">
+            </figure>
+            <h4 class="flow__itemHeading">空き家の掘り起こし</h4>
+            <p class="flow__itemText">地域の皆さんの協力で空き家を探します。
+              <br>家の状態や家主さんの意思の確認をします。</p>
+            <figure class="flow__itemImage--2">
+              <img src="./assets/icon_02.png" alt="参加者募集">
+            </figure>
+            <h4 class="flow__itemHeading">参加者募集</h4>
+            <p class="flow__itemText">SNSで発信したり、チラシを作ってお知らせします。</p>
           </div>
-        </header>
-        <section :id="sections['feature'].id" class="section" data-spy-section>
-          <div class="section__inner">
-            <h2 class="section__heading pb-large" data-readable>{{ sections['feature'].name }}</h2>
-            <div class="slider" data-gallery="slider" data-flickable data-gap="72" data-readable>
-              <figure class="slider__inner" data-gallery-main>
-                <figure class="slider__item" data-gallery-item v-for="item in sections['feature'].items">
-                  <img class="slider__image" :src="item.src">
-                  <figcaption class="slider__caption"><a href="#">{{ item.heading }}</a></figcaption>
-                </figure>
-              </figure>
-            </div>
+          <div class="flow__item">
+            <h3 class="flow__itemTitle">空き家マッチングツアー</h3>
+            <figure class="flow__itemImage--3">
+              <img src="./assets/icon_03.png" alt="集合">
+            </figure>
+            <h4 class="flow__itemHeading">集合</h4>
+            <p class="flow__itemText">福井駅に集合。バスで移動します。</p>
+            <figure class="flow__itemImage--4">
+              <img src="./assets/icon_04.png" alt="みんなで空き家を見学">
+            </figure>
+            <h4 class="flow__itemHeading">みんなで空き家を見学</h4>
+            <p class="flow__itemText">おうちの中を見せていただいたり、地域のルールを説明してもらいます。
+              <br>ランチは地元の海辺のカフェで、地元のメンバーと一緒に食べます。</p>
           </div>
-        </section>
-        <section :id="sections['about'].id" class="section" data-spy-section>
-          <div class="section__inner">
-            <h2 class="section__heading" data-readable>{{ sections['about'].name }}</h2>
-            <div class="section__container" data-readable>
-              <article class="postItem is-single">
-                <figure class="postItem__image">
-                  <img :src="sections['about'].src">
-                </figure>
-                <div class="postItem__content">
-                  <h3 class="postItem__heading">{{ sections['about'].heading }}</h3>
-                  <p class="postItem__excerpt">{{ sections['about'].excerpt }}</p>
-                  <div class="postItem__more">
-                    <a class="button is-secondary is-sm" href="#">{{ sections['about'].more }}</a>
-                  </div>
-                </div>
-              </article>
-            </div>
+          <div class="flow__item">
+            <h3 class="flow__itemTitle">後日</h3>
+            <figure class="flow__itemImage--5">
+              <img src="./assets/icon_05.png" alt="後日">
+            </figure>
+            <p class="flow__itemText">気になる物件があれば個別にお話。
+              <br>所有者、希望者、不動産屋を交えて話し合いをします。</p>
+            <figure class="flow__itemImage--6">
+              <img src="./assets/icon_06.png" alt="マッチング!!">
+            </figure>
+            <p class="flow__itemText">マッチング!!</p>
           </div>
-        </section>
-        <section :id="sections['service'].id" class="section" data-spy-section>
-          <div class="section__inner">
-            <h2 class="section__heading" data-readable>{{ sections['service'].name }}</h2>
-            <div class="section__container" data-readable>
-              <div class="postList is-grid" data-gallery="modal">
-                <div class="postList__item" data-gallery-main v-for="item, i in sections['service'].items">
-                  <section class="postItem">
-                    <figure class="postItem__image">
-                      <a :href="`#service0${i}`" :data-gallery-src="item.src">
-                        <img :src="item.src">
-                      </a>
-                    </figure>
-                    <div class="postItem__content">
-                      <div class="postItem__info">
-                        <div class="postItem__date">{{ item.data }}</div>
-                        <div class="postItem__terms">
-                          <a href="#" v-for="tag in item.tags">{{ tag }}</a>
-                        </div>
-                      </div>
-                      <h3 class="postItem__heading">{{ item.heading }}</h3>
-                      <p class="postItem__excerpt">{{ item.excerpt }}</p>
-                      <div class="postItem__more">
-                        <a href="#">{{ sections['service'].more }} &gt;</a>
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section :id="sections['news'].id" class="section" data-spy-section>
-          <div class="section__inner">
-            <h2 class="section__heading" data-readable>{{ sections['news'].name }}</h2>
-            <div class="section__container" data-readable>
-              <ul class="postList is-list">
-                <li class="postList__item" v-for="item in sections['news'].items">
-                  <div class="postItem">
-                    <figure class="postItem__image">
-                      <img :src="item.src">
-                    </figure>
-                    <div class="postItem__content">
-                      <div class="postItem__info">
-                        <div class="postItem__date">{{ item.date }}</div>
-                        <div class="postItem__terms">
-                          <a href="#" v-for="tag in item.tags">{{ tag }}</a>
-                        </div>
-                      </div>
-                      <h3 class="postItem__heading">{{ item.heading }}</h3>
-                      <p class="postItem__excerpt">{{ item.excerpt }}</p>
-                      <div class="postItem__more">
-                        <a href="#">{{ sections['news'].more }} &gt;</a>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-        <section :id="sections['team'].id" class="section" data-spy-section>
-          <div class="section__inner">
-            <h2 class="section__heading" data-readable>{{ sections['team'].name }}</h2>
-            <div class="section__container" data-readable>
-              <article class="postItem is-single">
-                <figure class="postItem__image">
-                  <img :src="sections['team'].src">
-                </figure>
-                <div class="postItem__content">
-                  <h3 class="postItem__heading">{{ sections['team'].heading }}</h3>
-                  <p class="postItem__excerpt">{{ sections['team'].excerpt }}</p>
-                  <div class="postItem__more">
-                    <a class="button is-tertiary is-sm" href="#">{{ sections['team'].more }}</a>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-        <section :id="sections['access'].id" class="section" data-spy-section>
-          <div class="section__inner pb-none">
-            <h2 class="section__heading pb-large" data-readable>{{ sections['access'].name }}</h2>
-            <div class="embed" data-safe-embed data-readable>
-              <iframe :src="sections['access'].src"></iframe>
-            </div>
-          </div>
-        </section>
-        <section :id="sections['contact'].id" class="section" data-spy-section>
-          <div class="section__inner">
-            <h2 class="section__heading" data-readable>{{ sections['contact'].name }}</h2>
-            <div class="section__container is-md" data-readable>
-              <p class="text-center">{{ sections['contact'].description }}</p>
-              <form class="form">
-                <table>
-                  <tr>
-                    <th><label for="yourname">氏名<span class="is-required">*必須</span></label></th>
-                    <td><input id="yourname" size="30" type="text" name="氏名" required></td>
-                  </tr>
-                  <tr>
-                    <th><label for="youremail">メールアドレス<span class="is-required">*必須</span></label></th>
-                    <td><input id="youremail" size="30" type="email" name="Email" required></td>
-                  </tr>
-                  <tr>
-                    <th><label for="yoursubject">題名</label></th>
-                    <td>
-                      <select id="yoursubject" name="題名">
-                        <option value="ご質問・お問い合わせ">ご質問・お問い合わせ</option>
-                        <option value="その他">その他</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th><label for="yourcontent">メッセージ本文</label></th>
-                    <td><textarea id="yourcontent" name="メッセージ本文" cols="30" rows="6"></textarea></td>
-                  </tr>
-                </table>
-                <input class="button is-primary is-lg" type="submit" value="確認">
-              </form>
-            </div>
-          </div>
-        </section>
-      </main>
-      <div class="fader" data-gallery="fader">
-        <div class="fader__inner" data-gallery-main>
-          <div class="fader__item is-image-1" data-gallery-item></div>
-          <div class="fader__item is-image-2" data-gallery-item></div>
-          <div class="fader__item is-image-3" data-gallery-item></div>
-          <div class="fader__item is-image-4" data-gallery-item></div>
         </div>
+      </section>
+      <section class="embed" data-safe-embed>
+        <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6636.840592572494!2d136.02399843776843!3d36.094672706721205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8c664ffffffff%3A0xb566330c5634157!2z56aP5LqV5biC5Zu96KaL5YWs5rCR6aSo!5e0!3m2!1sja!2sjp!4v1762513024586!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </section>
+      <section class="contact">
+        <form class="form">
+          <h2 class="form__title">お申込みフォーム</h2>
+          <p>福井県福井市国見地区での「空き家マッチングツアー」に関するお申込みフォームです。</p>
+          <table class="form__table">
+            <tr>
+              <th><label for="your-name">代表者様氏名<span class="is-required">*必須</span></label></th>
+              <td><input id="your-name" size="30" type="text" name="代表者様氏名" required></td>
+            </tr>
+            <tr>
+              <th><label for="your-email">メールアドレス<span class="is-required">*必須</span></label></th>
+              <td><input id="your-email" size="30" type="email" name="Email" required></td>
+            </tr>
+            <tr>
+              <th><label for="your-tel">電話番号</label></th>
+              <td><input id="your-tel" size="30" type="tel" name="電話番号"></td>
+            </tr>
+            <tr>
+              <th><label for="your-num">参加人数</label></th>
+              <td><select id="your-num" name="参加人数">
+                <option value="大人1名">大人1名</option>
+                <option value="大人2名">大人2名</option>
+                <option value="大人1名, 子供1名">大人1名, 子供1名</option>
+                <option value="大人2名, 子供1名">大人2名, 子供1名</option>
+                <option value="大人1名, 子供2名">大人1名, 子供2名</option>
+                <option value="大人2名, 子供2名">大人2名, 子供2名</option>
+                <option value="大人1名, 子供3名">大人1名, 子供3名</option>
+                <option value="大人2名, 子供3名">大人2名, 子供3名</option>
+                <option>その他（備考欄に記入してください）</option>
+              </select></td>
+            </tr>
+            <tr>
+              <th><label for="your-message">備考</label></th>
+              <td><textarea id="your-message" name="備考" cols="30" rows="6"></textarea></td>
+            </tr>
+          </table>
+          <input type="submit" value="確認">
+        </form>
+      </section>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="footer__inner">
+        <table class="footer__table">
+          <tr>
+            <td>主催:</td>
+            <td>国見 海・人・暮らし相談室 (国見移住促進委員会)</td>
+          </tr>
+          <tr>
+            <td>協力:</td>
+            <td>国見地区自治会連合会、国見公民館、越前海岸盛り上げ隊</td>
+          </tr>
+          <tr>
+            <td>特別協力:</td>
+            <td>ふるさと福井サポートセンター</td>
+          </tr>
+        </table>
       </div>
-      <footer id="footer" class="footer">
-        <small class="footer__copyright"></small>
-      </footer>
-    </div>
+    </footer>
     <script src="./init.js" type="module"></script>
   </body>
 </html>

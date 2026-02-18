@@ -1,0 +1,44 @@
+/**
+ * Project - Banner
+ */
+
+.banner {
+  @extend %__section;
+  
+  &__title {
+    & > span {
+      display: block;
+      color: darken(map-get($theme-colors, $theme-accent), 25%);;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.5;
+
+      &:nth-child(1) {
+        font-size: 1.5rem;
+      }
+
+      &:nth-child(2) {
+        font-size: 2rem;
+      }
+
+      &:nth-child(3) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__list {
+    list-style-type: none;
+    margin: space("medium") 0;
+    padding: 0;
+  }
+
+  &__listItem {
+    &::before {
+      content: '✶';
+      padding-inline-end: 0.5em;
+      color: color-active("primary");
+      font-size: 1.5em;
+    }
+  }
+}

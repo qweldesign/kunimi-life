@@ -1,0 +1,21 @@
+/**
+ * Project - Intro
+ */
+
+.intro {
+  @extend %__section;
+  
+  &__logo {
+    width: min(48vw, 12rem);
+    margin: 1.5rem auto;
+    text-align: center;
+
+    img {
+      filter: brightness(85%);
+    }
+  }
+
+  &__content {
+    padding-inline: 0.75rem;
+  }
+}
