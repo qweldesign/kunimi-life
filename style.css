@@ -670,6 +670,10 @@ button, input, select, textarea {
 .form {
   text-align: center;
 }
+.form__line {
+  width: 9rem;
+  margin: 3rem auto;
+}
 .form table {
   width: 100%;
 }

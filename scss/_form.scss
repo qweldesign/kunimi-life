@@ -6,6 +6,11 @@
   @include form();
   text-align: center;
 
+  &__line {
+    width: 9rem;
+    margin: 3rem auto;
+  }
+
   table {
     @include table();
     margin-block-end: space("medium");
