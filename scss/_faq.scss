@@ -1,0 +1,21 @@
+/**
+ * Project - Faq
+ */
+
+.faq {
+  @extend %__section;
+
+  &__title {
+    margin-block-end: space("medium");
+    text-align: center;
+  }
+
+  &__question {
+    font-weight: 700;
+  }
+
+  &__answer {
+    margin-inline-start: 0;
+    margin-block-end: space("medium");
+  }
+}

@@ -10,5 +10,6 @@
 
   @media (min-width: breakpoint("md")) {
     width: max-content;
+    max-width: 768px;
   }
 }
