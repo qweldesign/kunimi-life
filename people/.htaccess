@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# 末尾にスラッシュがなかったらリダイレクトして /xxx/ に統一
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9\-_]+)$ /$1/ [R=301,L]
+
+# /xxx/ → index.php?slug=xxx
+RewriteRule ^([a-zA-Z0-9\-_]+)/$ index.php?slug=$1 [L,QSA]
