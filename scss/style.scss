@@ -34,8 +34,8 @@
 @import "icon";
 @import "button";
 @import "embed";
-//@import "breadcrumb";
-//@import "pagination";
+@import "breadcrumb";
+@import "pagination";
 @import "backToTop";
 //@import "drawerMenu";
 //@import "fader";
@@ -48,8 +48,9 @@
 @import "intro";
 @import "flow";
 @import "faq";
-//@import "postItem";
-//@import "postList";
+@import "postItem";
+@import "postIndex";
+@import "postList";
 @import "contact";
 @import "form";
 
