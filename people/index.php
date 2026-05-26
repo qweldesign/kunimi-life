@@ -27,8 +27,41 @@ $cms = new ContentEngine();
   </head>
   <body>
     <header>
-      <h1 class="text-center my-large">この町の人</h1>
+      <div class="hidden" data-site-brand>
+        <a href="/">
+          <img src="../assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
+        </a>
+      </div>
+      <h1 class="my-large text-center">この町の人</h1>
     </header>
+    <nav class="gNav hidden">
+      <ul class="gNav__primaryMenu visible-md" data-primary-menu>
+        <li class="gNav__menuItem">
+          <a href="/#banner">空き家ツアー開催概要</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="/#intro">当相談室について</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="/#flow">空き家マッチングまでの流れ</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="#faq">よくある質問</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="/#contact">お申込みフォーム</a>
+        </li>
+      </ul>
+      <ul class="gNav__socialMenu visible-md" data-social-menu>
+        <li class="gNav__menuItem is-social" v-if="item">
+          <a href="https://instagram.com/kunimi.life" target="_blank">
+            <svg class="icon is-si-instagram is-md" width="36" height="36" aria-hidden="true">
+              <use href="./assets/icons.svg#si-instagram"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
     <main id="main" class="main">
       <div class="main__container">
         <?php echo $cms->get_breadcrumb(); ?>
@@ -42,14 +75,34 @@ $cms = new ContentEngine();
                   </a>
                 </figure>
                 <div class="postItem__content">
-                  <div class="postItem__info">
-                    <div class=postItem__date><?php echo date('Y.m.d',strtotime($post['date'])); ?></div>
-                  </div>
                   <h3 class="postItem__heading">
                     <a href="./<?php echo $post['slug']; ?>/">
                       <?php echo $post['title']; ?>
                     </a>
                   </h3>
+                  <div class="postItem__info">
+                    <?php if (!empty($post['website'])) { ?>
+                      <div class="postItem__sns">
+                        <a href="<?php echo $post['website']; ?>" target="_blank">
+                          <img src="../assets/icon_globe.png" alt="Website">
+                        </a>
+                      </div>
+                    <?php } ?>
+                    <?php if (!empty($post['note'])) { ?>
+                      <div class="postItem__sns">
+                        <a href="<?php echo $post['note']; ?>" target="_blank">
+                          <img src="../assets/icon_note.png" alt="note.com">
+                        </a>
+                      </div>
+                    <?php } ?>
+                    <?php if (!empty($post['instagram'])) { ?>
+                      <div class="postItem__sns">
+                        <a href="<?php echo $post['instagram']; ?>" target="_blank">
+                          <img src="../assets/icon_instagram.png" alt="Instagram">
+                        </a>
+                      </div>
+                    <?php } ?>
+                  </div>
                   <p class="postItem__excerpt">
                     <?php echo $post['summary']; ?>
                     <a class="postItem__more" href="./<?php echo $post['slug']; ?>/">view more &gt;</a>

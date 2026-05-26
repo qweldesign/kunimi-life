@@ -993,11 +993,16 @@ button, input, select, textarea {
   align-items: center;
   font-size: var(--font-size--small);
 }
-.postItem__date {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: center;
+.postItem__sns > a {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-inline: var(--spacing--small);
+}
+.postItem__snsicon {
+  display: inline-block;
+  width: 2.25rem;
+  height: 2.25rem;
 }
 .postItem__terms {
   display: flex;

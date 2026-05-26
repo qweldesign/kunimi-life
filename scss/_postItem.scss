@@ -8,8 +8,17 @@
     font-size: font-size("small")
   }
 
-  &__date {
-    @include row(flex-start);
+  &__sns > a {
+    display: block;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-inline: space("small");
+  }
+
+  &__snsicon {
+    display: inline-block;
+    width: 2.25rem;
+    height: 2.25rem;
   }
 
   &__terms {
