@@ -12,16 +12,43 @@
   </head>
   <body>
     <header class="header">
-      <h1 class="header__logo"><img src="./assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室"></h1>
+      <h1 class="header__logo" data-site-brand>
+        <a href="/">
+          <img src="./assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
+        </a>
+      </h1>
       <p class="header__lead">海辺に暮らそう</p>
-      <a class="header__social" href="https://www.instagram.com/kunimi.life" target="_blank">
-        <svg class="icon is-instagram is-md" width="36" height="36" aria-hidden="true">
-          <use href="./assets/icons.svg#si-instagram"></use>
-        </svg>
-      </a>
     </header>
+    <nav class="gNav hidden">
+      <ul class="gNav__primaryMenu visible-md" data-primary-menu>
+        <li class="gNav__menuItem">
+          <a href="#banner">空き家ツアー開催概要</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="#intro">当相談室について</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="#flow">空き家マッチングまでの流れ</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="#faq">よくある質問</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="#contact">お申込みフォーム</a>
+        </li>
+      </ul>
+      <ul class="gNav__socialMenu visible-md" data-social-menu>
+        <li class="gNav__menuItem is-social" v-if="item">
+          <a href="https://instagram.com/kunimi.life" target="_blank">
+            <svg class="icon is-si-instagram is-md" width="36" height="36" aria-hidden="true">
+              <use href="./assets/icons.svg#si-instagram"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
     <main class="main">
-      <section class="banner">
+      <section id="banner" class="banner">
         <h2 class="banner__title">
           <span>福井県福井市国見地区第2回</span>
           <span>空き家マッチングツアー</span>
@@ -34,7 +61,7 @@
           <li class="banner__listItem">お問い合わせ: 0776-88-2004 (国見公民館)</li>
         </ul>
       </section>
-      <section class="intro">
+      <section id="intro" class="intro">
         <h2 class="intro__logo">
           <img src="./assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
         </h2>
@@ -56,7 +83,7 @@
           <p>海辺の暮らしに興味のある方は、ぜひお気軽にお問い合わせください。</p>
         </div>
       </section>
-      <section class="flow">
+      <section id="flow" class="flow">
         <h2 class="flow__title">空き家マッチングまでの流れ</h2>
         <div class="flow__inner">
           <div class="flow__item">
@@ -101,7 +128,7 @@
           </div>
         </div>
       </section>
-      <section class="faq">
+      <section id="faq" class="faq">
         <h2 class="faq__title">よくある質問</h2>
         <dl class="faq__list">
           <dt class="faq__question">Q1. まだ移住を決めていなくても参加できますか？</dt>
@@ -129,7 +156,7 @@
       <section class="embed" data-safe-embed>
         <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6636.840592572494!2d136.02399843776843!3d36.094672706721205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8c664ffffffff%3A0xb566330c5634157!2z56aP5LqV5biC5Zu96KaL5YWs5rCR6aSo!5e0!3m2!1sja!2sjp!4v1762513024586!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </section>
-      <section class="contact">
+      <section id="contact" class="contact">
         <form class="form" data-contact-form>
           <h2 class="form__title">お申込みフォーム</h2>
           <p>福井県福井市国見地区での「空き家マッチングツアー」に関するお申込みフォームです。</p>

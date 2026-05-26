@@ -1,6 +1,7 @@
 // Action Core
 import ActionCore from './js/action-core.js';
 new ActionCore.BackToTop();
+new ActionCore.DrawerMenu();
 new ActionCore.SafeEmbed();
 
 // Contact Form
