@@ -809,6 +809,16 @@ button, input, select, textarea {
 .main__article {
   width: 100%;
   padding-inline: var(--container-pad--sm);
+  padding-block-end: var(--spacing--large);
+}
+.main__article h3 {
+  font-weight: 700;
+}
+.main__article h3::before {
+  content: "●";
+  display: inline-block;
+  margin-inline-end: var(--spacing--x-small);
+  color: var(--color--primary);
 }
 @media (min-width: 900px) {
   .main__aside {
@@ -986,6 +996,9 @@ button, input, select, textarea {
 /**
  * Project - Post Item
  */
+.postItem__content {
+  position: relative;
+}
 .postItem__info {
   display: flex;
   flex-flow: row wrap;
@@ -1015,6 +1028,18 @@ button, input, select, textarea {
 }
 .postItem__heading {
   font-size: var(--font-size--large);
+}
+.postItem__more > a {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  border-radius: 50%;
+  background-color: var(--color--primary);
+  color: var(--color--lightest);
+}
+.postItem__more > a:hover {
+  background-color: var(--color--primary--active);
 }
 .postItem.is-single {
   display: flex;
@@ -1060,9 +1085,9 @@ button, input, select, textarea {
 }
 .postIndex__item {
   display: block;
-  margin: var(--spacing--medium) 0;
+  margin: var(--spacing--small) 0;
 }
-@media (min-width: 1200px) {
+@media (min-width: 900px) {
   .postIndex__item {
     margin-block-end: var(--spacing--large);
   }
@@ -1070,11 +1095,13 @@ button, input, select, textarea {
 .postIndex__image {
   margin-block-end: var(--spacing--small);
 }
-.postIndex__date, .postIndex__title {
+.postIndex__title, .postIndex__summary {
   display: block;
   margin-block-end: var(--spacing--x-small);
-  font-size: var(--font-size--small);
   line-height: 1;
+}
+.postIndex__summary {
+  font-size: var(--font-size--small);
 }
 
 /**

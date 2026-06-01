@@ -3,6 +3,10 @@
  */
 
 .postItem {
+  &__content {
+    position: relative;
+  }
+
   &__info {
     @include row(flex-start);
     font-size: font-size("small")
@@ -31,6 +35,20 @@
 
   &__heading {
     font-size: $h3-font-size;
+  }
+
+  &__more > a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    border-radius: 50%;
+    background-color: theme-color($theme-accent);
+    color: theme-color("lightest");
+
+    &:hover {
+      background-color: color-active($theme-accent);
+    }
   }
 
   &.is-single {

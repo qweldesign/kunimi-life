@@ -80,6 +80,9 @@ $cms = new ContentEngine();
                       <?php echo $post['title']; ?>
                     </a>
                   </h3>
+                  <p class="postItem__excerpt">
+                    <?php echo $post['summary']; ?>
+                  </p>
                   <div class="postItem__info">
                     <?php if (!empty($post['website'])) { ?>
                       <div class="postItem__sns">
@@ -103,10 +106,11 @@ $cms = new ContentEngine();
                       </div>
                     <?php } ?>
                   </div>
-                  <p class="postItem__excerpt">
-                    <?php echo $post['summary']; ?>
-                    <a class="postItem__more" href="./<?php echo $post['slug']; ?>/">view more &gt;</a>
-                  </p>
+                  <div class="postItem__more">
+                    <a class="icon is-chevron-right" href="./<?php echo $post['slug']; ?>/">
+                      <span class="icon__span"></span>
+                    </a>
+                  </div>
                 </div>
               </li>
             <?php } ?>
@@ -115,18 +119,16 @@ $cms = new ContentEngine();
           <?php } else { ?>
             <div class="main__row">
               <article class="main__article">
-                <div><?php echo $cms->get_date(); ?></div>
                 <?php echo $cms->get_content(); ?>
               </article>
               <aside class="main__aside">
-                <h2>最新記事</h2>
                 <ul class="postIndex">
                   <?php foreach ($cms->get_posts(1, 4) as $post) { ?>
                     <li class="postIndex__item">
                       <a href="../<?php echo $post['slug']; ?>/">
                         <img loading="lazy" class="postIndex__image" src="../<?php echo $post['img']; ?>">
-                        <span class="postIndex__date"><?php echo date('Y.m.d',strtotime($post['date'])); ?></span>
                         <span class="postIndex__title"><?php echo $post['title']; ?></span>
+                        <span class="postIndex__summary"><?php echo $post['summary']; ?></span>
                       </a>
                     </li>
                   <?php } ?>

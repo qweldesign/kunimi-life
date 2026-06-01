@@ -17,9 +17,9 @@
 
   &__item {
     display: block;
-    margin: space("medium") 0;
+    margin: space("small") 0;
 
-    @media (min-width: breakpoint("lg")) {
+    @media (min-width: breakpoint("md")) {
       margin-block-end: space("large");
     }
   }
@@ -28,10 +28,13 @@
     margin-block-end: space();
   }
 
-  &__date, &__title {
+  &__title, &__summary {
     display: block;
     margin-block-end: space("x-small");
-    font-size: font-size("small");
     line-height: 1;
+  }
+
+  &__summary {
+    font-size: font-size("small");
   }
 }

@@ -25,6 +25,18 @@
 
   &__article {
     @include col(6, false, "md");
+    padding-block-end: space("large");
+
+    h3 {
+      font-weight: 700;
+
+      &::before {
+        content: "●";
+        display: inline-block;
+        margin-inline-end: space("x-small");
+        color: theme-color("primary");
+      }
+    }
   }
 
   &__aside {
