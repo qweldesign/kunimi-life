@@ -86,8 +86,8 @@ $cms = new ContentEngine();
                   <div class="postItem__info">
                     <?php if (!empty($post['website'])) { ?>
                       <div class="postItem__sns">
-                        <a href="<?php echo $post['website']; ?>" target="_blank">
-                          <img src="../assets/icon_globe.png" alt="Website">
+                        <a class="postItem__web" href="<?php echo $post['website']; ?>" target="_blank">
+                          WEB
                         </a>
                       </div>
                     <?php } ?>

@@ -14,15 +14,21 @@
 
   &__sns > a {
     display: block;
-    width: 2.25rem;
-    height: 2.25rem;
-    margin-inline: space("small");
+    width: 2rem;
+    height: 2rem;
+    margin-inline: space("x-small");
+    text-align: center;
   }
 
-  &__snsicon {
-    display: inline-block;
-    width: 2.25rem;
-    height: 2.25rem;
+  &__sns > .postItem__web {
+    width: 1.625rem;
+    height: 1.625rem;
+    border: 1px solid theme-color("lighter");
+    border-radius: space("x-small");
+    font-family: monospace;
+    font-weight: 700;
+    font-size: font-size("x-small");
+    line-height: 1.625rem;
   }
 
   &__terms {
