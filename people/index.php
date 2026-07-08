@@ -29,7 +29,11 @@ $cms = new ContentEngine();
     <header>
       <div class="hidden" data-site-brand>
         <a href="/">
-          <img src="../assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
+          <?php if ($cms->is_single()) { ?>
+            <img src="../../assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
+          <?php } else { ?>
+            <img src="../assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
+          <?php } ?>
         </a>
       </div>
       <h1 class="my-large text-center">この町の人</h1>
@@ -56,7 +60,11 @@ $cms = new ContentEngine();
         <li class="gNav__menuItem is-social" v-if="item">
           <a href="https://instagram.com/kunimi.life" target="_blank">
             <svg class="icon is-si-instagram is-md" width="36" height="36" aria-hidden="true">
-              <use href="./assets/icons.svg#si-instagram"></use>
+              <?php if ($cms->is_single()) { ?>
+                <use href="../../assets/icons.svg#si-instagram"></use>
+              <?php } else { ?>
+                <use href="../assets/icons.svg#si-instagram"></use>
+              <?php } ?>
             </svg>
           </a>
         </li>
@@ -66,7 +74,7 @@ $cms = new ContentEngine();
       <div class="main__container">
         <?php echo $cms->get_breadcrumb(); ?>
         <?php if (!$cms->is_single()) { ?>
-          <ul class="postList is-grid">
+          <ul class="postList is-list">
             <?php foreach ($cms->get_posts() as $post) { ?>
               <li class="postList__item postItem">
                 <figure class="postItem__image">
@@ -106,11 +114,11 @@ $cms = new ContentEngine();
                       </div>
                     <?php } ?>
                   </div>
-                  <div class="postItem__more">
-                    <a class="icon is-chevron-right" href="./<?php echo $post['slug']; ?>/">
+                  <!--<div class="postItem__more">
+                    <a class="icon is-chevron-right" href="./<?php //echo $post['slug']; ?>/">
                       <span class="icon__span"></span>
                     </a>
-                  </div>
+                  </div>-->
                 </div>
               </li>
             <?php } ?>
@@ -161,6 +169,10 @@ $cms = new ContentEngine();
         </table>
       </div>
     </footer>
-    <script src="../init.js" type="module"></script>
+    <?php if (!$cms->is_single()) { ?>
+      <script src="../../../init.js" type="module"></script>
+    <?php } else { ?>
+      <script src="../../init.js" type="module"></script>
+    <?php } ?>
   </body>
 </html>

@@ -3,28 +3,29 @@
  */
 
 %__section {
-  width: min(100%, 600px);
+  width: min(100%, 720px);
   //min-height: calc(100vh - 18rem);
   margin: 0 auto;
   padding: 1.5rem clamp(0.75rem, 2%, 1.5rem);
 
   @media (min-width: breakpoint("md")) {
     width: max-content;
-    max-width: 768px;
+    max-width: 864px;
   }
 }
 
 .main {
   &__container {
-    @include container("md");
+    @include container("lg");
   }
 
   &__row {
-    @include row(flex-start, flex-start);
+    @include row(space-around, flex-start);
   }
 
   &__article {
-    @include col(6, false, "md");
+    //@include col(6, false, "md");
+    @include col(7.5, false, "md");
     padding-block-end: space("large");
 
     h3 {
