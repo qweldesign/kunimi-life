@@ -131,7 +131,7 @@ $cms = new ContentEngine();
               </article>
               <aside class="main__aside">
                 <ul class="postIndex">
-                  <?php foreach ($cms->get_posts(1, 4) as $post) { ?>
+                  <?php foreach ($cms->get_posts(1, 10) as $post) { ?>
                     <li class="postIndex__item">
                       <a href="../<?php echo $post['slug']; ?>/">
                         <img loading="lazy" class="postIndex__image" src="../<?php echo $post['img']; ?>">
