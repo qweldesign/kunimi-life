@@ -1196,6 +1196,54 @@ button, input, select, textarea {
 /**
  * Project - Contact
  */
+.contact__title {
+  text-align: center;
+  margin-block: var(--spacing--large);
+}
+.contact__buttonWrapper {
+  margin-block-end: var(--spacing--large);
+  text-align: center;
+}
+.contact__button {
+  display: inline-block;
+  width: 14rem;
+  height: 3.5rem;
+  line-height: 3.5rem;
+  margin-block: var(--spacing--medium);
+  margin-inline: var(--spacing--small);
+}
+.contact__button, .contact__button:active {
+  border: 0;
+  border-radius: var(--spacing--x-small);
+  text-align: center;
+  text-decoration: none;
+  word-break: break-word;
+  outline: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.contact__button:hover, .contact__button:focus {
+  text-decoration: none;
+  transform: scale(96%);
+}
+.contact__button, .contact__button:active {
+  background-color: var(--color--secondary);
+  color: var(--color--lightest);
+}
+.contact__button:hover, .contact__button:focus {
+  background-color: var(--color--secondary--active);
+  color: var(--color--darkest);
+}
+.contact__line {
+  display: block;
+  width: 9rem;
+  margin-block: var(--spacing--medium);
+  margin-inline: auto;
+}
+
 /**
  * Component - Form
  */
@@ -1220,11 +1268,8 @@ button, input, select, textarea {
   resize: vertical;
 }
 .form {
+  margin-block: var(--spacing--large);
   text-align: center;
-}
-.form__line {
-  width: 9rem;
-  margin: 3rem auto;
 }
 .form table {
   width: 100%;

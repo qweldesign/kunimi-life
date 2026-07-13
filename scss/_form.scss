@@ -4,12 +4,8 @@
 
 .form {
   @include form();
+  margin-block: space("large");
   text-align: center;
-
-  &__line {
-    width: 9rem;
-    margin: 3rem auto;
-  }
 
   table {
     @include table();

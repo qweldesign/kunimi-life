@@ -4,4 +4,32 @@
 
 .contact {
   @extend %__section;
+
+  &__title {
+    text-align: center;
+    margin-block: space("large");
+  }
+
+  &__buttonWrapper {
+    margin-block-end: space("large");
+    text-align: center;
+  }
+
+  &__button {
+    display: inline-block;
+    width: 14rem;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    margin-block: space("medium");
+    margin-inline: space();
+    @include make-button();
+    @include make-button-color-normal("secondary");
+  }
+
+  &__line {
+    display: block;
+    width: 9rem;
+    margin-block: space("medium");
+    margin-inline: auto;
+  }
 }
