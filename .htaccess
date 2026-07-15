@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.kunimi\.life$ [NC]
+RewriteRule ^(.*)$ https://kunimi.life/$1 [R=301,L]
