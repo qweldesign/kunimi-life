@@ -1,0 +1,26 @@
+/**
+ * Project - People
+ */
+
+.people {
+  padding-block: space("large");
+
+  &__title {
+    margin-block-end: space("medium");
+    text-align: center;
+  }
+
+  &__text {
+    margin-block-end: space("medium");
+    text-align: center;
+  }
+
+  &__buttonWrapper {
+    padding-block: space("medium");
+    text-align: center;
+  }
+
+  &__button {
+    @include button("primary", 14rem, 3.5rem);
+  }
+}

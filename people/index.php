@@ -18,10 +18,10 @@ $cms = new ContentEngine();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
     <?php if ($cms->is_single()) { ?>
-      <link rel="stylesheet" href="../../style.css">
+      <link rel="stylesheet" href="../../style-1.2.css">
       <link rel="icon" href="../../favicon.ico">
     <?php } else { ?>
-      <link rel="stylesheet" href="../style.css">
+      <link rel="stylesheet" href="../style-1.2.css">
       <link rel="icon" href="../favicon.ico">
     <?php } ?>
   </head>
@@ -50,7 +50,10 @@ $cms = new ContentEngine();
           <a href="/#flow">空き家マッチングまでの流れ</a>
         </li>
         <li class="gNav__menuItem">
-          <a href="#faq">よくある質問</a>
+          <a href="/#people">この町の人</a>
+        </li>
+        <li class="gNav__menuItem">
+          <a href="/#faq">よくある質問</a>
         </li>
         <li class="gNav__menuItem">
           <a href="/#contact">お申込みフォーム</a>

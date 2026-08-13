@@ -35,43 +35,52 @@ $slider-nav-active-color:    $link-hover-color !default;
 
   &__item {
     position: relative;
-    flex: 0 1 auto; 
+    flex: 0 1 auto;
     order: 0;
     margin-inline: auto;
     opacity: 1;
     transition: opacity 0.15s linear;
-    
+
     &:not(.is-current) {
       opacity: .5;
     }
 
+    figure {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      background: $body-bg;
+    }
+
     img {
+      display: block;
       width: 83.33vmin;
-      aspect-ratio: $slider-aspect-ratio;
+      aspect-ratio: 8 / 5;
       object-fit: cover;
       margin: 0;
 
       @media (min-width: $slider-break-point) {
         width: auto;
-        height: $slider-height;
+        height: $slider-height * 5 / 8;
       }
     }
   }
 
   &__caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: space() space("medium");
-    background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));
-    color: $body-bg;
-    font-size: $h2-font-size;
+    position: static;
+    padding: 1rem;
+    color: $body-color;
+    font-size: 1rem;
     text-align: center;
 
     a {
       display: block;
-      color: $body-bg;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    span {
+      font-size: 80%;
     }
   }
 

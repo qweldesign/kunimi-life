@@ -772,6 +772,127 @@ button, input, select, textarea {
 }
 
 /**
+ * Component - Slider
+ */
+.slider {
+  position: relative;
+  width: 100%;
+  height: calc(83.33vmin / 1);
+  margin-block-start: 3rem;
+  overflow: hidden;
+}
+@media (min-width: 1012.5px) {
+  .slider {
+    height: 24rem;
+  }
+}
+.slider__inner {
+  list-style: none;
+  padding-inline-start: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-block: 0;
+  transform: translateX(0);
+}
+.slider__item {
+  position: relative;
+  flex: 0 1 auto;
+  order: 0;
+  margin-inline: auto;
+  opacity: 1;
+  transition: opacity 0.15s linear;
+}
+.slider__item:not(.is-current) {
+  opacity: 0.5;
+}
+.slider__item figure {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background: var(--color--lightest);
+}
+.slider__item img {
+  display: block;
+  width: 83.33vmin;
+  aspect-ratio: 8/5;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 0;
+}
+@media (min-width: 1012.5px) {
+  .slider__item img {
+    width: auto;
+    height: 15rem;
+  }
+}
+.slider__caption {
+  position: static;
+  padding: 1rem;
+  color: var(--color--darkest);
+  font-size: 1rem;
+  text-align: center;
+}
+.slider__caption a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.slider__caption span {
+  font-size: 80%;
+}
+.slider__prev, .slider__next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+  height: 2.25rem;
+  margin: auto;
+  border: 0;
+  text-align: center;
+}
+.slider__prev > .icon, .slider__next > .icon {
+  border-radius: 50%;
+  background-color: var(--color--primary);
+  transition: background-color 0.25s ease;
+}
+.slider__prev > .icon > .icon__span, .slider__prev > .icon > .icon__span::before, .slider__prev > .icon > .icon__span::after, .slider__next > .icon > .icon__span, .slider__next > .icon > .icon__span::before, .slider__next > .icon > .icon__span::after {
+  border-color: var(--color--lightest);
+}
+.slider__prev:hover > .icon, .slider__next:hover > .icon {
+  background-color: var(--color--primary--active);
+}
+.slider__prev:hover > .icon > .icon__span, .slider__prev:hover > .icon > .icon__span::before, .slider__prev:hover > .icon > .icon__span::after, .slider__next:hover > .icon > .icon__span, .slider__next:hover > .icon > .icon__span::before, .slider__next:hover > .icon > .icon__span::after {
+  border-color: var(--color--darkest);
+}
+.slider__prev {
+  left: 2%;
+}
+.slider__next {
+  right: 2%;
+}
+
+.sliderNav {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  height: 1.5rem;
+  margin: var(--spacing--small) auto;
+  padding: 0;
+}
+.sliderNav__item {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color--primary);
+  cursor: pointer;
+}
+.sliderNav__item:not(.is-current) {
+  background-color: var(--color--darker);
+}
+
+/**
  * Project - Main
  */
 .contact, .faq, .intro, .banner {
@@ -990,6 +1111,60 @@ button, input, select, textarea {
 .faq__answer {
   margin-inline-start: 0;
   margin-block-end: var(--spacing--medium);
+}
+
+/**
+ * Project - People
+ */
+.people {
+  padding-block: var(--spacing--large);
+}
+.people__title {
+  margin-block-end: var(--spacing--medium);
+  text-align: center;
+}
+.people__text {
+  margin-block-end: var(--spacing--medium);
+  text-align: center;
+}
+.people__buttonWrapper {
+  padding-block: var(--spacing--medium);
+  text-align: center;
+}
+.people__button {
+  display: block;
+  width: 14rem;
+  height: 3.5rem;
+  line-height: 3.5rem;
+  margin-inline: auto;
+}
+.people__button, .people__button:active {
+  border: 0;
+  border-radius: var(--spacing--x-small);
+  text-align: center;
+  text-decoration: none;
+  word-break: break-word;
+  outline: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.people__button:hover, .people__button:focus {
+  text-decoration: none;
+  transform: scale(96%);
+}
+.people__button, .people__button:active {
+  background-color: var(--color--primary);
+  color: var(--color--lightest);
+}
+.people__button:hover, .people__button:focus {
+  background-color: var(--color--primary--active);
+  color: var(--color--darkest);
+}
+.people__button:hover, .people__button:focus {
+  box-shadow: 0 0 var(--spacing--small) var(--color--primary);
 }
 
 /**
