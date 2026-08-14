@@ -1125,6 +1125,7 @@ button, input, select, textarea {
 }
 .people__text {
   margin-block-end: var(--spacing--medium);
+  padding-inline: var(--spacing--medium);
   text-align: center;
 }
 .people__buttonWrapper {
