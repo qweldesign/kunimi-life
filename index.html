@@ -9,6 +9,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style-1.2.css">
     <link rel="icon" href="./favicon.ico">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BK66SEG6VG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BK66SEG6VG');
+    </script>
+    <!-- Event snippet for ページビュー conversion page
+    In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-429565814/IKzUCM3a9rQcEPbO6swB',
+          'value': 1.0,
+          'currency': 'JPY',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
   </head>
   <body>
     <header class="header">
@@ -189,11 +216,11 @@
         <p>尚、定員20名を超えた場合、以降の申し込みの方のご参加は事務局より選考とさせて頂きます。その際、会の趣旨として子育て世帯の方を優先させて頂きますので、あらかじめご了承ください。</p>
         <p>選考となった場合は、お申込みから2週間以内に結果をご連絡いたします。</p>
         <div class="contact__buttonWrapper">
-          <a class="contact__button" href="./entry/" target="_blank">参加お申込みフォーム</a>
+          <a class="contact__button" href="./entry/" onclick="return gtag_report_conversion('./entry/');">参加お申込みフォーム</a>
         </div>
         <p>その他、ご質問・ご意見等ございましたら、下記ボタンからLINE友だち追加でメッセージを送っていただければ、スタッフからのご案内が可能です。</p>
         <div class="contact__buttonWrapper">
-          <a class="contact__line" href="https://lin.ee/YsVWzb6W"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+          <a class="contact__line" href="https://lin.ee/YsVWzb6W" onclick="return gtag_report_conversion('https://lin.ee/YsVWzb6W');"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
         </div>
         <p>お電話・メールでのやり取りを希望される方は、下記フォームからお気軽にお問い合わせください。</p>
         <form class="form" data-contact-form>

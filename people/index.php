@@ -24,6 +24,15 @@ $cms = new ContentEngine();
       <link rel="stylesheet" href="../style-1.2.css">
       <link rel="icon" href="../favicon.ico">
     <?php } ?>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BK66SEG6VG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BK66SEG6VG');
+    </script>
   </head>
   <body>
     <header>
