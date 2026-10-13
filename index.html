@@ -21,19 +21,18 @@
     <!-- Event snippet for ページビュー conversion page
     In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
     <script>
+    // コンバージョンを送信し、リンク本来の遷移はブラウザに任せる。
+    // event_callback 内で window.location を書き換えると、ユーザー操作なしの遷移とみなされ、
+    // Chrome の「戻る」ボタンが遷移元ページを飛ばしてしまう (広告ブロック時は遷移もしない)。
+    // transport_type: 'beacon' で、ページ遷移中でも送信が完了するようにする。
     function gtag_report_conversion(url) {
-      var callback = function () {
-        if (typeof(url) != 'undefined') {
-          window.location = url;
-        }
-      };
       gtag('event', 'conversion', {
           'send_to': 'AW-429565814/IKzUCM3a9rQcEPbO6swB',
           'value': 1.0,
           'currency': 'JPY',
-          'event_callback': callback
+          'transport_type': 'beacon'
       });
-      return false;
+      return true;
     }
     </script>
   </head>
