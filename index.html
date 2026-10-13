@@ -251,24 +251,43 @@
       </section>
       <section id="contact" class="contact">
         <h2 class="contact__title">相談室へのお問い合わせ</h2>
-        <p>「空き家マッチングツアー」への参加お申込みは、下記ボタンからフォームへ進んでください。</p>
-        <p>尚、定員を超えた場合、以降の申し込みの方のご参加は事務局より選考とさせて頂きます。その際、会の趣旨として子育て世帯の方を優先させて頂きますので、あらかじめご了承ください。</p>
-        <div class="contact__buttonWrapper">
-          <a class="contact__button" href="./entry/" onclick="return gtag_report_conversion('./entry/');">参加お申込みフォーム</a>
+        <p class="contact__lead">ご用件にあわせて、いちばん気軽な方法をお選びください。</p>
+        <div class="contact__options">
+          <article class="contact__option is-entry">
+            <p class="contact__optionLabel">ツアーに参加したい</p>
+            <h3 class="contact__optionTitle">参加お申込み</h3>
+            <p class="contact__optionText">「空き家マッチングツアー」への参加は、専用のお申込みフォームからどうぞ。</p>
+            <p class="contact__optionNote">定員を超えた場合は事務局にて選考させて頂きます。その際、会の趣旨として子育て世帯の方を優先させて頂きますので、あらかじめご了承ください。</p>
+            <div class="contact__optionAction">
+              <a class="contact__button" href="./entry/" onclick="return gtag_report_conversion('./entry/');">お申込みフォームへ</a>
+            </div>
+          </article>
+          <article class="contact__option is-line">
+            <p class="contact__optionLabel">気軽に質問したい</p>
+            <h3 class="contact__optionTitle">LINEで相談</h3>
+            <p class="contact__optionText">ご質問・ご意見は、LINE友だち追加のうえメッセージをお送りください。スタッフからご案内します。</p>
+            <div class="contact__optionAction">
+              <a class="contact__line" href="https://lin.ee/YsVWzb6W" onclick="return gtag_report_conversion('https://lin.ee/YsVWzb6W');"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="LINEで友だち追加" height="36" border="0"></a>
+            </div>
+          </article>
+          <article class="contact__option is-mail">
+            <p class="contact__optionLabel">電話・メールでやりとりしたい</p>
+            <h3 class="contact__optionTitle">メールフォーム</h3>
+            <p class="contact__optionText">電話・メールでのやりとりをご希望の方は、下のフォームからお気軽にお問い合わせください。</p>
+            <div class="contact__optionAction">
+              <a class="contact__subButton" href="#contact-form">フォームへ進む</a>
+            </div>
+          </article>
         </div>
-        <p>その他、ご質問・ご意見等ございましたら、下記ボタンからLINE友だち追加でメッセージを送っていただければ、スタッフからのご案内が可能です。</p>
-        <div class="contact__buttonWrapper">
-          <a class="contact__line" href="https://lin.ee/YsVWzb6W" onclick="return gtag_report_conversion('https://lin.ee/YsVWzb6W');"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
-        </div>
-        <p>お電話・メールでのやり取りを希望される方は、下記フォームからお気軽にお問い合わせください。</p>
-        <form class="form" data-contact-form>
+        <form id="contact-form" class="form contact__form" data-contact-form>
+          <h3 class="contact__formTitle">メールフォーム</h3>
           <table class="form__table">
             <tr>
-              <th><label for="your-name">代表者様氏名<span class="is-required">*必須</span></label></th>
+              <th><label for="your-name">代表者様氏名<span class="is-required">必須</span></label></th>
               <td><input id="your-name" size="30" type="text" name="代表者様氏名" required></td>
             </tr>
             <tr>
-              <th><label for="your-email">メールアドレス<span class="is-required">*必須</span></label></th>
+              <th><label for="your-email">メールアドレス<span class="is-required">必須</span></label></th>
               <td><input id="your-email" size="30" type="email" name="Email" required></td>
             </tr>
             <tr>

@@ -21,7 +21,7 @@ $cms = new ContentEngine();
       <link rel="stylesheet" href="../../style-1.3.css">
       <link rel="icon" href="../../favicon.ico">
     <?php } else { ?>
-      <link rel="stylesheet" href="../style-1.3.css">
+      <link rel="stylesheet" href="../style-1.4.css">
       <link rel="icon" href="../favicon.ico">
     <?php } ?>
     <!-- Google tag (gtag.js) -->
