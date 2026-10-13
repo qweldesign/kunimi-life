@@ -29,8 +29,13 @@
     height: 3.5rem;
     line-height: 3.5rem;
     margin-inline: space();
+    font-weight: 700;
     @include make-button();
-    @include make-button-color-normal("primary");
+    @include make-button-color-normal("secondary-deep");
+  }
+
+  label span.is-required {
+    color: theme-color("secondary-deep");
   }
 }
 
@@ -58,10 +63,10 @@
   }
 
   [type="submit"] {
-    @include make-button-color-normal("primary");
+    @include make-button-color-normal("secondary-deep");
   }
   
   [type="button"] {
-    @include make-button-color-normal("secondary");
+    @include make-button-color-normal("primary-deep");
   }
 }

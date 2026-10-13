@@ -1,7 +1,24 @@
 // Variables
 
 $font-size-base:     18px;
-$font-family-sans:   "Klee One", cursive;
+
+// 本文は可読性の高いゴシック、見出し・キャッチは手書き風の Klee One
+$font-family-sans:    "\"Zen Kaku Gothic New\"", "\"Hiragino Sans\"", "\"Yu Gothic\"", sans-serif;
+$font-family-display: "\"Klee One\"", cursive;
+$font-weight-heading: 600;
+
+// 配色
+// primary / secondary は装飾・背景用の明るいトーン
+// *-deep は白文字を載せるボタン・フッター用 (白文字とのコントラスト比 4.5:1 以上)
+$colors: (
+  primary:           hsl(203, 71%, 60%),
+  secondary:         hsl(32, 85%, 48%),
+  tertiary:          hsl(70, 100%, 34%),
+  primary-deep:      hsl(203, 71%, 36%), // #1a6b9d / 白文字 5.8:1
+  secondary-deep:    hsl(24, 100%, 41%),  // #d15400 / 白文字 4.22:1
+);
+
+$icon-bg: var(--color--primary-deep);
 
 $drawer-always-shown:      true;
 $drawer-site-brand-width:  9rem;

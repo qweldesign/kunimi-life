@@ -6,8 +6,8 @@
     <title>国見 海・人・暮らし相談室 | 福井の海沿いで暮らしを体験する空き家マッチングツアー</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style-1.2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style-1.3.css">
     <link rel="icon" href="./favicon.ico">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BK66SEG6VG"></script>
@@ -45,6 +45,7 @@
         </a>
       </h1>
       <p class="header__lead">海辺に暮らそう</p>
+      <a class="header__cta" href="#banner">空き家ツアーのご案内</a>
     </header>
     <nav class="gNav hidden">
       <ul class="gNav__primaryMenu visible-md" data-primary-menu>
@@ -79,37 +80,53 @@
     </nav>
     <main class="main">
       <section id="banner" class="banner">
-        <h2 class="banner__title">
-          <span>福井県福井市国見地区第2回</span>
-          <span>空き家マッチングツアー</span>
-          <span>参加者募集！！</span>
-        </h2>
-        <ul class="banner__list">
-          <li class="banner__listItem">日時: 2026年9月27日(日) 10:00 - 16:00</li>
-          <li class="banner__listItem">集合: 国見公民館10:00 (もしくは福井駅9:00でバスでお迎え)</li>
-          <li class="banner__listItem">参加費: 無料 (昼食代は実費)</li>
-          <li class="banner__listItem">お問い合わせ: 0776-88-2004 (国見公民館)</li>
-        </ul>
+        <div class="banner__card">
+          <p class="banner__status">
+            <span class="banner__badge is-open">参加者募集中</span>
+            <span class="banner__badge is-closed">受付終了</span>
+          </p>
+          <h2 class="banner__title">
+            <span class="banner__eyebrow">福井県福井市 国見地区</span>
+            <span class="banner__name">第3回 空き家マッチングツアー</span>
+          </h2>
+          <p class="banner__date">
+            <time class="banner__dateMain" datetime="2027-04-17">4.17</time>
+            <span class="banner__dateSub">2026 / SAT<br>10:00 - 16:00</span>
+          </p>
+          <dl class="banner__list">
+            <div class="banner__listItem">
+              <dt>集合</dt>
+              <dd>国見公民館 10:00<br><small>福井駅 9:00 発のお迎えバスもあります</small></dd>
+            </div>
+            <div class="banner__listItem">
+              <dt>参加費</dt>
+              <dd>無料<small> (昼食代は実費)</small></dd>
+            </div>
+            <div class="banner__listItem">
+              <dt>お問い合わせ</dt>
+              <dd><a href="tel:0776882004">0776-88-2004</a><small> (国見公民館)</small></dd>
+            </div>
+          </dl>
+          <div class="banner__actions">
+            <a class="banner__button" href="./entry/" onclick="return gtag_report_conversion('./entry/');">参加を申し込む</a>
+            <a class="banner__link" href="#flow">ツアーの流れを見る</a>
+          </div>
+        </div>
       </section>
       <section id="intro" class="intro">
-        <h2 class="intro__logo">
-          <img src="./assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
-        </h2>
+        <h2 class="intro__title">国見 海・人・暮らし相談室について</h2>
         <div class="intro__content">
-          <p>福井県福井市にある越前海岸沿いの町、国見地区。
-            <br>海と山に囲まれたこの小さな町は、過疎・少子化が進む地域ではありますが、
-            <br>近年は自然豊かな環境に魅力を感じ、少しずつ移り住む方も増えてきました。</p>
-          <p>「空き家はありますか？」  
-            <br>「いくらくらいで買えますか？」  
-            <br>「コンビニやスーパーは近いですか？」
-            <br>「学校はどんな感じですか？」  
-            <br>「舟って持てるんですか？」</p>
+          <p>福井県福井市にある越前海岸沿いの町、国見地区。海と山に囲まれたこの小さな町は、過疎・少子化が進む地域ではありますが、近年は自然豊かな環境に魅力を感じ、少しずつ移り住む方も増えてきました。</p>
+          <ul class="intro__questions">
+            <li>空き家はありますか？</li>
+            <li>いくらくらいで買えますか？</li>
+            <li>コンビニやスーパーは近いですか？</li>
+            <li>学校はどんな感じですか？</li>
+            <li>舟って持てるんですか？</li>
+          </ul>
           <p>そんな素朴な疑問にお答えするのが、この相談室です。</p>
-          <p>“空き家” をきっかけに、人と人がゆるやかにつながる場をつくれたら。
-            <br>そんな思いから、空き家マッチングツアーを始めました。</p>
-          <p>空き家は、地域との関係の中にあります。だからまずは、町を歩き、
-            <br>海を見て、人と話して、私たちの暮らしの匂いを感じてもらうこと。
-            <br>そこから始めたいと考えています。</p>
+          <p>“空き家” をきっかけに、人と人がゆるやかにつながる場をつくれたら。そんな思いから、空き家マッチングツアーを始めました。</p>
+          <p>空き家は、地域との関係の中にあります。だからまずは、町を歩き、海を見て、人と話して、私たちの暮らしの匂いを感じてもらうこと。そこから始めたいと考えています。</p>
           <p>海辺の暮らしに興味のある方は、ぜひお気軽にお問い合わせください。</p>
         </div>
       </section>
@@ -182,30 +199,52 @@
       </section>
       <section id="faq" class="faq">
         <h2 class="faq__title">よくある質問</h2>
-        <dl class="faq__list">
-          <dt class="faq__question">Q1. まだ移住を決めていなくても参加できますか？</dt>
-          <dd class="faq__answer">A1. はい、もちろんです。ツアーを通じて、国見地区での暮らしや空き家の状況を知ることができますので、ぜひお気軽にご参加ください。</dd>
-          <dt class="faq__question">Q2. 子ども連れや家族での参加は可能ですか？</dt>
-          <dd class="faq__answer">A2. はい、もちろん可能です。お子様連れ・ご家族での参加を私たちは歓迎します。後日、国見地区内の保育園や学校の見学についてもご案内は可能ですので、別途お問い合わせください。</dd>
-          <dt class="faq__question">Q3. ツアーではどんなことをしますか？</dt>
-          <dd class="faq__answer">A3. 国見地区の空き家を6～7軒程度見学し、生活・文化・行事について住民からお話を聞きます。海産物の採取（漁業権）、各町内の祭り、自治会ルールについての説明があります。</dd>
-          <dt class="faq__question">Q4. 空き家はどんな状態ですか？価格はどれくらいですか？</dt>
-          <dd class="faq__answer">A4. すぐに住める状態の物件から、ある程度リフォームが必要な状態の物件まで様々で、価格も様々です。ツアー当日は、物件の詳細や価格をお伝えすることができます。</dd>
-          <dt class="faq__question">Q5. 国見地区はどこにありますか？最寄りの駅はどこですか？</dt>
-          <dd class="faq__answer">A5. 国見地区は福井市の海沿い（西海岸）に所在します。最寄り駅は福井駅で、車で45分位の距離です。本数は少ないですが、福井駅からの路線バスもあります。</dd>
-          <dt class="faq__question">Q6. 生活に自家用車は必要ですか？</dt>
-          <dd class="faq__answer">A6. はい、路線バスの便は限られていますので、生活に自家用車は必要です。最寄りのコンビニやドラッグストアまでは車で約10分、スーパーや病院は30分圏内に数件あります。</dd>
-          <dt class="faq__question">Q7. 冬の暮らしや雪の状況はどんな感じですか？</dt>
-          <dd class="faq__answer">A7. 福井市の市街地は積雪がありますが、海岸線では雪が積もることは少ないです。これは日本海の暖流である対馬海流の影響であると言われています。一方、潮風で金属は錆びやすいため、洗車など車のお手入れは重要になります。</dd>
-          <dt class="faq__question">Q8. 地域行事や人付き合いはありますか？</dt>
-          <dd class="faq__answer">A8. はい、それが醍醐味であるとご理解いただけますと幸いです。特に集落ごとにある年に一度の大祭は、神輿（みこし）や神楽（かぐら）などを通じて住民同士の交流が深まります。移住していただいた場合は、行事を通じて、少しずつ地域との関係が生まれていきます。</dd>
-          <dt class="faq__question">Q9. リモートワークや二拠点生活はできますか？</dt>
-          <dd class="faq__answer">A9. はい、可能です。国見地区ではインターネットの光回線が2025年に開通し、ご利用頂けます（ただし現在も一部未開通で、その場合はケーブルテレビの回線をご利用頂けます）。地域行事やルールにご理解いただける方であれば、二拠点生活も可能です。</dd>
-          <dt class="faq__question">Q10. 空き家を無人のゲストハウスとして活用することはできますか？</dt>
-          <dd class="faq__answer">A10. 基本的には「移住」を目的とする方のためのツアーですので、商用目的でのご参加はお断りさせていただいております。ご理解いただけますと幸いです。</dd>
-          <dt class="faq__question">Q11. 「国見 海・人・暮らし相談室」はどのような組織ですか？</dt>
-          <dd class="faq__answer">A11. 国見 海・人・暮らし相談室は、国見地区での暮らしや移住に関心を持つ方と、地域をつなぐための相談窓口です。行政機関ではなく、自治会や公民館を中心に有志メンバーで活動しています。空き家だけではなく、地域との関係や暮らしの雰囲気も含めて知っていただける場を目指しています。</dd>
-        </dl>
+        <div class="faq__list">
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>まだ移住を決めていなくても参加できますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、もちろんです。ツアーを通じて、国見地区での暮らしや空き家の状況を知ることができますので、ぜひお気軽にご参加ください。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>子ども連れや家族での参加は可能ですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、もちろん可能です。お子様連れ・ご家族での参加を私たちは歓迎します。後日、国見地区内の保育園や学校の見学についてもご案内は可能ですので、別途お問い合わせください。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>ツアーではどんなことをしますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>国見地区の空き家を6～7軒程度見学し、生活・文化・行事について住民からお話を聞きます。海産物の採取（漁業権）、各町内の祭り、自治会ルールについての説明があります。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>空き家はどんな状態ですか？価格はどれくらいですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>すぐに住める状態の物件から、ある程度リフォームが必要な状態の物件まで様々で、価格も様々です。ツアー当日は、物件の詳細や価格をお伝えすることができます。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>国見地区はどこにありますか？最寄りの駅はどこですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>国見地区は福井市の海沿い（西海岸）に所在します。最寄り駅は福井駅で、車で45分位の距離です。本数は少ないですが、福井駅からの路線バスもあります。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>生活に自家用車は必要ですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、路線バスの便は限られていますので、生活に自家用車は必要です。最寄りのコンビニやドラッグストアまでは車で約10分、スーパーや病院は30分圏内に数件あります。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>冬の暮らしや雪の状況はどんな感じですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>福井市の市街地は積雪がありますが、海岸線では雪が積もることは少ないです。これは日本海の暖流である対馬海流の影響であると言われています。一方、潮風で金属は錆びやすいため、洗車など車のお手入れは重要になります。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>地域行事や人付き合いはありますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、それが醍醐味であるとご理解いただけますと幸いです。特に集落ごとにある年に一度の大祭は、神輿（みこし）や神楽（かぐら）などを通じて住民同士の交流が深まります。移住していただいた場合は、行事を通じて、少しずつ地域との関係が生まれていきます。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>リモートワークや二拠点生活はできますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、可能です。国見地区ではインターネットの光回線が2025年に開通し、ご利用頂けます（ただし現在も一部未開通で、その場合はケーブルテレビの回線をご利用頂けます）。地域行事やルールにご理解いただける方であれば、二拠点生活も可能です。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>空き家を無人のゲストハウスとして活用することはできますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>基本的には「移住」を目的とする方のためのツアーですので、商用目的でのご参加はお断りさせていただいております。ご理解いただけますと幸いです。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>「国見 海・人・暮らし相談室」はどのような組織ですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>国見 海・人・暮らし相談室は、国見地区での暮らしや移住に関心を持つ方と、地域をつなぐための相談窓口です。行政機関ではなく、自治会や公民館を中心に有志メンバーで活動しています。空き家だけではなく、地域との関係や暮らしの雰囲気も含めて知っていただける場を目指しています。</span></p>
+          </details>
+        </div>
       </section>
       <section class="embed" data-safe-embed>
         <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6636.840592572494!2d136.02399843776843!3d36.094672706721205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8c664ffffffff%3A0xb566330c5634157!2z56aP5LqV5biC5Zu96KaL5YWs5rCR6aSo!5e0!3m2!1sja!2sjp!4v1762513024586!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

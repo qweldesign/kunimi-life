@@ -16,12 +16,12 @@ $cms = new ContentEngine();
     <?php } ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
     <?php if ($cms->is_single()) { ?>
-      <link rel="stylesheet" href="../../style-1.2.css">
+      <link rel="stylesheet" href="../../style-1.3.css">
       <link rel="icon" href="../../favicon.ico">
     <?php } else { ?>
-      <link rel="stylesheet" href="../style-1.2.css">
+      <link rel="stylesheet" href="../style-1.3.css">
       <link rel="icon" href="../favicon.ico">
     <?php } ?>
     <!-- Google tag (gtag.js) -->

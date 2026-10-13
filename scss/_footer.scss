@@ -4,7 +4,7 @@
 
 .footer {
   padding: space("x-large") 0;
-  @include background($theme-accent);
+  @include background("primary-deep");
 
   &__inner {
     @include container("sm");
@@ -22,7 +22,20 @@
     }
 
     td:nth-child(1) {
-      width: 6rem;
+      width: 7rem;
+      font-weight: 700;
+
+      // スマホでは見出し行として幅指定を外し、内容との間を詰める
+      @media (max-width: breakpoint("sm") - 0.1px) {
+        width: auto;
+        padding-block-end: 0;
+      }
+    }
+
+    td:nth-child(2) {
+      @media (max-width: breakpoint("sm") - 0.1px) {
+        padding-block-start: 0;
+      }
     }
   }
 }

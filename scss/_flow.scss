@@ -29,6 +29,7 @@
   }
 
   &__inner {
+    counter-reset: flow-step;
     @include row(center, flex-start);
     width: min(100%, 1000px);
     margin: 0 auto;
@@ -36,26 +37,49 @@
   }
 
   &__item {
+    flex: 1 0 350px;
+    max-width: 350px;
     padding: 0 2.25rem;
 
-    &:nth-child(1) {
-      flex: 1 0 300px;
-      max-width: 300px;
-    }
+    @media (min-width: 1000px) {
+      &:nth-child(1) {
+        flex: 1 0 300px;
+        max-width: 300px;
+      }
 
-    &:nth-child(2) {
-      flex: 1 0 300px;
-      max-width: 300px;
-
-      @media (min-width: 1000px) {
+      &:nth-child(2) {
         flex: 1 0 400px;
         max-width: 400px;
       }
-    }
 
-    &:nth-child(3) {
-      flex: 1 0 300px;
-      max-width: 300px;
+      &:nth-child(3) {
+        flex: 1 0 300px;
+        max-width: 300px;
+      }
+    }
+  }
+
+  // ステップ番号 (1〜6)
+  [class*="flow__itemImage--"] {
+    position: relative;
+    counter-increment: flow-step;
+    margin-block-start: space("medium");
+
+    &::before {
+      content: counter(flow-step);
+      position: absolute;
+      top: -0.5rem;
+      left: -2.25rem;
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      background-color: #fff;
+      color: theme-color("primary-deep");
+      font-family: $font-family-display;
+      font-weight: 600;
+      line-height: 1;
     }
   }
 
@@ -97,15 +121,19 @@
     }
   }
 
+  // フェーズ (準備 / ツアー当日 / 後日)
   &__itemTitle {
     width: fit-content;
-    margin: 0.75rem auto;
-    padding: 0.375rem;
-    background-color: rgba(255, 255, 255, 0.3);
+    margin: space("small") auto;
+    padding: 0.25rem 1.25rem;
+    border-radius: space("small");
+    background-color: theme-color("primary-deep");
+    color: #fff;
+    font-size: font-size("medium");
   }
 
   &__itemHeading {
-    font-size: 1.25rem;
+    font-size: font-size("medium");
   }
 
   &__itemText {

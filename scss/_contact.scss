@@ -22,8 +22,9 @@
     line-height: 3.5rem;
     margin-block: space("medium");
     margin-inline: space();
+    font-weight: 700;
     @include make-button();
-    @include make-button-color-normal("secondary");
+    @include make-button-color-normal("secondary-deep");
   }
 
   &__line {
