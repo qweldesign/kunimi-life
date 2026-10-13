@@ -6,10 +6,6 @@
 .faq {
   @extend %__section;
 
-  @media (min-width: breakpoint("md")) {
-    width: min(100%, 720px);
-  }
-
   &__title {
     margin-block-end: space("medium");
     text-align: center;

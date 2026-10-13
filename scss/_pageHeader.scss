@@ -5,7 +5,7 @@
 
 .pageHeader {
   position: relative;
-  padding: space("large") clamp(0.75rem, 2%, 1.5rem) calc(6vw + #{space("medium")});
+  padding: space("large") container-pad("lg") calc(6vw + #{space("medium")});
   background-color: color-active("primary");
   text-align: center;
 

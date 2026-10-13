@@ -7,7 +7,7 @@
   @include background("primary-deep");
 
   &__inner {
-    @include container("sm");
+    @include container("md");
   }
 
   &__table {

@@ -4,8 +4,12 @@
 
 .embed {
   position: relative;
-  width: 100%;
+  // lg コンテナの内寸にそろえ、角丸で切り抜く
+  @include container-content("lg");
   height: min(62.5vh, 450px); // 5/8
+  margin-block: space("large");
+  overflow: hidden;
+  border-radius: space("medium");
 
   iframe {
     position: absolute;

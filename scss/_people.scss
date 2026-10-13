@@ -4,9 +4,8 @@
  */
 
 .people {
-  width: min(100%, 1000px);
-  margin-inline: auto;
-  padding: space("large") clamp(0.75rem, 2%, 1.5rem);
+  @include container("lg");
+  padding-block: space("large");
   overflow: hidden; // 横スクロールの見切れ用
 
   &__title {

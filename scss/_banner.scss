@@ -8,10 +8,6 @@
   @extend %__section;
   padding-block: space("large");
 
-  @media (min-width: breakpoint("md")) {
-    width: min(100%, 720px);
-  }
-
   &__card {
     position: relative;
     padding-block: space("large") space("medium");

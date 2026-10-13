@@ -28,35 +28,25 @@
     text-align: center;
   }
 
+  // lg コンテナを3等分 (md 未満は1列)
   &__inner {
     counter-reset: flow-step;
-    @include row(center, flex-start);
-    width: min(100%, 1000px);
-    margin: 0 auto;
-    padding: 1.5rem 0;
+    @include container("lg");
+    display: grid;
+    justify-items: center;
+    gap: space("medium");
+    padding-block: 1.5rem;
+
+    @media (min-width: breakpoint("md")) {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+    }
   }
 
   &__item {
-    flex: 1 0 350px;
-    max-width: 350px;
-    padding: 0 2.25rem;
-
-    @media (min-width: 1000px) {
-      &:nth-child(1) {
-        flex: 1 0 300px;
-        max-width: 300px;
-      }
-
-      &:nth-child(2) {
-        flex: 1 0 400px;
-        max-width: 400px;
-      }
-
-      &:nth-child(3) {
-        flex: 1 0 300px;
-        max-width: 300px;
-      }
-    }
+    width: 100%;
+    max-width: 22rem;
+    padding-inline: space("medium");
   }
 
   // ステップ番号 (1〜6)

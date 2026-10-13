@@ -6,9 +6,9 @@
 $contact-line-green: #06c755; // LINE ブランドカラー
 
 .contact {
-  @extend %__section;
-  width: min(100%, 1000px);
-  max-width: none;
+  // 窓口カードは lg、メールフォームは md の幅
+  @include container("lg");
+  padding-block: 1.5rem;
 
   &__title {
     text-align: center;
@@ -151,7 +151,7 @@ $contact-line-green: #06c755; // LINE ブランドカラー
 
   // メールフォーム
   &__form {
-    max-width: 720px;
+    max-width: container-width("md");
     margin-inline: auto;
     padding: space("medium");
     border-radius: space("medium");

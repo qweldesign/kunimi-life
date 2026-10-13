@@ -26,10 +26,10 @@
       overflow-x: auto;
       overscroll-behavior-x: contain;
       scroll-snap-type: x mandatory;
-      scroll-padding-inline: space("medium");
-      padding: space("x-small") space("medium") space("medium");
-      // 画面端まで流す
-      margin-inline: calc(-1 * clamp(0.75rem, 2%, 1.5rem));
+      // 画面端まで流しつつ、1枚目はコンテナの左端にそろえる
+      scroll-padding-inline: #{container-pad("lg")};
+      padding: space("x-small") #{container-pad("lg")} space("medium");
+      margin-inline: calc(-1 * #{container-pad("lg")});
       scrollbar-width: thin;
 
       .personCard {

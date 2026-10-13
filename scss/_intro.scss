@@ -5,17 +5,9 @@
 .intro {
   @extend %__section;
 
-  @media (min-width: breakpoint("md")) {
-    width: min(100%, 720px);
-  }
-
   &__title {
     margin-block: space("large") space("medium");
     text-align: center;
-  }
-
-  &__content {
-    padding-inline: 0.75rem;
   }
 
   // 「素朴な疑問」を吹き出しで並べる

@@ -31,12 +31,12 @@
   --color--primary-deep--active: hsl(203, 71%, 56%);
   --color--secondary-deep: hsl(24, 100%, 41%);
   --color--secondary-deep--active: hsl(24, 100%, 61%);
-  --container-width--sm: 37.5rem;
-  --container-width--md: 56.25rem;
-  --container-width--lg: 75rem;
-  --container-pad--sm: 0.75rem;
-  --container-pad--md: clamp(0.75rem, 2%, 1rem);
-  --container-pad--lg: clamp(0.75rem, 2%, 1.5rem);
+  --container-width--sm: 576px;
+  --container-width--md: 768px;
+  --container-width--lg: 1152px;
+  --container-pad--sm: 12px;
+  --container-pad--md: clamp(12px, 2%, 16px);
+  --container-pad--lg: clamp(12px, 2%, 24px);
   --spacing--none: 0;
   --spacing--x-small: 0.375rem;
   --spacing--small: 0.75rem;
@@ -198,7 +198,7 @@ button, input, select, textarea {
   width: 100%;
   height: 100svh;
   margin: 0 auto;
-  padding: 0 clamp(0.75rem, 2%, 1.5rem);
+  padding: 0 var(--container-pad--lg);
   background: url("./assets/landscape_kunimi-life.jpg") no-repeat center/cover;
 }
 .header__logo {
@@ -207,7 +207,7 @@ button, input, select, textarea {
   padding: 1.5rem 0;
   font-size: 2rem;
 }
-@media (min-width: 675px) {
+@media (min-width: 600px) {
   .header__logo {
     margin-inline: 1.5rem;
   }
@@ -294,14 +294,14 @@ button, input, select, textarea {
   text-decoration: underline;
 }
 .footer__inner {
-  width: min(100%, var(--container-width--sm));
+  width: min(100%, var(--container-width--md) + 2 * var(--container-pad--md));
   margin-inline: auto;
-  padding-inline: var(--container-pad--sm);
+  padding-inline: var(--container-pad--md);
 }
 .footer__table {
   width: 100%;
 }
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .footer__table, .footer__table thead, .footer__table tbody, .footer__table tr, .footer__table th, .footer__table td {
     display: block;
   }
@@ -332,13 +332,13 @@ button, input, select, textarea {
   width: 7rem;
   font-weight: 700;
 }
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .footer__table td:nth-child(1) {
     width: auto;
     padding-block-end: 0;
   }
 }
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .footer__table td:nth-child(2) {
     padding-block-start: 0;
   }
@@ -526,8 +526,12 @@ button, input, select, textarea {
  */
 .embed {
   position: relative;
-  width: 100%;
+  width: min(100% - 2 * var(--container-pad--lg), var(--container-width--lg));
+  margin-inline: auto;
   height: min(62.5vh, 450px);
+  margin-block: var(--spacing--large);
+  overflow: hidden;
+  border-radius: var(--spacing--medium);
 }
 .embed iframe {
   position: absolute;
@@ -861,7 +865,7 @@ button, input, select, textarea {
   margin-block-start: 3rem;
   overflow: hidden;
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .slider {
     height: 24rem;
   }
@@ -900,7 +904,7 @@ button, input, select, textarea {
      object-fit: cover;
   margin: 0;
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .slider__item img {
     width: auto;
     height: 15rem;
@@ -983,17 +987,17 @@ button, input, select, textarea {
   gap: var(--spacing--medium);
   margin-block: var(--spacing--medium);
 }
-@media (min-width: 675px) {
+@media (min-width: 600px) {
   .personGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .personGrid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media (max-width: 1012.4px) {
+@media (max-width: 799.9px) {
   .personGrid.is-scroll {
     grid-template-columns: none;
     grid-auto-flow: column;
@@ -1001,9 +1005,9 @@ button, input, select, textarea {
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--spacing--medium);
-    padding: var(--spacing--x-small) var(--spacing--medium) var(--spacing--medium);
-    margin-inline: calc(-1 * clamp(0.75rem, 2%, 1.5rem));
+    scroll-padding-inline: var(--container-pad--lg);
+    padding: var(--spacing--x-small) var(--container-pad--lg) var(--spacing--medium);
+    margin-inline: calc(-1 * var(--container-pad--lg));
     scrollbar-width: thin;
   }
   .personGrid.is-scroll .personCard {
@@ -1125,21 +1129,15 @@ button, input, select, textarea {
 /**
  * Project - Main
  */
-.contact, .faq, .intro, .banner {
-  width: min(100%, 720px);
-  margin: 0 auto;
-  padding: 1.5rem clamp(0.75rem, 2%, 1.5rem);
-}
-@media (min-width: 1012.5px) {
-  .contact, .faq, .intro, .banner {
-    width: -moz-max-content;
-    width: max-content;
-    max-width: 864px;
-  }
+.faq, .intro, .banner {
+  width: min(100%, var(--container-width--md) + 2 * var(--container-pad--md));
+  margin-inline: auto;
+  padding-inline: var(--container-pad--md);
+  padding-block: 1.5rem;
 }
 
 .main__container {
-  width: min(100%, var(--container-width--lg));
+  width: min(100%, var(--container-width--lg) + 2 * var(--container-pad--lg));
   margin-inline: auto;
   padding-inline: var(--container-pad--lg);
 }
@@ -1149,7 +1147,7 @@ button, input, select, textarea {
   justify-content: space-around;
   align-items: flex-start;
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .main__article {
     flex-grow: 0;
     flex-shrink: 7.5;
@@ -1170,7 +1168,7 @@ button, input, select, textarea {
   margin-inline-end: var(--spacing--x-small);
   color: var(--color--primary);
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .main__aside {
     flex-grow: 0;
     flex-shrink: 3;
@@ -1189,11 +1187,6 @@ button, input, select, textarea {
  */
 .banner {
   padding-block: var(--spacing--large);
-}
-@media (min-width: 1012.5px) {
-  .banner {
-    width: min(100%, 720px);
-  }
 }
 .banner__card {
   position: relative;
@@ -1266,7 +1259,7 @@ button, input, select, textarea {
   background-color: #fff;
   text-align: left;
 }
-@media (min-width: 675px) {
+@media (min-width: 600px) {
   .banner__list {
     width: -moz-fit-content;
     width: fit-content;
@@ -1347,17 +1340,9 @@ button, input, select, textarea {
 /**
  * Project - Intro
  */
-@media (min-width: 1012.5px) {
-  .intro {
-    width: min(100%, 720px);
-  }
-}
 .intro__title {
   margin-block: var(--spacing--large) var(--spacing--medium);
   text-align: center;
-}
-.intro__content {
-  padding-inline: 0.75rem;
 }
 .intro__questions {
   list-style: none;
@@ -1421,32 +1406,24 @@ button, input, select, textarea {
 }
 .flow__inner {
   counter-reset: flow-step;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: flex-start;
-  width: min(100%, 1000px);
-  margin: 0 auto;
-  padding: 1.5rem 0;
+  width: min(100%, var(--container-width--lg) + 2 * var(--container-pad--lg));
+  margin-inline: auto;
+  padding-inline: var(--container-pad--lg);
+  display: grid;
+  justify-items: center;
+  gap: var(--spacing--medium);
+  padding-block: 1.5rem;
+}
+@media (min-width: 800px) {
+  .flow__inner {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+  }
 }
 .flow__item {
-  flex: 1 0 350px;
-  max-width: 350px;
-  padding: 0 2.25rem;
-}
-@media (min-width: 1000px) {
-  .flow__item:nth-child(1) {
-    flex: 1 0 300px;
-    max-width: 300px;
-  }
-  .flow__item:nth-child(2) {
-    flex: 1 0 400px;
-    max-width: 400px;
-  }
-  .flow__item:nth-child(3) {
-    flex: 1 0 300px;
-    max-width: 300px;
-  }
+  width: 100%;
+  max-width: 22rem;
+  padding-inline: var(--spacing--medium);
 }
 .flow [class*=flow__itemImage--] {
   position: relative;
@@ -1520,11 +1497,6 @@ button, input, select, textarea {
  * Project - Faq
  * details / summary によるアコーディオン
  */
-@media (min-width: 1012.5px) {
-  .faq {
-    width: min(100%, 720px);
-  }
-}
 .faq__title {
   margin-block-end: var(--spacing--medium);
   text-align: center;
@@ -1592,9 +1564,10 @@ button, input, select, textarea {
  * トップページの「この町の人」セクション
  */
 .people {
-  width: min(100%, 1000px);
+  width: min(100%, var(--container-width--lg) + 2 * var(--container-pad--lg));
   margin-inline: auto;
-  padding: var(--spacing--large) clamp(0.75rem, 2%, 1.5rem);
+  padding-inline: var(--container-pad--lg);
+  padding-block: var(--spacing--large);
   overflow: hidden;
 }
 .people__title {
@@ -1605,7 +1578,7 @@ button, input, select, textarea {
   max-width: 40em;
   margin: 0 auto var(--spacing--medium);
 }
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .people__text {
     text-align: left;
   }
@@ -1659,7 +1632,7 @@ button, input, select, textarea {
  */
 .pageHeader {
   position: relative;
-  padding: var(--spacing--large) clamp(0.75rem, 2%, 1.5rem) calc(6vw + var(--spacing--medium));
+  padding: var(--spacing--large) var(--container-pad--lg) calc(6vw + var(--spacing--medium));
   background-color: var(--color--primary--active);
   text-align: center;
 }
@@ -1699,7 +1672,7 @@ button, input, select, textarea {
   margin: var(--spacing--small) auto 0;
   line-height: 1.8;
 }
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .pageHeader__lead {
     text-align: left;
   }
@@ -1960,7 +1933,7 @@ button, input, select, textarea {
   gap: var(--spacing--small);
   margin-block: 0 var(--spacing--large);
 }
-@media (min-width: 675px) and (max-width: 1012.4px) {
+@media (min-width: 600px) and (max-width: 799.9px) {
   .postIndex {
     grid-template-columns: 1fr 1fr;
   }
@@ -1969,7 +1942,7 @@ button, input, select, textarea {
   margin-block: var(--spacing--large) var(--spacing--small);
   font-size: var(--font-size--large);
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .postIndex__heading {
     margin-block-start: var(--spacing--medium);
   }
@@ -2059,7 +2032,7 @@ button, input, select, textarea {
   justify-content: space-around;
   align-items: stretch;
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .postList.is-grid .postList__item {
     flex-grow: 0;
     flex-shrink: 4;
@@ -2113,8 +2086,10 @@ button, input, select, textarea {
  * 用件別の3つの窓口 (参加申込 / LINE / メールフォーム) をカードで並べる
  */
 .contact {
-  width: min(100%, 1000px);
-  max-width: none;
+  width: min(100%, var(--container-width--lg) + 2 * var(--container-pad--lg));
+  margin-inline: auto;
+  padding-inline: var(--container-pad--lg);
+  padding-block: 1.5rem;
 }
 .contact__title {
   text-align: center;
@@ -2128,7 +2103,7 @@ button, input, select, textarea {
   gap: var(--spacing--medium);
   margin-block: var(--spacing--medium) var(--spacing--large);
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .contact__options {
     grid-template-columns: 1fr 1fr 1fr;
     align-items: stretch;
@@ -2272,13 +2247,13 @@ button, input, select, textarea {
   height: auto;
 }
 .contact__form {
-  max-width: 720px;
+  max-width: var(--container-width--md);
   margin-inline: auto;
   padding: var(--spacing--medium);
   border-radius: var(--spacing--medium);
   background-color: rgba(80.58, 169.898, 225.42, 0.05);
 }
-@media (min-width: 675px) {
+@media (min-width: 600px) {
   .contact__form {
     padding: var(--spacing--large);
   }
@@ -2318,7 +2293,7 @@ button, input, select, textarea {
 .form table {
   width: 100%;
 }
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .form table, .form table thead, .form table tbody, .form table tr, .form table th, .form table td {
     display: block;
   }
@@ -2349,7 +2324,7 @@ button, input, select, textarea {
 .form table th, .form table td {
   vertical-align: middle;
 }
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .form table th {
     width: auto;
     padding-block-end: 0;
@@ -2419,7 +2394,7 @@ button, input, select, textarea {
 .confirm table {
   width: 100%;
 }
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .confirm table, .confirm table thead, .confirm table tbody, .confirm table tr, .confirm table th, .confirm table td {
     display: block;
   }
@@ -3908,7 +3883,7 @@ button, input, select, textarea {
 .text-justify {
   text-align: justify !important;
 }
-@media (min-width: 675px) {
+@media (min-width: 600px) {
   .text-left-sm {
     text-align: left !important;
   }
@@ -3922,7 +3897,7 @@ button, input, select, textarea {
     text-align: justify !important;
   }
 }
-@media (min-width: 1012.5px) {
+@media (min-width: 800px) {
   .text-left-md {
     text-align: left !important;
   }
@@ -3936,7 +3911,7 @@ button, input, select, textarea {
     text-align: justify !important;
   }
 }
-@media (min-width: 1350px) {
+@media (min-width: 1200px) {
   .text-left-lg {
     text-align: left !important;
   }
@@ -3954,17 +3929,17 @@ button, input, select, textarea {
 /**
  * Utility - Visibility
  */
-@media (max-width: 674.9px) {
+@media (max-width: 599.9px) {
   .visible-sm {
     display: none !important;
   }
 }
-@media (max-width: 1012.4px) {
+@media (max-width: 799.9px) {
   .visible-md {
     display: none !important;
   }
 }
-@media (max-width: 1349.9px) {
+@media (max-width: 1199.9px) {
   .visible-lg {
     display: none !important;
   }

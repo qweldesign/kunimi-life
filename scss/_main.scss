@@ -2,16 +2,10 @@
  * Project - Main
  */
 
+// 文章中心のセクション (md コンテナ: 内寸 864px)
 %__section {
-  width: min(100%, 720px);
-  //min-height: calc(100vh - 18rem);
-  margin: 0 auto;
-  padding: 1.5rem clamp(0.75rem, 2%, 1.5rem);
-
-  @media (min-width: breakpoint("md")) {
-    width: max-content;
-    max-width: 864px;
-  }
+  @include container("md");
+  padding-block: 1.5rem;
 }
 
 .main {
