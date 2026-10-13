@@ -50,6 +50,23 @@ class ContentEngine {
     return $this->article['title'];
   }
 
+  // 個別記事のメタ情報取得
+  public function get_article(): array {
+    return $this->article ?? [];
+  }
+
+  // 前後の記事を取得 (記事一覧の並び順)
+  public function get_adjacent(): array {
+    $slugs = array_column($this->posts, 'slug');
+    $index = array_search($this->article['slug'] ?? null, $slugs, true);
+    if ($index === false) return ['prev' => null, 'next' => null];
+
+    return [
+      'prev' => $this->posts[$index - 1] ?? null,
+      'next' => $this->posts[$index + 1] ?? null,
+    ];
+  }
+
   // 日付取得
   public function get_date() {
     return date('Y.m.d',strtotime($this->article['date']));

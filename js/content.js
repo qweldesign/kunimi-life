@@ -5,12 +5,13 @@
  * See LICENSE file for details.
  */
 
-import Slider from './slider.js';
-
+// トップページ「この町の人」: people/api.php の記事をカードで並べる
 export default class Content {
   constructor() {
     this.template = document.getElementById('personTemplate');
-    this.inner = document.querySelector('.slider__inner');
+    this.list = document.querySelector('[data-people-list]');
+    // テンプレートが無いページ (/people/ 配下など) では何もしない
+    if (!this.template || !this.list) return;
     this.init();
   }
 
@@ -19,10 +20,6 @@ export default class Content {
       const res = await fetch('./people/api.php');
       const data = await res.json();
       this.render(data);
-
-      // Slider
-      new Slider();
-
     } catch (error) {
       console.error('Error fetching people data:', error);
     }
@@ -31,11 +28,24 @@ export default class Content {
   render(data) {
     data.forEach(person => {
       const clone = this.template.content.cloneNode(true);
-      const personElement = clone.querySelector('.slider__item');
-      personElement.querySelector('.slider__image').src = `people/${person.img}`;
-      personElement.querySelector('.slider__link').innerHTML = `${person.title}<br><span>${person.summary}</span>`;
-      personElement.querySelector('.slider__link').href = `people/${person.slug}/`;
-      this.inner.appendChild(clone);
+      const link = clone.querySelector('.personCard__link');
+      const image = clone.querySelector('.personCard__image img');
+      const vol = clone.querySelector('.personCard__vol');
+
+      link.href = `people/${person.slug}/`;
+      image.src = `people/${person.img}`;
+      image.alt = person.name || person.title;
+
+      if (person.vol) {
+        vol.textContent = `vol.${person.vol}`;
+      } else {
+        vol.remove();
+      }
+      clone.querySelector('.personCard__catch').textContent = person.catch || person.title;
+      clone.querySelector('.personCard__name').textContent = person.name || '';
+      clone.querySelector('.personCard__role').textContent = person.summary || '';
+
+      this.list.appendChild(clone);
     });
   }
 }

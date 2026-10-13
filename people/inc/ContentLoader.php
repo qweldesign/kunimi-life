@@ -19,7 +19,8 @@ class ContentLoader {
 			$parsed = $this->parse($file);
 			if ($parsed) $articles[] = $parsed;
 		}
-		usort($articles, fn($a, $b) => strcmp($a['date'], $b['date'])); // 日付ASC
+		// 日付ASC (date が無い記事は slug 順)
+		usort($articles, fn($a, $b) => [$a['date'] ?? '', $a['slug'] ?? ''] <=> [$b['date'] ?? '', $b['slug'] ?? '']);
 		return $articles;
 	}
 
@@ -47,9 +48,25 @@ class ContentLoader {
 			}
 
 			$meta['content'] = $body;
-			return $meta;
+			return $this->split_title($meta);
 		}
 
 		return null;
+	}
+
+	// タイトル「vol.N キャッチ ― 氏名」を vol / catch / name に分解する
+	// 形式に合わない場合は title をそのまま catch として使う
+	protected function split_title(array $meta): array {
+		$title = $meta['title'] ?? '';
+		if (preg_match('/^vol\.(\d+)\s*(.+?)\s*―\s*(.+)$/u', $title, $t)) {
+			$meta['vol']   = $t[1];
+			$meta['catch'] = $t[2];
+			$meta['name']  = $t[3];
+		} else {
+			$meta['vol']   = '';
+			$meta['catch'] = $title;
+			$meta['name']  = '';
+		}
+		return $meta;
 	}
 }

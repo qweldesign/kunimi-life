@@ -2,6 +2,9 @@
 // ContentEngine start!
 require_once __DIR__ . '/inc/ContentEngine.php';
 $cms = new ContentEngine();
+
+// ルートへの相対パス (/people/ と /people/xx/ で階層が異なる)
+$base = $cms->is_single() ? '../../' : '../';
 ?>
 
 <!DOCTYPE html>
@@ -17,13 +20,8 @@ $cms = new ContentEngine();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
-    <?php if ($cms->is_single()) { ?>
-      <link rel="stylesheet" href="../../style-1.3.css">
-      <link rel="icon" href="../../favicon.ico">
-    <?php } else { ?>
-      <link rel="stylesheet" href="../style-1.4.css">
-      <link rel="icon" href="../favicon.ico">
-    <?php } ?>
+    <link rel="stylesheet" href="<?php echo $base; ?>style-1.3.css">
+    <link rel="icon" href="<?php echo $base; ?>favicon.ico">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BK66SEG6VG"></script>
     <script>
@@ -35,17 +33,19 @@ $cms = new ContentEngine();
     </script>
   </head>
   <body>
-    <header>
+    <header class="pageHeader">
       <div class="hidden" data-site-brand>
         <a href="/">
-          <?php if ($cms->is_single()) { ?>
-            <img src="../../assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
-          <?php } else { ?>
-            <img src="../assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
-          <?php } ?>
+          <img src="<?php echo $base; ?>assets/logo_kunimi-life.png" alt="国見 海・人・暮らし相談室">
         </a>
       </div>
-      <h1 class="my-large text-center">この町の人</h1>
+      <p class="pageHeader__eyebrow"><a href="/">国見 海・人・暮らし相談室</a></p>
+      <?php if ($cms->is_single()) { ?>
+        <p class="pageHeader__title"><a href="/people/">この町の人</a></p>
+      <?php } else { ?>
+        <h1 class="pageHeader__title">この町の人</h1>
+        <p class="pageHeader__lead">国見には、いろいろな人が暮らしています。ここでは、そんな「この町の人」に話を聞きながら、国見での暮らしや、この町の魅力をご紹介します。</p>
+      <?php } ?>
     </header>
     <nav class="gNav hidden">
       <ul class="gNav__primaryMenu visible-md" data-primary-menu>
@@ -72,11 +72,7 @@ $cms = new ContentEngine();
         <li class="gNav__menuItem is-social" v-if="item">
           <a href="https://instagram.com/kunimi.life" target="_blank">
             <svg class="icon is-si-instagram is-md" width="36" height="36" aria-hidden="true">
-              <?php if ($cms->is_single()) { ?>
-                <use href="../../assets/icons.svg#si-instagram"></use>
-              <?php } else { ?>
-                <use href="../assets/icons.svg#si-instagram"></use>
-              <?php } ?>
+              <use href="<?php echo $base; ?>assets/icons.svg#si-instagram"></use>
             </svg>
           </a>
         </li>
@@ -86,77 +82,76 @@ $cms = new ContentEngine();
       <div class="main__container">
         <?php echo $cms->get_breadcrumb(); ?>
         <?php if (!$cms->is_single()) { ?>
-          <ul class="postList is-list">
+          <ul class="personGrid">
             <?php foreach ($cms->get_posts() as $post) { ?>
-              <li class="postList__item postItem">
-                <figure class="postItem__image">
-                  <a href="./<?php echo $post['slug']; ?>/">
-                    <img loading="lazy" src=".<?php echo $post['img'] ?>">
-                  </a>
-                </figure>
-                <div class="postItem__content">
-                  <h3 class="postItem__heading">
-                    <a href="./<?php echo $post['slug']; ?>/">
-                      <?php echo $post['title']; ?>
-                    </a>
-                  </h3>
-                  <p class="postItem__excerpt">
-                    <?php echo $post['summary']; ?>
-                  </p>
-                  <div class="postItem__info">
-                    <?php if (!empty($post['website'])) { ?>
-                      <div class="postItem__sns">
-                        <a class="postItem__web" href="<?php echo $post['website']; ?>" target="_blank">
-                          WEB
-                        </a>
-                      </div>
+              <li class="personCard">
+                <a class="personCard__link" href="./<?php echo $post['slug']; ?>/">
+                  <figure class="personCard__image">
+                    <img loading="lazy" src=".<?php echo $post['img']; ?>" alt="<?php echo htmlspecialchars($post['name'] ?: $post['title']); ?>">
+                  </figure>
+                  <div class="personCard__body">
+                    <?php if ($post['vol'] !== '') { ?>
+                      <p class="personCard__vol">vol.<?php echo $post['vol']; ?></p>
                     <?php } ?>
-                    <?php if (!empty($post['note'])) { ?>
-                      <div class="postItem__sns">
-                        <a href="<?php echo $post['note']; ?>" target="_blank">
-                          <img src="../assets/icon_note.png" alt="note.com">
-                        </a>
-                      </div>
-                    <?php } ?>
-                    <?php if (!empty($post['instagram'])) { ?>
-                      <div class="postItem__sns">
-                        <a href="<?php echo $post['instagram']; ?>" target="_blank">
-                          <img src="../assets/icon_instagram.png" alt="Instagram">
-                        </a>
-                      </div>
-                    <?php } ?>
+                    <h2 class="personCard__catch"><?php echo $post['catch']; ?></h2>
+                    <p class="personCard__name"><?php echo $post['name']; ?></p>
+                    <p class="personCard__role"><?php echo $post['summary']; ?></p>
                   </div>
-                  <!--<div class="postItem__more">
-                    <a class="icon is-chevron-right" href="./<?php //echo $post['slug']; ?>/">
-                      <span class="icon__span"></span>
-                    </a>
-                  </div>-->
-                </div>
+                </a>
+                <?php include __DIR__ . '/inc/person-links.php'; ?>
               </li>
             <?php } ?>
           </ul>
           <?php echo $cms->pagination(); ?>
-          <?php } else { ?>
-            <div class="main__row">
-              <article class="main__article">
-                <?php echo $cms->get_content(); ?>
-              </article>
-              <aside class="main__aside">
-                <ul class="postIndex">
-                  <?php foreach ($cms->get_posts(1, 10) as $post) { ?>
-                    <li class="postIndex__item">
-                      <a href="../<?php echo $post['slug']; ?>/">
-                        <img loading="lazy" class="postIndex__image" src="../<?php echo $post['img']; ?>">
-                        <span class="postIndex__title"><?php echo $post['title']; ?></span>
-                        <span class="postIndex__summary"><?php echo $post['summary']; ?></span>
-                      </a>
-                    </li>
+        <?php } else { ?>
+          <?php $article = $cms->get_article(); ?>
+          <div class="main__row">
+            <article class="main__article peopleArticle">
+              <?php echo $cms->get_content(); ?>
+              <?php $post = $article; ?>
+              <?php if (!empty($post['website']) || !empty($post['note']) || !empty($post['instagram'])) { ?>
+                <section class="peopleArticle__links">
+                  <h3 class="peopleArticle__linksTitle"><?php echo $article['name'] ?: 'この方'; ?>の活動をもっと見る</h3>
+                  <?php include __DIR__ . '/inc/person-links.php'; ?>
+                </section>
+              <?php } ?>
+              <?php $adjacent = $cms->get_adjacent(); ?>
+              <nav class="peopleArticle__pager" aria-label="前後の記事">
+                <?php foreach (['prev' => '前の記事', 'next' => '次の記事'] as $key => $label) { ?>
+                  <?php if ($adjacent[$key]) { ?>
+                    <a class="peopleArticle__pagerItem is-<?php echo $key; ?>" href="../<?php echo $adjacent[$key]['slug']; ?>/">
+                      <span class="peopleArticle__pagerLabel"><?php echo $label; ?></span>
+                      <span class="peopleArticle__pagerName">vol.<?php echo $adjacent[$key]['vol']; ?> <?php echo $adjacent[$key]['name']; ?></span>
+                    </a>
+                  <?php } else { ?>
+                    <span class="peopleArticle__pagerItem is-<?php echo $key; ?> is-empty"></span>
                   <?php } ?>
-                </ul>
+                <?php } ?>
+              </nav>
+              <aside class="peopleArticle__cta">
+                <p class="peopleArticle__ctaLead">国見の暮らしを、実際に歩いて確かめてみませんか？</p>
+                <a class="peopleArticle__ctaButton" href="/#banner">空き家ツアーのご案内</a>
               </aside>
-            </div>
-          <?php } ?>
-        </div>
+            </article>
+            <aside class="main__aside">
+              <h2 class="postIndex__heading">この町の人</h2>
+              <ul class="postIndex">
+                <?php foreach ($cms->get_posts(1, 10) as $post) { ?>
+                  <li class="postIndex__item<?php echo $post['slug'] === $article['slug'] ? ' is-current' : ''; ?>">
+                    <a href="../<?php echo $post['slug']; ?>/"<?php echo $post['slug'] === $article['slug'] ? ' aria-current="page"' : ''; ?>>
+                      <img loading="lazy" class="postIndex__image" src="..<?php echo $post['img']; ?>" alt="">
+                      <span class="postIndex__text">
+                        <span class="postIndex__vol">vol.<?php echo $post['vol']; ?></span>
+                        <span class="postIndex__title"><?php echo $post['name'] ?: $post['title']; ?></span>
+                        <span class="postIndex__summary"><?php echo $post['summary']; ?></span>
+                      </span>
+                    </a>
+                  </li>
+                <?php } ?>
+              </ul>
+            </aside>
+          </div>
+        <?php } ?>
       </div>
     </main>
     <footer id="footer" class="footer">
@@ -181,10 +176,6 @@ $cms = new ContentEngine();
         </table>
       </div>
     </footer>
-    <?php if (!$cms->is_single()) { ?>
-      <script src="../../../init.js" type="module"></script>
-    <?php } else { ?>
-      <script src="../../init.js" type="module"></script>
-    <?php } ?>
+    <script src="<?php echo $base; ?>init.js" type="module"></script>
   </body>
 </html>

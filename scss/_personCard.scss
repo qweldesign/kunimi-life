@@ -1,0 +1,168 @@
+/**
+ * Component - Person Card
+ * 「この町の人」のカード (トップページと /people/ 一覧で共通)
+ */
+
+.personGrid {
+  @include list-unstyled();
+  display: grid;
+  gap: space("medium");
+  margin-block: space("medium");
+
+  @media (min-width: breakpoint("sm")) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: breakpoint("md")) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  // トップページ: スマホでは横スクロール、PC ではグリッド
+  &.is-scroll {
+    @media (max-width: breakpoint("md") - 0.1px) {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(80vw, 20rem);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: space("medium");
+      padding: space("x-small") space("medium") space("medium");
+      // 画面端まで流す
+      margin-inline: calc(-1 * clamp(0.75rem, 2%, 1.5rem));
+      scrollbar-width: thin;
+
+      .personCard {
+        scroll-snap-align: start;
+      }
+    }
+  }
+}
+
+.personCard {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  border-radius: space("medium");
+  background-color: #fff;
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.15);
+
+  &__link {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    &, &:hover, &:focus {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    &:hover, &:focus-visible {
+      .personCard__image img {
+        transform: scale(1.05);
+      }
+
+      .personCard__catch {
+        color: theme-color("primary-deep");
+      }
+    }
+  }
+
+  &__image {
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background-color: rgba(map-get($colors, "primary"), 0.15);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+  }
+
+  &__body {
+    position: relative;
+    flex: 1;
+    padding: space("medium") space("medium") space();
+  }
+
+  // vol. 番号を写真に少しかかるラベルに
+  &__vol {
+    position: absolute;
+    top: -1rem;
+    left: space("medium");
+    margin: 0;
+    padding: 0 space();
+    border-radius: space("small");
+    background-color: theme-color("primary-deep");
+    color: #fff;
+    font-family: $font-family-display;
+    font-weight: 600;
+    line-height: 2rem;
+  }
+
+  &__catch {
+    margin-block: space("x-small") space("small");
+    font-size: font-size("medium");
+    line-height: 1.5;
+    transition: color 0.25s ease;
+  }
+
+  &__name {
+    margin-block: 0;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  &__role {
+    margin-block: space("x-small") 0;
+    color: theme-color("darker");
+    @include small-text();
+    line-height: 1.5;
+  }
+
+  // /people/ 一覧ではカード下に外部リンク
+  .personLinks {
+    padding: 0 space("medium") space("medium");
+  }
+}
+
+// 外部リンク (WEB / note / Instagram)
+.personLinks {
+  @include list-unstyled();
+  display: flex;
+  flex-wrap: wrap;
+  gap: space("small");
+  margin: 0;
+
+  &__item {
+    margin: 0;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: space("x-small");
+      padding: 0.125rem space() 0.125rem space("x-small");
+      border: 1px solid theme-color("lighter");
+      border-radius: space("small");
+      color: theme-color("darker");
+      font-size: font-size("small");
+      line-height: 1.8;
+
+      &:hover, &:focus {
+        border-color: theme-color("primary-deep");
+        color: theme-color("primary-deep");
+        text-decoration: none;
+      }
+    }
+
+    img {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+}

@@ -1,9 +1,13 @@
 /**
  * Project - People
+ * トップページの「この町の人」セクション
  */
 
 .people {
-  padding-block: space("large");
+  width: min(100%, 1000px);
+  margin-inline: auto;
+  padding: space("large") clamp(0.75rem, 2%, 1.5rem);
+  overflow: hidden; // 横スクロールの見切れ用
 
   &__title {
     margin-block-end: space("medium");
@@ -11,9 +15,12 @@
   }
 
   &__text {
-    margin-block-end: space("medium");
-    padding-inline: space("medium");
-    text-align: center;
+    max-width: 40em;
+    margin: 0 auto space("medium");
+
+    @media (max-width: breakpoint("sm") - 0.1px) {
+      text-align: left;
+    }
   }
 
   &__buttonWrapper {
@@ -23,5 +30,6 @@
 
   &__button {
     @include button("primary-deep", 16.5rem, 3.5rem);
+    font-weight: 700;
   }
 }

@@ -177,24 +177,26 @@
       </section>
       <section id="people" class="people">
         <h2 class="people__title">この町の人</h2>
-        <p class="people__text">国見には、いろいろな人が暮らしています。
-          <br>昔からこの町で暮らしている人、移住してきた人、仕事や地域活動を通じて関わっている人。
-          <br>それぞれの暮らし方や、この町との関わり方があります。
-          <br>ここでは、そんな「この町の人」に話を聞きながら、国見での暮らしや、この町の魅力をご紹介します。</p>
-        <div class="slider" data-gallery="slider" data-flickable data-aspect-ratio="1" data-gap="96" data-interval="4000" data-duration="800">
-          <ul class="slider__inner" data-gallery-main>
-            <template id="personTemplate">    
-              <li class="slider__item" data-gallery-item>
-                <figure>
-                  <img class="slider__image" src="">
-                  <figcaption class="slider__caption"><a class="slider__link" href=""></a></figcaption>
+        <p class="people__text">国見には、いろいろな人が暮らしています。昔からこの町で暮らしている人、移住してきた人、仕事や地域活動を通じて関わっている人。ここでは、そんな「この町の人」に話を聞きながら、国見での暮らしや、この町の魅力をご紹介します。</p>
+        <ul class="personGrid is-scroll" data-people-list>
+          <template id="personTemplate">
+            <li class="personCard">
+              <a class="personCard__link" href="">
+                <figure class="personCard__image">
+                  <img loading="lazy" src="" alt="">
                 </figure>
-              </li>
-            </template>
-          </ul>
-        </div>
+                <div class="personCard__body">
+                  <p class="personCard__vol"></p>
+                  <h3 class="personCard__catch"></h3>
+                  <p class="personCard__name"></p>
+                  <p class="personCard__role"></p>
+                </div>
+              </a>
+            </li>
+          </template>
+        </ul>
         <div class="people__buttonWrapper">
-          <a class="people__button" href="./people/" target="_blank">この町の人をもっと見る</a>
+          <a class="people__button" href="./people/">この町の人をもっと見る</a>
         </div>
       </section>
       <section id="faq" class="faq">
