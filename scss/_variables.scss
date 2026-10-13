@@ -22,9 +22,8 @@ $icon-bg: var(--color--primary-deep);
 
 // ブレークポイント・コンテナ・ガター
 // $font-size-base が 18px のため rem 指定だと 1.125 倍に膨らむので px で固定する
-// コンテナ幅 (内寸) + 左右のガター = BP
-//   sm: 576px  + 12px × 2 = 600px
-//   md: 768px  + 16px × 2 = 800px  (16px = 800px の 2%)
+// コンテナ幅 (内寸) + 左右のガター 24px (モバイルでの読みやすさのため固定)
+//   md: 768px  + 24px × 2 = 816px
 //   lg: 1152px + 24px × 2 = 1200px
 $breakpoints: (
   sm: 600px,
@@ -37,9 +36,9 @@ $container-widths: (
   lg: 1152px
 );
 $container-pads: (
-  sm: 12px,
-  md: clamp(12px, 2%, 16px),
-  lg: clamp(12px, 2%, 24px)
+  sm: 12px, // row() / col() の列間ガターにも使うため 12px のまま
+  md: 24px,
+  lg: 24px
 );
 
 $drawer-always-shown:      true;

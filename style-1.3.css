@@ -35,8 +35,8 @@
   --container-width--md: 768px;
   --container-width--lg: 1152px;
   --container-pad--sm: 12px;
-  --container-pad--md: clamp(12px, 2%, 16px);
-  --container-pad--lg: clamp(12px, 2%, 24px);
+  --container-pad--md: 24px;
+  --container-pad--lg: 24px;
   --spacing--none: 0;
   --spacing--x-small: 0.375rem;
   --spacing--small: 0.75rem;
@@ -1146,6 +1146,7 @@ button, input, select, textarea {
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: flex-start;
+  margin-inline: calc(var(--container-pad--sm) * -1);
 }
 @media (min-width: 800px) {
   .main__article {

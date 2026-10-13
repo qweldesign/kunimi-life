@@ -14,7 +14,7 @@
   }
 
   &__row {
-    @include row(space-around, flex-start);
+    @include row(space-around, flex-start, true);
   }
 
   &__article {
