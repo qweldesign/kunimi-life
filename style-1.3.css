@@ -43,13 +43,13 @@
   --spacing--medium: 1.5rem;
   --spacing--large: 3rem;
   --spacing--x-large: 6rem;
-  --font-family-base: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-family-base: Zen Kaku Gothic New, Hiragino Sans, Yu Gothic, sans-serif;
   --font-weight-base: 400;
   --line-height-base: 2;
   --letter-spacing-base: 0;
   --heading-margin-block-start: var(--spacing--medium);
   --heading-margin-block-end: var(--spacing--small);
-  --heading-font-family: "Klee One", cursive;
+  --heading-font-family: Klee One, cursive;
   --heading-font-weight: 600;
   --heading-line-height: 1.2;
   --heading-letter-spacing: 0;
@@ -237,7 +237,7 @@ button, input, select, textarea {
   gap: var(--spacing--x-small);
   transform: translateX(-50%);
   color: #fff;
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-size: var(--font-size--medium);
   text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
   white-space: nowrap;
@@ -1063,7 +1063,7 @@ button, input, select, textarea {
   border-radius: var(--spacing--small);
   background-color: var(--color--primary-deep);
   color: #fff;
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-weight: 600;
   line-height: 2rem;
 }
@@ -1245,7 +1245,7 @@ button, input, select, textarea {
   line-height: 1.2;
 }
 .banner__dateMain {
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-size: clamp(3rem, 12vw, 4.5rem);
   font-weight: 600;
   color: var(--color--primary-deep);
@@ -1374,7 +1374,7 @@ button, input, select, textarea {
   padding: var(--spacing--x-small) var(--spacing--small);
   border-radius: var(--spacing--small);
   background-color: rgba(80.58, 169.898, 225.42, 0.15);
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   line-height: 1.5;
 }
 .intro__questions li::after {
@@ -1465,7 +1465,7 @@ button, input, select, textarea {
   border-radius: 50%;
   background-color: #fff;
   color: var(--color--primary-deep);
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-weight: 600;
   line-height: 1;
 }
@@ -1570,7 +1570,7 @@ button, input, select, textarea {
 }
 .faq__mark {
   flex-shrink: 0;
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-size: var(--font-size--x-large);
   line-height: 1;
   color: var(--color--primary-deep);
@@ -1689,7 +1689,7 @@ button, input, select, textarea {
 }
 .pageHeader__title {
   margin-block: var(--spacing--x-small) 0;
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-size: clamp(1.5rem, 6vw, 2.25rem);
   font-weight: 600;
   line-height: 1.5;
@@ -1757,7 +1757,7 @@ button, input, select, textarea {
   border-radius: 50%;
   background-color: var(--color--primary-deep);
   color: #fff;
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-size: var(--font-size--medium);
   line-height: 1;
 }
@@ -1831,7 +1831,7 @@ button, input, select, textarea {
 }
 .peopleArticle__ctaLead {
   margin-block: 0 var(--spacing--small);
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-size: var(--font-size--medium);
   font-weight: 600;
   line-height: 1.5;
@@ -2009,7 +2009,7 @@ button, input, select, textarea {
 }
 .postIndex__vol {
   color: var(--color--primary-deep);
-  font-family: '"Klee One"', cursive;
+  font-family: "Klee One", cursive;
   font-size: var(--font-size--small);
   font-weight: 600;
   line-height: 1.5;
