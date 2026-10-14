@@ -638,7 +638,7 @@ class SafeEmbed {
     const options = this.options;
     // オプション
     const embedSelector = options.embedSelector || '[data-safe-embed]';
-    const infoText = options.infoText || 'クリックするとマップを拡大/縮小できるようになります。';
+    const infoText = options.infoText || 'クリックするとマップを<br>拡大/縮小できるようになります。';
 
     // 要素取得
     this.targets = Array.from(document.querySelectorAll(embedSelector));
@@ -653,7 +653,7 @@ class SafeEmbed {
 
       // infoテキスト
       const info = document.createElement('p');
-      info.textContent = infoText;
+      info.innerHTML = infoText;
       cover.appendChild(info);
 
       // イベント登録
