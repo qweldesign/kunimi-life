@@ -5,6 +5,29 @@ $cms = new ContentEngine();
 
 // ルートへの相対パス (/people/ と /people/xx/ で階層が異なる)
 $base = $cms->is_single() ? '../../' : '../';
+
+// OGP (SNS で共有されたときの表示)。URL は絶対パスで指定する
+$siteUrl = 'https://kunimi.life';
+if ($cms->is_single()) {
+  $article = $cms->get_article();
+  $ogp = [
+    'type'        => 'article',
+    'title'       => $cms->get_title() . ' | この町の人',
+    'description' => $article['name'] . '（' . $article['summary'] . '）のインタビュー。' . $article['catch'],
+    'url'         => "{$siteUrl}/people/{$article['slug']}/",
+    'image'       => $siteUrl . $article['img'], // 記事のポートレイト
+    'card'        => 'summary_large_image',
+  ];
+} else {
+  $ogp = [
+    'type'        => 'website',
+    'title'       => 'この町の人 | 国見 海・人・暮らし相談室',
+    'description' => '国見地区で暮らす人、移住してきた人、地域に関わる人。「この町の人」に話を聞きながら、国見での暮らしや町の魅力を紹介します。',
+    'url'         => "{$siteUrl}/people/",
+    'image'       => "{$siteUrl}/assets/ogp.jpg",
+    'card'        => 'summary_large_image',
+  ];
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +40,16 @@ $base = $cms->is_single() ? '../../' : '../';
     <?php } else { ?>
       <title>この町の人 | 国見 海・人・暮らし相談室</title>
     <?php } ?>
+    <meta name="description" content="<?php echo htmlspecialchars($ogp['description']); ?>">
+    <!-- OGP -->
+    <meta property="og:type" content="<?php echo $ogp['type']; ?>">
+    <meta property="og:site_name" content="国見 海・人・暮らし相談室">
+    <meta property="og:title" content="<?php echo htmlspecialchars($ogp['title']); ?>">
+    <meta property="og:description" content="<?php echo htmlspecialchars($ogp['description']); ?>">
+    <meta property="og:url" content="<?php echo htmlspecialchars($ogp['url']); ?>">
+    <meta property="og:image" content="<?php echo htmlspecialchars($ogp['image']); ?>">
+    <meta property="og:locale" content="ja_JP">
+    <meta name="twitter:card" content="<?php echo $ogp['card']; ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">

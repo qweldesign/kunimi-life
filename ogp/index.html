@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <!--
+      国見 海・人・暮らし相談室 OGP 画像の元データ
+      - リポジトリの ogp/ogp.html に置く想定 (画像は ../assets/ を参照)
+      - wave.png をマスクに使うため、file:// ではなくローカルサーバー経由で開く
+        (Chrome は file:// のマスク画像を読み込まない)
+      - 書き出し: DevTools のデバイスモードで 1200×630、倍率 100% にして
+        「スクリーンショットをキャプチャ」→ assets/ogp.jpg に保存
+    -->   
+    <title>OGP | 国見 海・人・暮らし相談室</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary: hsl(203, 71%, 60%);
+        --primary-light: hsl(203, 71%, 80%);   /* 「流れ」セクションの水色 */
+        --primary-deep: hsl(203, 71%, 36%);
+        --secondary-deep: hsl(24, 100%, 41%);
+        --ink: #262626;
+      }
+
+      body {
+        margin: 0;
+        padding: 40px;
+        background: #888;
+      }
+
+      .ogp {
+        position: relative;
+        overflow: hidden;
+        width: 1200px;
+        height: 630px;
+        margin: auto;
+        background-color: var(--primary-light);
+        color: var(--ink);
+        font-family: "Zen Kaku Gothic New", sans-serif;
+        line-height: 1.5;
+        letter-spacing: 0.04em;
+      }
+
+      .photo {
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 420px;
+        background: url(../assets/landscape_kunimi-life.jpg) center 47.5% / cover no-repeat;
+      }
+
+      /* サイトの wave.png をマスクに使い、写真と水色の境目を波にする */
+      .wave {
+        position: absolute;
+        top: 360px;
+        left: 0;
+        width: 1200px;
+        height: 72px;
+        background: var(--primary-light);
+        -webkit-mask: url(../assets/wave.png) center top / 100% 100% no-repeat;
+        mask: url(../assets/wave.png) center top / 100% 100% no-repeat;
+        transform: rotate(180deg);
+      }
+
+      .panel {
+        position: absolute;
+        top: 420px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 72px 18px;
+      }
+
+      .place {
+        margin: 0;
+        color: var(--primary-deep);
+        font-weight: 700;
+        font-size: 27px;
+        letter-spacing: 0.08em;
+      }
+
+      .name {
+        margin: 15px 0 0;
+        color: var(--ink);
+        font-family: "Klee One", cursive;
+        font-weight: 600;
+        font-size: 54px;
+        line-height: 1.2;
+        letter-spacing: 0;
+        white-space: nowrap;
+      }
+
+      .meta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 36px;
+        flex-shrink: 0;
+      }
+
+      .lead {
+        margin: 0;
+        color: var(--primary-deep);
+        font-family: "Klee One", cursive;
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 1;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+
+      .tag {
+        display: inline-block;
+        margin: 0;
+        padding: 6px 18px;
+        border-radius: 12px;
+        background: var(--secondary-deep);
+        color: #fff;
+        font-weight: 700;
+        font-size: 24px;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ogp">
+      <div class="photo"></div>
+      <div class="wave"></div>
+      <div class="panel">
+        <div>
+          <p class="place">福井市 越前海岸・国見地区</p>
+          <p class="name">国見 海・人・暮らし相談室</p>
+        </div>
+        <div class="meta">
+          <p class="lead">海辺に暮らそう</p>
+          <p class="tag">空き家マッチングツアー</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
