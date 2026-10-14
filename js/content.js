@@ -30,18 +30,13 @@ export default class Content {
       const clone = this.template.content.cloneNode(true);
       const link = clone.querySelector('.personCard__link');
       const image = clone.querySelector('.personCard__image img');
-      const vol = clone.querySelector('.personCard__vol');
 
       link.href = `people/${person.slug}/`;
-      image.src = `people/${person.img}`;
-      image.alt = person.name || person.title;
+      image.src = person.img; // ルートからの絶対パス (/content/images/people/...)
+      image.alt = person.name || '';
 
-      if (person.vol) {
-        vol.textContent = `vol.${person.vol}`;
-      } else {
-        vol.remove();
-      }
-      clone.querySelector('.personCard__catch').textContent = person.catch || person.title;
+      clone.querySelector('.personCard__vol').textContent = `vol.${person.slug}`; // slug が連番 (01, 02, …) を兼ねる
+      clone.querySelector('.personCard__catch').textContent = person.catch || '';
       clone.querySelector('.personCard__name').textContent = person.name || '';
       clone.querySelector('.personCard__role').textContent = person.summary || '';
 

@@ -13,7 +13,7 @@ $base = $cms->is_single() ? '../../' : '../';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php if ($cms->is_single()) { ?>
-      <title><?php echo $cms->get_title() . ' | '; ?>この町の人 | 国見 海・人・暮らし相談室</title>
+      <title><?php echo htmlspecialchars($cms->get_title()) . ' | '; ?>この町の人 | 国見 海・人・暮らし相談室</title>
     <?php } else { ?>
       <title>この町の人 | 国見 海・人・暮らし相談室</title>
     <?php } ?>
@@ -87,12 +87,10 @@ $base = $cms->is_single() ? '../../' : '../';
               <li class="personCard">
                 <a class="personCard__link" href="./<?php echo $post['slug']; ?>/">
                   <figure class="personCard__image">
-                    <img loading="lazy" src=".<?php echo $post['img']; ?>" alt="<?php echo htmlspecialchars($post['name'] ?: $post['title']); ?>">
+                    <img loading="lazy" src="<?php echo htmlspecialchars($post['img']); ?>" alt="<?php echo htmlspecialchars($post['name']); ?>">
                   </figure>
                   <div class="personCard__body">
-                    <?php if ($post['vol'] !== '') { ?>
-                      <p class="personCard__vol">vol.<?php echo $post['vol']; ?></p>
-                    <?php } ?>
+                    <p class="personCard__vol">vol.<?php echo $post['slug']; ?></p>
                     <h2 class="personCard__catch"><?php echo $post['catch']; ?></h2>
                     <p class="personCard__name"><?php echo $post['name']; ?></p>
                     <p class="personCard__role"><?php echo $post['summary']; ?></p>
@@ -111,7 +109,7 @@ $base = $cms->is_single() ? '../../' : '../';
               <?php $post = $article; ?>
               <?php if (!empty($post['website']) || !empty($post['note']) || !empty($post['instagram'])) { ?>
                 <section class="peopleArticle__links">
-                  <h3 class="peopleArticle__linksTitle"><?php echo $article['name'] ?: 'この方'; ?>の活動をもっと見る</h3>
+                  <h3 class="peopleArticle__linksTitle"><?php echo $article['name'] ?? 'この方'; ?>の活動をもっと見る</h3>
                   <?php include __DIR__ . '/inc/person-links.php'; ?>
                 </section>
               <?php } ?>
@@ -121,7 +119,7 @@ $base = $cms->is_single() ? '../../' : '../';
                   <?php if ($adjacent[$key]) { ?>
                     <a class="peopleArticle__pagerItem is-<?php echo $key; ?>" href="../<?php echo $adjacent[$key]['slug']; ?>/">
                       <span class="peopleArticle__pagerLabel"><?php echo $label; ?></span>
-                      <span class="peopleArticle__pagerName">vol.<?php echo $adjacent[$key]['vol']; ?> <?php echo $adjacent[$key]['name']; ?></span>
+                      <span class="peopleArticle__pagerName">vol.<?php echo $adjacent[$key]['slug']; ?> <?php echo $adjacent[$key]['name']; ?></span>
                     </a>
                   <?php } else { ?>
                     <span class="peopleArticle__pagerItem is-<?php echo $key; ?> is-empty"></span>
@@ -139,10 +137,10 @@ $base = $cms->is_single() ? '../../' : '../';
                 <?php foreach ($cms->get_posts(1, 10) as $post) { ?>
                   <li class="postIndex__item<?php echo $post['slug'] === $article['slug'] ? ' is-current' : ''; ?>">
                     <a href="../<?php echo $post['slug']; ?>/"<?php echo $post['slug'] === $article['slug'] ? ' aria-current="page"' : ''; ?>>
-                      <img loading="lazy" class="postIndex__image" src="..<?php echo $post['img']; ?>" alt="">
+                      <img loading="lazy" class="postIndex__image" src="<?php echo htmlspecialchars($post['img']); ?>" alt="">
                       <span class="postIndex__text">
-                        <span class="postIndex__vol">vol.<?php echo $post['vol']; ?></span>
-                        <span class="postIndex__title"><?php echo $post['name'] ?: $post['title']; ?></span>
+                        <span class="postIndex__vol">vol.<?php echo $post['slug']; ?></span>
+                        <span class="postIndex__title"><?php echo $post['name']; ?></span>
                         <span class="postIndex__summary"><?php echo $post['summary']; ?></span>
                       </span>
                     </a>

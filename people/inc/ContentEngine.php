@@ -21,7 +21,8 @@ class ContentEngine {
     $this->count = (int)($_GET['count'] ?? 10);
     $this->page  = (int)($_GET['page'] ?? 1);
 
-    $dir    = dirname(__DIR__) . '/content/';
+    // 記事 (Markdown) は content/people/、ポートレイトは content/images/people/ に置く
+    $dir    = dirname(__DIR__, 2) . '/content/people/';
     $loader = new ContentLoader($dir);
 
     // 全記事取得
@@ -45,9 +46,12 @@ class ContentEngine {
     return array_slice($this->posts, $count * ($page - 1), $count);
   }
 
-  // タイトル取得
-  public function get_title() {
-    return $this->article['title'];
+  // タイトル取得 (<title> とパンくず用)
+  // フロントマターの slug / catch / name から「vol.NN キャッチ ― 氏名」を組み立てる
+  public function get_title(): string {
+    $a = $this->article;
+    $title = implode(' ― ', array_filter([$a['catch'] ?? '', $a['name'] ?? ''], 'strlen'));
+    return "vol.{$a['slug']} {$title}";
   }
 
   // 個別記事のメタ情報取得
@@ -88,7 +92,7 @@ class ContentEngine {
     ]);
 
     return $this->is_single() ?
-      $nav->breadcrumb($this->article) : $nav->breadcrumb();
+      $nav->breadcrumb(['title' => $this->get_title()]) : $nav->breadcrumb();
   }
 
   // ページネーション生成

@@ -48,25 +48,9 @@ class ContentLoader {
 			}
 
 			$meta['content'] = $body;
-			return $this->split_title($meta);
+			return $meta;
 		}
 
 		return null;
-	}
-
-	// タイトル「vol.N キャッチ ― 氏名」を vol / catch / name に分解する
-	// 形式に合わない場合は title をそのまま catch として使う
-	protected function split_title(array $meta): array {
-		$title = $meta['title'] ?? '';
-		if (preg_match('/^vol\.(\d+)\s*(.+?)\s*―\s*(.+)$/u', $title, $t)) {
-			$meta['vol']   = $t[1];
-			$meta['catch'] = $t[2];
-			$meta['name']  = $t[3];
-		} else {
-			$meta['vol']   = '';
-			$meta['catch'] = $title;
-			$meta['name']  = '';
-		}
-		return $meta;
 	}
 }
