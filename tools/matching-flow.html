@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>空家マッチングの流れ（ドラフト案）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<!--
+  空家マッチングの流れ ドラフト案 (A4 縦・2枚)
+  - 1枚目: ツアー終了後の対応 / ★ 希望者数の確認 / ▲ 随時対応
+  - 2枚目: 顧客管理・広報 (◆ 見込み客として登録) / ツアー以外での問い合わせ / 運用ルール
+  - ノードは各 .sheet のグリッドに style="grid-area: 行 / 列" で配置する
+  - 矢印は末尾の edges (ページごと) で定義し、表示時に JS で SVG を描く
+  - 離れた箱への移動は矢印にせず、バッジ (★ / ▲ / ◆ / ↻) で示す
+  - 印刷: ブラウザの印刷 → 用紙 A4・縦、背景のグラフィック ON
+-->
+<style>
+  :root {
+    --base-font-size: 12pt; /* 全体の文字サイズ: 12pt を基準に調整 */
+    --ink: #262626;
+    --office: #1a6b9d;
+    /* 相談室の動き */
+    --office-bg: #eef6fc;
+    --applicant: #3d7a2c;
+    /* 希望者の動き */
+    --applicant-bg: #f1f8ec;
+    --owner: #d9a441;
+    /* 家主の動き */
+    --owner-bg: #fff6e6;
+    --arrow: #c0395b;
+    --start: #c0395b;
+    /* スタート */
+    --star: #e09a00;
+    /* ★ 希望者数の確認へ */
+    --keep: #2a8c82;
+    /* ◆ 見込み客として登録へ */
+    --anytime: #7b5ea7;
+    /* ▲ 随時対応へ */
+    --exit: #777;
+    /* 分岐の結果 */
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  html {
+    font-size: var(--base-font-size);
+    background: #e9e9e9;
+  }
+
+  body {
+    font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+    font-weight: 500;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @media screen {
+    body {
+      padding: 12mm 0;
+    }
+  .page + .page {
+      margin-top: 12mm;
+    }
+  }
+
+  @media print {
+    html {
+      background: #fff;
+    }
+  .page {
+      break-after: page;
+    }
+  .page:last-child {
+      break-after: auto;
+    }
+  }
+
+
+  /* A4 縦 210 × 297mm (内側 8mm の余白) */
+  .page {
+    position: relative;
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 8mm;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  @media screen {
+    .page {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .15);
+    }
+  }
+
+
+  .sheet {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    column-gap: 3mm;
+  }
+
+  .sheet.p1 {
+    grid-template-columns: 6mm repeat(3, 1fr);
+    /* 1: 見出し / 2: START / 3: 余白 / 4〜17: 本体 */
+    grid-template-rows: 15mm 9mm 3mm repeat(14, 1fr);
+  }
+
+  .sheet.p2 {
+    grid-template-columns: 6mm repeat(3, 1fr);
+    /* 1: 見出し / 2: 広報 / 3: 余白 / 4: START / 5: 余白 / 6～13: 本体 / 14: 運用ルール */
+    grid-template-rows: 15mm 1fr 3mm 9mm 3mm repeat(8, 1fr) auto;
+  }
+
+
+  /* ---------- 見出し・凡例 ---------- */
+  .head {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4mm;
+  }
+
+  .title {
+    font-size: 1.17rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .title {
+    flex-shrink: 0;
+  }
+
+  .title small {
+    display: block;
+    font-size: 0.67rem;
+    font-weight: 500;
+    color: #666;
+    white-space: nowrap;
+  }
+
+  .title .draft {
+    margin-left: 1.5mm;
+    padding: 0 1.5mm;
+    border: 0.3mm solid #c0395b;
+    border-radius: 1mm;
+    color: #c0395b;
+    font-size: 0.625rem;
+    vertical-align: middle;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.2mm 1.8mm;
+    max-width: 120mm;
+  }
+
+  .legend .node {
+    width: auto;
+    min-height: 0;
+    padding: 0.6mm 3mm;
+    white-space: nowrap;
+    font-size: 0.625rem;
+  }
+
+  .legend .applicant {
+    padding-inline: 4.5mm;
+  }
+
+  .legend .start {
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .legend .start::before {
+    content: none;
+  }
+
+  .legend .badge {
+    font-size: 0.625rem;
+  }
+
+
+  /* ---------- ノード ---------- */
+  .node {
+    position: relative;
+    z-index: 1;
+    place-self: center;
+    width: 90%;
+    min-height: 6mm;
+    display: grid;
+    place-items: center;
+    padding: 0.6mm 3mm;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .node small {
+    display: block;
+    font-size: 0.625rem;
+    color: #555;
+  }
+
+  .office {
+    border: 0.5mm solid var(--office);
+    border-radius: 1.8mm;
+    background: var(--office-bg);
+  }
+
+  .owner {
+    border: 0.5mm solid var(--owner);
+    border-radius: 50%;
+    background: var(--owner-bg);
+  }
+
+  .applicant {
+    background: var(--applicant);
+    padding-inline: 4.5mm;
+    clip-path: polygon(3.6mm 0, calc(100% - 3.6mm) 0, 100% 50%, calc(100% - 3.6mm) 100%, 3.6mm 100%, 0 50%);
+  }
+
+  .applicant::before {
+    content: "";
+    position: absolute;
+    inset: 0.5mm;
+    z-index: -1;
+    background: var(--applicant-bg);
+    clip-path: polygon(3.3mm 0, calc(100% - 3.3mm) 0, 100% 50%, calc(100% - 3.3mm) 100%, 3.3mm 100%, 0 50%);
+  }
+
+  /* 分岐の結果 (行き止まりにせず、★ / ◆ へ送る) */
+  .exit {
+    border: 0.375mm dashed var(--exit);
+    border-radius: 3mm;
+    background: #fff;
+    color: #444;
+    font-size: 0.75rem;
+  }
+
+  .start {
+    width: 100%;
+    min-height: 9mm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3mm;
+    border-radius: 1.5mm;
+    background: var(--start);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+  }
+
+  .start::before {
+    content: "START";
+    padding: 0.3mm 3mm;
+    border: 0.375mm solid #fff;
+    border-radius: 1mm;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+  }
+
+  .goal {
+    font-weight: 700;
+  }
+
+
+  /* 移動先 (★ / ◆) */
+  .target-star, .target-keep, .target-anytime {
+    border-width: 0.75mm;
+  }
+
+  .target-star {
+    border-color: var(--star);
+    box-shadow: 0 0 0 1mm rgba(224, 154, 0, .25);
+  }
+
+  .target-keep {
+    border-color: var(--keep);
+    background: #eaf6f4;
+    box-shadow: 0 0 0 1mm rgba(42, 140, 130, .25);
+  }
+
+  .target-anytime {
+    border-color: var(--anytime);
+    background: #f3effa;
+    box-shadow: 0 0 0 1mm rgba(123, 94, 167, .25);
+  }
+
+  .target-star::after, .target-keep::after, .target-anytime::after {
+    position: absolute;
+    top: -3mm;
+    left: -3mm;
+    display: grid;
+    place-items: center;
+    width: 6mm;
+    height: 6mm;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  .target-star::after {
+    content: "★";
+    background: var(--star);
+  }
+
+  .target-keep::after {
+    content: "◆";
+    background: var(--keep);
+  }
+
+  .target-anytime::after {
+    content: "▲";
+    background: var(--anytime);
+    font-size: 0.625rem;
+  }
+
+
+  /* 移動元: 箱の下にバッジを並べる */
+  .jump {
+    position: relative;
+    z-index: 2;
+    place-self: center;
+    width: 90%;
+    display: grid;
+    justify-items: center;
+  }
+
+  .jump > .node {
+    width: 100%;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5mm;
+    margin-top: 1.5mm;
+  }
+
+  .badge {
+    padding: 0.3mm 2.25mm;
+    border-radius: 3mm;
+    color: #fff;
+    font-size: 0.625rem;
+    font-weight: 700;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .badge.star {
+    background: var(--star);
+  }
+
+  .badge.keep {
+    background: var(--keep);
+  }
+
+  .badge.anytime {
+    background: var(--anytime);
+  }
+
+  .badge.loop {
+    background: var(--start);
+  }
+
+
+  /* 複数の立場が同時に関わる場面 */
+  .group {
+    position: relative;
+    z-index: 1;
+    place-self: center;
+    width: 90%;
+    display: grid;
+    gap: 0.6mm;
+    padding: 0.6mm;
+    border: 0.375mm dashed #999;
+    border-radius: 1.5mm;
+    background: #fff;
+  }
+
+  .group-caption {
+    font-size: 0.625rem;
+    color: #555;
+    text-align: center;
+    line-height: 1.35;
+  }
+
+  .group .node {
+    width: 100%;
+    min-height: 0;
+    padding-block: 0.3mm;
+    font-size: 0.625rem;
+    line-height: 1.35;
+  }
+
+
+  /* フェーズ: 行の帯と、左端の縦書きラベル */
+  .phase {
+    position: relative;
+    z-index: 0;
+    grid-column: 1 / -1;
+    margin-inline: -1.5mm;
+    border-radius: 1.5mm;
+    background: #f3f4ef;
+  }
+
+  .phase > span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 7.5mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border-radius: 1.5mm 0 0 1.5mm;
+    background: #c9d3dc;
+    color: #2c3a46;
+    font-size: 0.67rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .phase.alt {
+    background: #fff;
+  }
+
+  .phase.alt > span {
+    background: #5d6d7c;
+    color: #fff;
+  }
+
+  /* 2枚目上段: 顧客管理・広報 (◆) */
+  .phase.crm {
+    background: #eaf6f4;
+  }
+
+  .phase.crm > span {
+    background: var(--keep);
+    color: #fff;
+  }
+
+  /* 1枚目右下: 締め切りまでに決められなかった人の流れ (▲) */
+  .lane {
+    position: relative;
+    z-index: 0;
+    place-self: stretch;
+    margin: 0;
+    border: 0.375mm dashed #9aa7b3;
+    border-radius: 1.5mm;
+    background: #fff;
+  }
+
+  .lane > span {
+    position: absolute;
+    bottom: -3mm;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 1.5mm;
+    background: #fff;
+    color: #3b4a58;
+    font-size: 0.625rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+
+  /* 運用ルール */
+  .rules {
+    grid-column: 1 / -1;
+    grid-row: 15 / 16;
+    margin-top: 3mm;
+    padding: 3mm 6mm;
+    border: 0.375mm solid #bbb;
+    border-radius: 1.5mm;
+    background: #fafafa;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .rules h2 {
+    margin-bottom: 1.5mm;
+    font-size: 0.875rem;
+  }
+
+  .rules dl {
+    display: grid;
+    grid-template-columns: 36mm 1fr;
+    gap: 0.6mm 3mm;
+  }
+
+  .rules dt {
+    font-weight: 700;
+    color: var(--office);
+  }
+
+  .tbd {
+    padding: 0 1mm;
+    border-radius: .75mm;
+    background: #fde8ec;
+    color: #c0395b;
+    font-weight: 700;
+    font-size: 0.67rem;
+  }
+
+
+  /* ---------- 矢印 ---------- */
+  svg.edges {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  svg.edges line {
+    stroke: var(--arrow);
+    stroke-width: 0.5mm;
+  }
+
+  .label {
+    position: absolute;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    padding: 0 1mm;
+    background: rgba(255, 255, 255, .875);
+    font-size: 0.625rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-align: center;
+  }</style>
+</head>
+<body>
+
+<!-- ======================================================= 1枚目 -->
+<div class="page">
+<div class="sheet p1" data-page="p1">
+
+  <div class="head">
+    <p class="title">空家マッチングの流れ<span class="draft">ドラフト案</span><small>1 / 2 ツアー終了後の対応 | 国見 海・人・暮らし相談室</small></p>
+    <div class="legend">
+      <span class="node start">スタート</span>
+      <span class="node owner">家主の動き</span>
+      <span class="node applicant">希望者の動き</span>
+      <span class="node office">相談室の動き</span>
+      <span class="node exit">分岐の結果</span>
+      <span class="badge star">★ 希望者数の確認へ</span>
+      <span class="badge anytime">▲ 随時対応へ</span>
+      <span class="badge keep">◆ 見込み客登録へ（2枚目）</span>
+      <span class="badge loop">↻ 次回ツアーへ</span>
+    </div>
+  </div>
+
+  <div class="phase" style="grid-row: 4 / 7"><span>①希望の受付</span></div>
+  <div class="phase alt" style="grid-row: 7 / 10"><span>②家主への連絡・選定</span></div>
+  <div class="phase" style="grid-row: 10 / 13"><span>③結果連絡・売買交渉</span></div>
+  <div class="phase alt" style="grid-row: 13 / 16"><span>④顔合わせ・契約</span></div>
+  <div class="phase" style="grid-row: 16 / 18"><span>⑤移住・定着</span></div>
+  <div class="lane" style="grid-area: 13 / 4 / 17 / 5"><span>▲ 2週間で決められなかった人</span></div>
+
+  <div id="start" class="node start" style="grid-area: 2 / 1 / 3 / 5">空家マッチングツアー終了</div>
+
+  <div id="deadline" class="node office" style="grid-area: 4 / 2 / 5 / 5">購入希望の第一次締め切り（2週間）を案内</div>
+
+  <div id="wantBuy" class="node applicant" style="grid-area: 5 / 2 / 6 / 4">購入を希望する</div>
+  <div id="undecided" class="jump" style="grid-area: 5 / 4">
+    <span class="node applicant">2週間では決められない</span>
+    <span class="badges"><span class="badge anytime">→ ▲ 随時対応へ</span></span>
+  </div>
+
+  <div id="hub" class="node office target-star" style="grid-area: 6 / 2 / 7 / 5">物件ごとに希望者数を確認<small>他の物件を提案した場合も、ここから進める</small></div>
+
+  <div id="single" class="node applicant" style="grid-area: 7 / 2">希望者 1名</div>
+  <div id="multiple" class="node applicant" style="grid-area: 7 / 4">希望者 複数</div>
+
+  <div id="notifyOwner" class="node office" style="grid-area: 8 / 2">購入希望者情報を<br>家主に連絡</div>
+  <div id="notifyMultiple" class="node office" style="grid-area: 8 / 4">複数いる旨・希望者の<br>情報を家主に連絡</div>
+
+  <div id="selectPartner" class="node owner" style="grid-area: 9 / 4">選定基準を基に<br>交渉相手を選定</div>
+
+  <div id="ownerNegotiate" class="node owner" style="grid-area: 10 / 2">相談室を通して、<br>売買交渉</div>
+  <div id="notifyResult" class="node office" style="grid-area: 10 / 4">選定結果を連絡<small>締め切り後<span class="tbd">2週間以内</span></small></div>
+
+  <div id="bridge" class="node office" style="grid-area: 11 / 2">家主と希望者の意向の<br>橋渡しを繰り返し行う</div>
+  <div id="notSelected" class="jump" style="grid-area: 11 / 4">
+    <span class="node exit">選ばれなかった</span>
+    <span class="badges"><span class="badge star">第二候補・他の物件 → ★</span><span class="badge keep">◆</span></span>
+  </div>
+
+  <div id="applicantNegotiate" class="node applicant" style="grid-area: 12 / 2">相談室を通して、<br>売買交渉</div>
+  <div id="noDeal" class="jump" style="grid-area: 12 / 3">
+    <span class="node exit">交渉不成立</span>
+    <span class="badges"><span class="badge star">他の物件 → ★</span><span class="badge keep">◆</span></span>
+  </div>
+
+  <div id="setMeeting" class="node office" style="grid-area: 13 / 2">家主・希望者・相談室の<br>顔合わせをセッティング</div>
+
+  <div id="contractRequest" class="node office" style="grid-area: 14 / 2">不動産屋を通しての<br>売買契約締結依頼</div>
+  <div id="meeting" class="group" style="grid-area: 13 / 3 / 15 / 4">
+    <span class="group-caption">顔合わせが可能な場合</span>
+    <span class="node applicant">顔合わせ</span>
+    <span class="node office">顔合わせ</span>
+    <span class="node owner">顔合わせ</span>
+  </div>
+
+  <div id="contract" class="group" style="grid-area: 15 / 2">
+    <span class="node applicant">売買契約</span>
+    <span class="node owner">売買契約</span>
+  </div>
+
+  <div id="community" class="node office" style="grid-area: 16 / 2">自治会加入手続き・<br>役員への顔合わせを手配</div>
+
+  <div id="welcome" class="node applicant goal" style="grid-area: 17 / 2">移住完了！<br>ようこそ国見へ！</div>
+  <div id="afterCare" class="node office" style="grid-area: 17 / 3">移住後フォロー<small>入居後<span class="tbd">1ヶ月以内</span>に声かけ</small></div>
+
+  <!-- ▲ 2週間で決められなかった人 -->
+  <div id="followUp" class="jump" style="grid-area: 13 / 4">
+    <span class="node office target-anytime">随時購入希望者対応<small><span class="tbd">2週間ごと</span>に連絡</small></span>
+    <span class="badges"><span class="badge keep">希望しない → ◆</span></span>
+  </div>
+  <div id="decided" class="node applicant" style="grid-area: 14 / 4">購入意思が固まった</div>
+  <div id="checkAvailable" class="jump" style="grid-area: 15 / 4">
+    <span class="node office">物件がまだあるか確認</span>
+    <span class="badges"><span class="badge star">ある → ★</span></span>
+  </div>
+  <div id="gone" class="jump" style="grid-area: 16 / 4">
+    <span class="node exit">物件がない</span>
+    <span class="badges"><span class="badge star">他の物件 → ★</span><span class="badge keep">◆</span></span>
+  </div>
+
+  <svg class="edges"><defs><marker id="arrowHead1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0395b"/></marker></defs></svg>
+</div>
+</div>
+
+<!-- ======================================================= 2枚目 -->
+<div class="page">
+<div class="sheet p2" data-page="p2">
+
+  <div class="head">
+    <p class="title">空家マッチングの流れ<span class="draft">ドラフト案</span><small>2 / 2 広報 / ツアー以外での問い合わせ | 国見 海・人・暮らし相談室</small></p>
+    <div class="legend">
+      <span class="badge star">★ 1枚目「希望者数の確認」へ</span>
+      <span class="badge keep">◆ 見込み客として登録へ</span>
+      <span class="badge loop">↻ 1枚目 START へ</span>
+    </div>
+  </div>
+
+  <div class="phase crm" style="grid-row: 2 / 3"><span>広報</span></div>
+  <div class="phase" style="grid-row: 6 / 7"><span>①受付</span></div>
+  <div class="phase alt" style="grid-row: 7 / 10"><span>②面談・物件紹介</span></div>
+  <div class="phase" style="grid-row: 10 / 12"><span>③内覧</span></div>
+  <div class="phase alt" style="grid-row: 12 / 14"><span>④購入希望の確認</span></div>
+
+  <div id="keep" class="node office target-keep wide" style="grid-area: 2 / 2 / 3 / 5">見込み客として登録・情報発信<small>LINE 登録・空き家情報や次回ツアーの案内を定期的に届ける</small></div>
+
+  <div id="inquiry" class="node start" style="grid-area: 3 / 1 / 6 / 5">ツアー以外での問い合わせ</div>
+
+  <div id="nextTour" class="jump" style="grid-area: 6 / 2">
+    <span class="node office">次回マッチングツアーへ案内</span>
+    <span class="badges"><span class="badge loop">参加 → ↻ START</span></span>
+  </div>
+  <div id="hearing" class="node office" style="grid-area: 6 / 3">問い合わせの経緯を聞き取り<small>移住の時期・家族構成・仕事・予算</small></div>
+
+  <div id="strongIntent" class="node applicant" style="grid-area: 7 / 3">移住意思が強い</div>
+  <div id="weakIntent" class="jump" style="grid-area: 7 / 4">
+    <span class="node exit">移住意思が弱い</span>
+    <span class="badges"><span class="badge keep">→ ◆</span></span>
+  </div>
+
+  <div id="interview" class="node office" style="grid-area: 8 / 3">国見公民館での<br>面接セッティング</div>
+  <div id="noVisit" class="jump" style="grid-area: 8 / 4">
+    <span class="node exit">来訪できない</span>
+    <span class="badges"><span class="badge keep">→ ◆</span></span>
+  </div>
+
+  <div id="browse" class="node applicant" style="grid-area: 9 / 3">国見公民館で顔合わせ<br>物件資料ファイル閲覧</div>
+  <div id="noMatch" class="jump" style="grid-area: 9 / 4">
+    <span class="node exit">希望物件がない</span>
+    <span class="badges"><span class="badge keep">→ ◆</span></span>
+  </div>
+
+  <div id="viewingSetup" class="node office" style="grid-area: 10 / 3">個別内覧<br>セッティング</div>
+
+  <div id="viewing" class="group" style="grid-area: 11 / 3">
+    <span class="node applicant">内覧来訪</span>
+    <span class="node office">内覧立ち会い</span>
+    <span class="node owner">内覧対応</span>
+  </div>
+  <div id="notBuy" class="jump" style="grid-area: 11 / 4">
+    <span class="node exit">購入希望せず</span>
+    <span class="badges"><span class="badge star">他の物件 → ★</span><span class="badge keep">◆</span></span>
+  </div>
+
+  <div id="wantToBuy" class="node applicant" style="grid-area: 12 / 3">購入希望</div>
+  <div id="checkStatus" class="jump" style="grid-area: 13 / 3">
+    <span class="node office">物件状況・他希望者を確認<small>ツアーの締め切り期間中なら、<br>締め切り後にまとめて判定</small></span>
+    <span class="badges"><span class="badge star">→ ★</span></span>
+  </div>
+
+  <section class="rules">
+    <h2>運用ルール</h2>
+    <dl>
+      <dt>次回ツアーまでの境目</dt>
+      <dd>次回ツアーまで <span class="tbd">2ヶ月以内</span> ならツアーへ案内、それより先なら個別に聞き取り</dd>
+      <dt>移住意思の判断</dt>
+      <dd>聞き取り項目（移住の時期・家族構成・仕事・予算）を基に相談室で判断する</dd>
+      <dt>交渉相手の選定基準</dt>
+      <dd>子育て世帯を優先し、家主の意向を踏まえて選ぶ。基準は家主にも事前に説明しておく</dd>
+      <dt>連絡の目安</dt>
+      <dd>選定結果は締め切りから <span class="tbd">2週間以内</span>。「2週間では決められない」と答えた人には <span class="tbd">2週間ごと</span> に連絡</dd>
+      <dt>締め切りが重なる場合</dt>
+      <dd>ツアー締め切り期間中の物件に外部から希望があった場合、締め切り後にまとめて★で判定する</dd>
+      <dt>移住後のフォロー</dt>
+      <dd>入居後 <span class="tbd">1ヶ月以内</span> に声かけ。困りごとを聞き、自治会との橋渡しを続ける</dd>
+    </dl>
+  </section>
+
+  <svg class="edges"><defs><marker id="arrowHead2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0395b"/></marker></defs></svg>
+</div>
+</div>
+
+<script>
+  // [始点, 終点, ラベル, オプション]
+  //   both: 双方向 / at: ラベルの位置 (0〜1) / side: 'right' でラベルを線の右横に / dir: 'h' で左右の辺を結ぶ
+  const edges = {
+    p1: [
+      ['start', 'deadline'],
+      ['deadline', 'wantBuy'],
+      ['deadline', 'undecided'],
+      ['wantBuy', 'hub'],
+      ['hub', 'single', '1名'],
+      ['hub', 'multiple', '複数'],
+
+      ['followUp', 'decided'],
+      ['decided', 'checkAvailable'],
+      ['checkAvailable', 'gone'],
+
+      ['single', 'notifyOwner'],
+      ['notifyOwner', 'ownerNegotiate'],
+      ['ownerNegotiate', 'bridge', '', { both: true   }],
+      ['bridge', 'applicantNegotiate', '', { both: true   }],
+      ['applicantNegotiate', 'noDeal'],
+      ['applicantNegotiate', 'setMeeting', 'まとまった'],
+      ['setMeeting', 'meeting'],
+      ['setMeeting', 'contractRequest', '顔合わせが難しい'],
+      ['meeting', 'contractRequest'],
+      ['contractRequest', 'contract'],
+      ['contract', 'community'],
+      ['community', 'welcome'],
+      ['welcome', 'afterCare'],
+
+      ['multiple', 'notifyMultiple'],
+      ['notifyMultiple', 'selectPartner'],
+      ['selectPartner', 'notifyResult'],
+      ['notifyResult', 'ownerNegotiate', '選ばれた', { dir: 'h'   }],
+      ['notifyResult', 'notSelected'],
+    ],
+    p2: [
+      ['keep', 'inquiry'],
+      ['inquiry', 'nextTour', '次回ツアーまで<br>2ヶ月以内'],
+      ['inquiry', 'hearing', 'それより先'],
+      ['hearing', 'strongIntent'],
+      ['hearing', 'weakIntent', '', { dir: 'h'   }],
+      ['strongIntent', 'interview'],
+      ['interview', 'noVisit', '', { dir: 'h'   }],
+      ['interview', 'browse', '来訪'],
+      ['browse', 'noMatch', '', { dir: 'h'   }],
+      ['browse', 'viewingSetup', '希望物件あり'],
+      ['viewingSetup', 'viewing'],
+      ['viewing', 'notBuy'],
+      ['viewing', 'wantToBuy'],
+      ['wantToBuy', 'checkStatus'],
+    ],
+    };
+
+  const NS = 'http://www.w3.org/2000/svg';
+
+  function drawSheet(sheet) {
+    const svg = sheet.querySelector('svg.edges');
+    const marker = svg.querySelector('marker').id;
+    svg.querySelectorAll('line').forEach(el => el.remove());
+    sheet.querySelectorAll('.label').forEach(el => el.remove());
+
+    const s = sheet.getBoundingClientRect();
+    const box = id => {
+      let el = sheet.querySelector('#' + id);
+      if (el.classList.contains('jump')) el = el.querySelector('.node');
+      const r = el.getBoundingClientRect();
+      return { l: r.left - s.left, t: r.top - s.top, r: r.right - s.left, b: r.bottom - s.top,
+               cx: (r.left + r.right) / 2 - s.left, cy: (r.top + r.bottom) / 2 - s.top   };
+      };
+    const anchors = (a, b, opt) => {
+      const dx = b.cx - a.cx, dy = b.cy - a.cy;
+      const vertical = opt.dir !== 'h' && Math.abs(dy) > 8 && (Math.abs(dx) < (a.r - a.l) * 0.6 || Math.abs(dy) > Math.abs(dx) * 0.45);
+      if (vertical) {
+        const down = dy > 0;
+        const ax = Math.abs(dx) < (a.r - a.l) * 0.6 ? (a.cx + b.cx) / 2 : a.cx;
+        const bx = Math.abs(dx) < (b.r - b.l) * 0.6 ? ax : b.cx;
+        return [ax, down ? a.b : a.t, bx, down ? b.t : b.b];
+        }
+      const right = dx > 0;
+      return [right ? a.r : a.l, a.cy, right ? b.l : b.r, b.cy];
+      };
+
+    for (const [from, to, label, opt = {  }] of edges[sheet.dataset.page]) {
+      const [x1, y1, x2, y2] = anchors(box(from), box(to), opt);
+      const line = document.createElementNS(NS, 'line');
+      Object.entries({ x1, y1, x2, y2   }).forEach(([k, v]) => line.setAttribute(k, v));
+      line.setAttribute('marker-end', `url(#${marker  })`);
+      if (opt.both) line.setAttribute('marker-start', `url(#${marker  })`);
+      svg.appendChild(line);
+      if (label) {
+        const el = document.createElement('span');
+        el.className = 'label';
+        el.innerHTML = label;
+        const at = opt.at ?? 0.5;
+        const besideLine = Math.abs(x2 - x1) < 4 || opt.side === 'right';
+        el.style.left = x1 + (x2 - x1) * at + (besideLine ? 4 : 0) + 'px';
+        el.style.top = y1 + (y2 - y1) * at + 'px';
+        if (besideLine) {
+          el.style.transform = 'translate(0, -50%)';
+          el.style.textAlign = 'left';
+          el.style.background = 'none';
+          }
+        sheet.appendChild(el);
+        }
+      }
+    }
+
+  const drawAll = () => document.querySelectorAll('.sheet').forEach(drawSheet);
+  document.fonts.ready.then(drawAll);
+  window.addEventListener('resize', drawAll);
+  window.addEventListener('beforeprint', drawAll);
+</script>
+</body>
+</html>
