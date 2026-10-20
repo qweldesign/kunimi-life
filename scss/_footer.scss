@@ -4,42 +4,38 @@
 
 .footer {
   padding: space("x-large") 0;
-  @include background("primary");
-  text-align: center;
+  @include background("primary-deep");
 
   &__inner {
-    @include row(center);
-    gap: space("large");
-    @include container();
+    @include container("md");
   }
 
-  &__item {
-    display: inline-flex;
-    align-items: center;
-    @include small-text();
+  &__table {
+    @include table();
 
-    .icon {
-      margin-inline-end: space("x-small");
+    tr {
+      border-block-end: none;
+
+      &:first-child {
+        border-block-start: none;
+      }
     }
-  }
 
-  // サイト内のリンク (config.php の SITE_FOOTER_LINKS)
-  &__nav ul {
-    @include list-unstyled();
-    @include row(center);
-    gap: space("x-small") space("medium");
-    margin: 0 auto space("medium");
-    @include small-text();
-  }
+    td:nth-child(1) {
+      width: 7rem;
+      font-weight: 700;
 
-  &__copyright {
-    display: block;
-    margin-block-start: space("medium");
-  }
+      // スマホでは見出し行として幅指定を外し、内容との間を詰める
+      @media (max-width: breakpoint("sm") - 0.1px) {
+        width: auto;
+        padding-block-end: 0;
+      }
+    }
 
-  small {
-    font-size: 0.875rem;
-    line-height: 1.8;
-    letter-spacing: 0.02em;
+    td:nth-child(2) {
+      @media (max-width: breakpoint("sm") - 0.1px) {
+        padding-block-start: 0;
+      }
+    }
   }
 }

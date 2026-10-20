@@ -1,0 +1,169 @@
+/**
+ * Project - Contact
+ * 用件別の3つの窓口 (参加申込 / LINE / メールフォーム) をカードで並べる
+ */
+
+$contact-line-green: #06c755; // LINE ブランドカラー
+
+.contact {
+  // 窓口カードは lg、メールフォームは md の幅
+  @include container("lg");
+  padding-block: 1.5rem;
+
+  &__title {
+    text-align: center;
+    margin-block: space("large") space("small");
+  }
+
+  &__lead {
+    text-align: center;
+  }
+
+  // 3つの窓口
+  &__options {
+    display: grid;
+    gap: space("medium");
+    margin-block: space("medium") space("large");
+
+    @media (min-width: breakpoint("md")) {
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: stretch;
+    }
+  }
+
+  &__option {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: space("large") space("medium") space("medium");
+    overflow: hidden;
+    border-radius: space("medium");
+    background-color: #fff;
+    box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.15);
+
+    // 上端のカラーバー (角丸に沿って曲がらないよう擬似要素で描く)
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 0.375rem;
+      background-color: theme-color("primary-deep");
+    }
+
+    &.is-entry {
+      background-color: rgba(map-get($colors, "secondary"), 0.05);
+
+      &::before {
+        background-color: theme-color("secondary-deep");
+      }
+    }
+
+    &.is-line::before {
+      background-color: $contact-line-green;
+    }
+  }
+
+  &__optionLabel {
+    margin-block: 0;
+    color: theme-color("darker");
+    font-size: font-size("small");
+    font-weight: 700;
+    letter-spacing: 0.08em;
+
+    .is-entry & {
+      color: theme-color("secondary-deep");
+    }
+
+    .is-line & {
+      color: darken($contact-line-green, 15%);
+    }
+  }
+
+  &__optionTitle {
+    margin-block: space("x-small") space("small");
+    font-size: font-size("x-large");
+  }
+
+  &__optionText {
+    margin-block: 0 space("small");
+    line-height: 1.8;
+  }
+
+  &__optionNote {
+    margin-block: 0 space("small");
+    margin-inline: -0.75rem;
+    padding: space("small") space("small");
+    border-radius: space("small");
+    background-color: #fff;
+    color: theme-color("darker");
+    font-size: font-size("x-small");
+    line-height: 1.8;
+    text-align: justify;
+  }
+
+  // ボタンをカードの下端にそろえる
+  &__optionAction {
+    margin-block-start: auto;
+    padding-block-start: space();
+    text-align: center;
+  }
+
+  &__button {
+    display: block;
+    width: 100%;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    font-weight: 700;
+    font-size: max(1.125rem, 20px);
+    @include make-button();
+    @include make-button-color-normal("secondary-deep");
+  }
+
+  &__subButton {
+    display: block;
+    width: 100%;
+    height: 3.5rem;
+    line-height: calc(3.5rem - 4px);
+    font-weight: 700;
+    @include make-button();
+
+    &, &:active {
+      border: 2px solid theme-color("primary-deep");
+      background-color: #fff;
+      color: theme-color("primary-deep");
+    }
+
+    &:hover, &:focus {
+      background-color: theme-color("primary-deep");
+      color: #fff;
+    }
+  }
+
+  &__line {
+    display: inline-block;
+    width: 10.5rem;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  // メールフォーム
+  &__form {
+    max-width: container-width("md");
+    margin-inline: auto;
+    padding: space("medium");
+    border-radius: space("medium");
+    background-color: rgba(map-get($colors, "primary"), 0.05);
+
+    @media (min-width: breakpoint("sm")) {
+      padding: space("large");
+    }
+  }
+
+  &__formTitle {
+    margin-block: 0 space("medium");
+    text-align: center;
+  }
+}

@@ -34,7 +34,7 @@
   }
 
   &.is-grid {
-    @include row();
+    @include row(space-around, stretch);
 
     .postList__item {
       @include col(4, false, "md");
@@ -43,6 +43,7 @@
 
     .postItem {
       &__more {
+        display: block;
         text-align: center;
       }
     }
@@ -63,12 +64,12 @@
       @include row(center);
 
       &__image {
-        @include col(3, true);
+        @include col(3, ture);
         margin: 0;
       }
 
       &__content {
-        @include col(6, true);
+        @include col(6, ture);
       }
 
       &__more {

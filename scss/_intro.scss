@@ -1,0 +1,49 @@
+/**
+ * Project - Intro
+ */
+
+.intro {
+  @extend %__section;
+
+  &__title {
+    margin-block: space("large") space("medium");
+    text-align: center;
+  }
+
+  // 「素朴な疑問」を吹き出しで並べる
+  &__questions {
+    @include list-unstyled();
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: space("small");
+    margin-block: space("medium");
+
+    li {
+      position: relative;
+      margin: 0;
+      padding: space("x-small") space();
+      border-radius: space();
+      background-color: rgba(map-get($colors, "primary"), 0.15);
+      font-family: $font-family-display;
+      line-height: 1.5;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -0.5rem;
+        left: 1.25rem;
+        width: 0.75rem;
+        height: 0.5rem;
+        background-color: inherit;
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+      }
+
+      &:nth-child(even)::after {
+        left: auto;
+        right: 1.25rem;
+        clip-path: polygon(0 0, 100% 0, 100% 100%);
+      }
+    }
+  }
+}

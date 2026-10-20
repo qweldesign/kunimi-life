@@ -1,39 +1,250 @@
 <?php
 /**
- * トップページ
- * このエンジンの紹介と, ブログの最新記事を並べる
- * 一覧・個別記事は投稿タイプのディレクトリ (blog/, page/) が表示する
+ * トップページ (空き家マッチングツアーのランディングページ)
+ * 「この町の人」は content/people/ の記事からカードを並べる
+ * お問い合わせのメールフォームは, 項目を config.php の SITE_CONTACT_FIELDS で設定する (確認・完了画面は contact/)
+ * ※ ツアーのお申込みフォーム (/entry/) は別のリポジトリ (kunimi-life-form)
  */
-require_once __DIR__ . '/inc/templates/postList.php';
+require_once __DIR__ . '/inc/templates/people.php';
+require_once __DIR__ . '/inc/templates/contact.php';
 
-$blog = content_engine('blog', ['slug' => null, 'page' => 1]);
-$latest = $blog->get_posts(1, 3);
+$people = content_engine('people', ['slug' => null, 'page' => 1])->get_posts(1, PHP_INT_MAX);
 
-// パンくず (SITE_BREADCRUMB の最後の階層 = このサイトのトップが現在地)
-$parents = SITE_BREADCRUMB;
-$current = array_pop($parents);
-$breadcrumb = new ContentNavigation([
-  'parents'     => array_map(fn($crumb) => ['label' => $crumb['label'], 'path' => path($crumb['path'])], $parents),
-  'subdirLabel' => $current['label'] ?? SITE_NAME,
-  'subdirPath'  => path(),
-]);
+// 広告のコンバージョン計測 (トップページだけ)
+$conversion = <<<'HTML'
+    <!-- Event snippet for ページビュー conversion page
+    In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+    <script>
+    // コンバージョンを送信し、リンク本来の遷移はブラウザに任せる。
+    // event_callback 内で window.location を書き換えると、ユーザー操作なしの遷移とみなされ、
+    // Chrome の「戻る」ボタンが遷移元ページを飛ばしてしまう (広告ブロック時は遷移もしない)。
+    // transport_type: 'beacon' で、ページ遷移中でも送信が完了するようにする。
+    function gtag_report_conversion(url) {
+      gtag('event', 'conversion', {
+          'send_to': 'AW-429565814/IKzUCM3a9rQcEPbO6swB',
+          'value': 1.0,
+          'currency': 'JPY',
+          'transport_type': 'beacon'
+      });
+      return true;
+    }
+    </script>
+HTML;
 
 render_header([
-  'path' => '',
-  'type' => 'website',
+  'full_title'   => SITE_HOME_TITLE,
+  'path'         => '',
+  'type'         => 'website',
+  'image_width'  => 1200,
+  'image_height' => 630,
+  'image_alt'    => SITE_OGP_IMAGE_ALT,
+  'home'         => true,
+  'head'         => $conversion,
+  'header'       => function () {
+?>
+    <header class="header">
+      <h1 class="header__logo" data-site-brand>
+        <a href="<?= e(SITE_LOGO_LINK ?: path()) ?>">
+          <img src="<?= path(SITE_LOGO) ?>" alt="国見 海・人・暮らし相談室">
+        </a>
+      </h1>
+      <p class="header__lead">海辺に暮らそう</p>
+      <a class="header__cta" href="#banner">空き家ツアーのご案内</a>
+    </header>
+<?php
+  },
 ]);
 ?>
-    <main id="main" class="main">
-      <?= $breadcrumb->breadcrumb() ?>
-      <h1 class="main__title">Simple CMS | Created by <span> ― QWEL.DESIGN</span></h1>
-      <ul class="main__list">
-        <li class="main__listItem is-spec">Markdown を HTML に変換して表示</li>
-        <li class="main__listItem is-spec">パンくずリストやページネーションを自動生成</li>
-        <li class="main__listItem is-spec">データベース不要、ファイルベースで管理</li>
-        <li class="main__listItem is-spec">PHP のみで動作、軽量・シンプル</li>
-      </ul>
-      <h2 class="text-center my-large">SAMPLE BLOG</h2>
-<?php render_post_list($latest, 'blog'); ?>
-      <p class="text-center my-large"><a href="<?= e(type_url('blog')) ?>">記事の一覧へ</a></p>
+    <main class="main">
+      <section id="banner" class="banner">
+        <div class="banner__card">
+          <p class="banner__status">
+            <span class="banner__badge is-open">参加者募集中</span>
+            <span class="banner__badge is-closed">受付終了</span>
+          </p>
+          <h2 class="banner__title">
+            <span class="banner__eyebrow">福井県福井市 国見地区</span>
+            <span class="banner__name">第3回 空き家マッチングツアー</span>
+          </h2>
+          <p class="banner__date">
+            <time class="banner__dateMain" datetime="2027-04-17">4.17</time>
+            <span class="banner__dateSub">2027 / SAT<br>10:00 - 16:00</span>
+          </p>
+          <dl class="banner__list">
+            <div class="banner__listItem">
+              <dt>集合</dt>
+              <dd>国見公民館 10:00<br><small>福井駅 9:00 発のお迎えバスもあります</small></dd>
+            </div>
+            <div class="banner__listItem">
+              <dt>参加費</dt>
+              <dd>無料<small> (昼食代は実費)</small></dd>
+            </div>
+            <div class="banner__listItem">
+              <dt>お問い合わせ</dt>
+              <dd><a href="tel:0776882004">0776-88-2004</a><small> (国見公民館)</small></dd>
+            </div>
+          </dl>
+          <div class="banner__actions">
+            <a class="banner__button" href="./entry/" onclick="return gtag_report_conversion('./entry/');">参加を申し込む</a>
+            <a class="banner__link" href="#flow">ツアーの流れを見る</a>
+          </div>
+        </div>
+      </section>
+      <section id="intro" class="intro">
+        <h2 class="intro__title">当相談室について</h2>
+        <div class="intro__content">
+          <p>福井県福井市にある越前海岸沿いの町、国見地区。海と山に囲まれたこの小さな町は、過疎・少子化が進む地域ではありますが、近年は自然豊かな環境に魅力を感じ、少しずつ移り住む方も増えてきました。</p>
+          <ul class="intro__questions">
+            <li>空き家はありますか？</li>
+            <li>いくらくらいで買えますか？</li>
+            <li>コンビニやスーパーは近いですか？</li>
+            <li>学校はどんな感じですか？</li>
+            <li>舟って持てるんですか？</li>
+          </ul>
+          <p>そんな素朴な疑問にお答えするのが、この「国見 海・人・暮らし相談室」です。</p>
+          <p>“空き家” をきっかけに、人と人がゆるやかにつながる場をつくれたら。そんな思いから、空き家マッチングツアーを始めました。</p>
+          <p>空き家は、地域との関係の中にあります。だからまずは、町を歩き、海を見て、人と話して、私たちの暮らしの匂いを感じてもらうこと。そこから始めたいと考えています。</p>
+          <p>海辺の暮らしに興味のある方は、ぜひお気軽にお問い合わせください。</p>
+        </div>
+      </section>
+      <section id="flow" class="flow">
+        <h2 class="flow__title">空き家マッチングまでの流れ</h2>
+        <div class="flow__inner">
+          <div class="flow__item">
+            <h3 class="flow__itemTitle">準備</h3>
+            <figure class="flow__itemImage--1">
+              <img src="./assets/icon_01.png" alt="空き家の掘り起こし">
+            </figure>
+            <h4 class="flow__itemHeading">空き家の掘り起こし</h4>
+            <p class="flow__itemText">地域の皆さんの協力で空き家を探します。
+              <br>家の状態や家主さんの意思の確認をします。</p>
+            <figure class="flow__itemImage--2">
+              <img src="./assets/icon_02.png" alt="参加者募集">
+            </figure>
+            <h4 class="flow__itemHeading">参加者募集</h4>
+            <p class="flow__itemText">SNSで発信したり、チラシを作ってお知らせします。</p>
+          </div>
+          <div class="flow__item">
+            <h3 class="flow__itemTitle">空き家マッチングツアー</h3>
+            <figure class="flow__itemImage--3">
+              <img src="./assets/icon_03.png" alt="集合">
+            </figure>
+            <h4 class="flow__itemHeading">集合</h4>
+            <p class="flow__itemText">福井駅に集合。バスで移動します。</p>
+            <figure class="flow__itemImage--4">
+              <img src="./assets/icon_04.png" alt="みんなで空き家を見学">
+            </figure>
+            <h4 class="flow__itemHeading">みんなで空き家を見学</h4>
+            <p class="flow__itemText">おうちの中を見せていただいたり、地域のルールを説明してもらいます。
+              <br>ランチは地元の海辺のカフェで、地元のメンバーと一緒に食べます。</p>
+          </div>
+          <div class="flow__item">
+            <h3 class="flow__itemTitle">後日</h3>
+            <figure class="flow__itemImage--5">
+              <img src="./assets/icon_05.png" alt="後日">
+            </figure>
+            <p class="flow__itemText">気になる物件があれば個別にお話。
+              <br>所有者、希望者、不動産屋を交えて話し合いをします。</p>
+            <figure class="flow__itemImage--6">
+              <img src="./assets/icon_06.png" alt="マッチング!!">
+            </figure>
+            <p class="flow__itemText">マッチング!!</p>
+          </div>
+        </div>
+      </section>
+      <section id="people" class="people">
+        <h2 class="people__title">この町の人</h2>
+        <p class="people__text">国見には、いろいろな人が暮らしています。昔からこの町で暮らしている人、移住してきた人、仕事や地域活動を通じて関わっている人。ここでは、そんな「この町の人」に話を聞きながら、国見での暮らしや、この町の魅力をご紹介します。</p>
+        <ul class="personGrid is-scroll" data-people-list>
+<?php foreach ($people as $post) render_person_card($post, ['heading' => 'h3', 'links' => false]); ?>
+        </ul>
+        <div class="people__buttonWrapper">
+          <a class="people__button" href="<?= e(type_url('people')) ?>">この町の人をもっと見る</a>
+        </div>
+      </section>
+      <section id="faq" class="faq">
+        <h2 class="faq__title">よくある質問</h2>
+        <div class="faq__list">
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>まだ移住を決めていなくても参加できますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、もちろんです。ツアーを通じて、国見地区での暮らしや空き家の状況を知ることができますので、ぜひお気軽にご参加ください。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>子ども連れや家族での参加は可能ですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、もちろん可能です。お子様連れ・ご家族での参加を私たちは歓迎します。後日、国見地区内の保育園や学校の見学についてもご案内は可能ですので、別途お問い合わせください。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>ツアーではどんなことをしますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>国見地区の空き家を6～7軒見学し、生活・文化・行事について住民から話を聞きます。海産物の採取（漁業権）、各町内の祭り、自治会ルールについての説明があります。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>空き家はどんな状態ですか？価格はどれくらいですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>すぐに住める状態の物件から、ある程度リフォームが必要な状態の物件まで様々で、価格も様々です。ツアー当日は、物件の詳細や価格をお伝えすることができます。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>国見地区はどこにありますか？最寄りの駅はどこですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>国見地区は福井市の海沿い（西海岸）に所在します。最寄り駅は福井駅で、車で45分位の距離です。本数は少ないですが、福井駅からの路線バスもあります。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>生活に自家用車は必要ですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、路線バスの便は限られていますので、生活に自家用車は必要です。最寄りのコンビニやドラッグストアまでは車で約10分、スーパーや病院は30分圏内に数件あります。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>冬の暮らしや雪の状況はどんな感じですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>福井市の市街地は積雪がありますが、海岸線では雪が積もることは少ないです。これは日本海の暖流である対馬海流の影響であると言われています。一方、潮風で金属は錆びやすいため、洗車など車のお手入れは重要になります。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>地域行事や人付き合いはありますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、それが醍醐味であるとご理解いただけますと幸いです。特に集落ごとにある年に一度の大祭は、神輿（みこし）や神楽（かぐら）などを通じて住民同士の交流が深まります。行事を通じて、少しずつ地域との関係が生まれていきます。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>リモートワークや二拠点生活はできますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>はい、可能です。国見地区ではインターネットの光回線が2025年に開通し、ご利用頂けます（ただし現在も一部未開通で、その場合はケーブルテレビ回線を利用可能です）。地域行事やルールにご理解いただける方であれば、二拠点生活も可能です。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>空き家を無人のゲストハウスとして活用することはできますか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>基本的には「移住」を目的とする方のためのツアーですので、商用目的でのご参加はお断りさせていただいております。ご理解いただけますと幸いです。</span></p>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question"><span class="faq__mark">Q</span><span>「国見 海・人・暮らし相談室」はどのような組織ですか？</span></summary>
+            <p class="faq__answer"><span class="faq__mark is-answer">A</span><span>国見 海・人・暮らし相談室は、国見地区での暮らしや移住に関心を持つ方と、地域をつなぐための相談窓口です。行政機関ではなく、自治会や公民館を中心に有志メンバーで活動しています。空き家だけではなく、地域との関係や暮らしの雰囲気も含めて知っていただける場を目指しています。</span></p>
+          </details>
+        </div>
+      </section>
+      <section class="embed" data-safe-embed>
+        <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6636.840592572494!2d136.02399843776843!3d36.094672706721205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8c664ffffffff%3A0xb566330c5634157!2z56aP5LqV5biC5Zu96KaL5YWs5rCR6aSo!5e0!3m2!1sja!2sjp!4v1762513024586!5m2!1sja!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </section>
+      <section id="contact" class="contact">
+        <h2 class="contact__title">相談室へのお問い合わせ</h2>
+        <p class="contact__lead">ご用件にあわせて、いちばん気軽な方法をお選びください。</p>
+        <div class="contact__options">
+          <article class="contact__option is-entry">
+            <p class="contact__optionLabel">ツアーに参加したい</p>
+            <h3 class="contact__optionTitle">参加お申込み</h3>
+            <p class="contact__optionText">「空き家マッチングツアー」へのご参加は、お申込みフォームからどうぞ。</p>
+            <p class="contact__optionNote">定員を超えた場合は事務局にて選考させて頂きます。その際、会の趣旨として子育て世帯の方を優先させて頂きますので、あらかじめご了承ください。</p>
+            <div class="contact__optionAction">
+              <a class="contact__button" href="./entry/" onclick="return gtag_report_conversion('./entry/');">お申込みフォームへ</a>
+            </div>
+          </article>
+          <article class="contact__option is-line">
+            <p class="contact__optionLabel">気軽に質問したい</p>
+            <h3 class="contact__optionTitle">LINEで相談</h3>
+            <p class="contact__optionText">ご質問・ご意見は、LINE友だち追加のうえメッセージをお送りください。スタッフからご案内します。</p>
+            <div class="contact__optionAction">
+              <a class="contact__line" href="https://lin.ee/YsVWzb6W" onclick="return gtag_report_conversion('https://lin.ee/YsVWzb6W');"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="LINEで友だち追加" height="36" border="0"></a>
+            </div>
+          </article>
+          <article class="contact__option is-mail">
+            <p class="contact__optionLabel">電話・メールでやりとりしたい</p>
+            <h3 class="contact__optionTitle">メールフォーム</h3>
+            <p class="contact__optionText">電話・メールでのやりとりをご希望の方は、下のフォームからお気軽にお問い合わせください。</p>
+            <div class="contact__optionAction">
+              <a class="contact__subButton" href="#contact-form">フォームへ進む</a>
+            </div>
+          </article>
+        </div>
+<?php render_contact_form(); ?>
+      </section>
     </main>
 <?php render_footer(); ?>
