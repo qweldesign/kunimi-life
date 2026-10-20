@@ -1,0 +1,58 @@
+/**
+ * Layout - Page Header
+ * 下層ページ (/people/ など) の見出し帯
+ */
+
+.pageHeader {
+  position: relative;
+  padding: space("large") container-pad("lg") calc(6vw + #{space("medium")});
+  background-color: color-active("primary");
+  text-align: center;
+
+  // 下端の波 (「流れ」セクションと同じモチーフ)
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 6vw;
+    background: url("./assets/wave.png") no-repeat center top / cover, color-active("primary");
+    transform: rotate(180deg);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  &__eyebrow {
+    margin-block: 0;
+    color: theme-color("primary-deep");
+    font-size: font-size("small");
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  &__title {
+    margin-block: space("x-small") 0;
+    font-family: $font-family-display;
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  &__lead {
+    max-width: 36em;
+    margin: space() auto 0;
+    line-height: 1.8;
+
+    @media (max-width: breakpoint("sm") - 0.1px) {
+      text-align: left;
+    }
+  }
+}

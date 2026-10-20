@@ -1,37 +1,81 @@
 /**
  * Project - Post Index
+ * 個別記事サイドバーの「この町の人」一覧
  */
 
 .postIndex {
   @include list-unstyled();
-  @include row(flex-start, flex-start);
-  gap: space("medium");
-  
-  & > * {
-    flex: 0 1 calc(50% - #{space("medium")} / 2);
+  display: grid;
+  gap: space("small");
+  margin-block: 0 space("large");
+
+  @media (min-width: breakpoint("sm")) and (max-width: breakpoint("md") - 0.1px) {
+    grid-template-columns: 1fr 1fr;
   }
 
-  @media (min-width: breakpoint("md")) {
-    display: block;
+  &__heading {
+    margin-block: space("large") space();
+    font-size: font-size("large");
+
+    @media (min-width: breakpoint("md")) {
+      margin-block-start: space("medium");
+    }
   }
 
   &__item {
-    display: block;
-    margin: space("medium") 0;
+    margin: 0;
 
-    @media (min-width: breakpoint("lg")) {
-      margin-block-end: space("large");
+    a {
+      display: grid;
+      grid-template-columns: 6rem 1fr;
+      align-items: center;
+      gap: space();
+      padding: space("x-small");
+      border-radius: space();
+      color: inherit;
+      text-decoration: none;
+
+      &:hover, &:focus {
+        background-color: rgba(map-get($colors, "primary"), 0.1);
+        text-decoration: none;
+      }
+    }
+
+    &.is-current a {
+      background-color: rgba(map-get($colors, "primary"), 0.15);
     }
   }
 
   &__image {
-    margin-block-end: space();
+    display: block;
+    width: 5rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: space("small");
   }
 
-  &__date, &__title {
-    display: block;
-    margin-block-end: space("x-small");
+  &__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__vol {
+    color: theme-color("primary-deep");
+    font-family: $font-family-display;
     font-size: font-size("small");
-    line-height: 1;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  &__title {
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  &__summary {
+    color: theme-color("darker");
+    font-size: font-size("x-small");
+    line-height: 1.5;
   }
 }

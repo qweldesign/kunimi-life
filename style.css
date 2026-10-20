@@ -554,7 +554,6 @@ button, input, select, textarea {
   padding: 0;
 }
 .breadcrumb__item {
-  flex: 0 0 auto;
   margin: 0;
 }
 .breadcrumb__item:not(.is-current)::after {
@@ -1631,6 +1630,226 @@ button, input, select, textarea {
 }
 
 /**
+ * Layout - Page Header
+ * 下層ページ (/people/ など) の見出し帯
+ */
+.pageHeader {
+  position: relative;
+  padding: var(--spacing--large) var(--container-pad--lg) calc(6vw + var(--spacing--medium));
+  background-color: var(--color--primary--active);
+  text-align: center;
+}
+.pageHeader::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 6vw;
+  background: url("./assets/wave.png") no-repeat center top/cover, var(--color--primary--active);
+  transform: rotate(180deg);
+}
+.pageHeader a {
+  color: inherit;
+  text-decoration: none;
+}
+.pageHeader a:hover, .pageHeader a:focus {
+  text-decoration: underline;
+}
+.pageHeader__eyebrow {
+  margin-block: 0;
+  color: var(--color--primary-deep);
+  font-size: var(--font-size--small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.pageHeader__title {
+  margin-block: var(--spacing--x-small) 0;
+  font-family: "Klee One", cursive;
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.pageHeader__lead {
+  max-width: 36em;
+  margin: var(--spacing--small) auto 0;
+  line-height: 1.8;
+}
+@media (max-width: 599.9px) {
+  .pageHeader__lead {
+    text-align: left;
+  }
+}
+
+/**
+ * Project - People Article
+ * 「この町の人」個別記事 (インタビュー)
+ */
+.peopleArticle > p:first-child {
+  margin-block: var(--spacing--medium) 0;
+}
+.peopleArticle > p:first-child img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3/2;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: var(--spacing--medium);
+}
+.peopleArticle h2 {
+  margin-block: var(--spacing--medium) var(--spacing--small);
+  color: var(--color--primary-deep);
+  font-size: clamp(1.2rem, 4.8vw, 1.8rem);
+  line-height: 1.5;
+}
+.peopleArticle h2 + p {
+  margin-block: 0 var(--spacing--large);
+  padding: var(--spacing--small) var(--spacing--medium);
+  border-radius: var(--spacing--small);
+  background-color: rgba(80.58, 169.898, 225.42, 0.1);
+  line-height: 1.8;
+}
+.peopleArticle p {
+  line-height: 2;
+}
+.peopleArticle h3 {
+  position: relative;
+  margin-block: var(--spacing--large) var(--spacing--small);
+  padding-inline-start: 2.75rem;
+  font-size: var(--font-size--large);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.peopleArticle h3::before {
+  content: "Q";
+  position: absolute;
+  top: -0.125rem;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  border-radius: 50%;
+  background-color: var(--color--primary-deep);
+  color: #fff;
+  font-family: "Klee One", cursive;
+  font-size: var(--font-size--medium);
+  line-height: 1;
+}
+.peopleArticle > p a {
+  color: var(--color--primary-deep);
+  text-decoration: underline;
+}
+.peopleArticle__links {
+  margin-block: var(--spacing--large) 0;
+  padding: var(--spacing--medium);
+  border-radius: var(--spacing--small);
+  border: 1px solid var(--color--lighter);
+}
+.peopleArticle__links h3.peopleArticle__linksTitle {
+  margin-block: 0 var(--spacing--small);
+  padding: 0;
+  font-size: var(--font-size--normal);
+  font-weight: 700;
+}
+.peopleArticle__links h3.peopleArticle__linksTitle::before {
+  content: none;
+}
+.peopleArticle__pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing--small);
+  margin-block: var(--spacing--large) 0;
+}
+.peopleArticle__pagerItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: var(--spacing--small) var(--spacing--medium);
+  border-radius: var(--spacing--small);
+  background-color: rgba(80.58, 169.898, 225.42, 0.1);
+  line-height: 1.5;
+}
+.peopleArticle__pagerItem, .peopleArticle__pagerItem:hover, .peopleArticle__pagerItem:focus {
+  color: var(--color--darkest);
+  text-decoration: none;
+}
+.peopleArticle__pagerItem:hover, .peopleArticle__pagerItem:focus {
+  background-color: rgba(80.58, 169.898, 225.42, 0.2);
+}
+.peopleArticle__pagerItem.is-next {
+  text-align: right;
+}
+.peopleArticle__pagerItem.is-empty {
+  background: none;
+}
+.peopleArticle__pagerLabel {
+  color: var(--color--primary-deep);
+  font-size: var(--font-size--small);
+  font-weight: 700;
+}
+.is-prev .peopleArticle__pagerLabel::before {
+  content: "← ";
+}
+.is-next .peopleArticle__pagerLabel::after {
+  content: " →";
+}
+.peopleArticle__pagerName {
+  font-size: var(--font-size--small);
+}
+.peopleArticle__cta {
+  margin-block: var(--spacing--large) 0;
+  padding: var(--spacing--medium);
+  border-radius: var(--spacing--medium);
+  background-color: var(--color--primary--active);
+  text-align: center;
+}
+.peopleArticle__ctaLead {
+  margin-block: 0 var(--spacing--small);
+  font-family: "Klee One", cursive;
+  font-size: var(--font-size--medium);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.peopleArticle__ctaButton {
+  display: inline-block;
+  width: min(100%, 16.5rem);
+  height: 3.5rem;
+  line-height: 3.5rem;
+  font-size: max(1.125rem, 20px);
+  font-weight: 700;
+}
+.peopleArticle__ctaButton, .peopleArticle__ctaButton:active {
+  border: 0;
+  border-radius: var(--spacing--x-small);
+  text-align: center;
+  text-decoration: none;
+  word-break: break-word;
+  outline: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.peopleArticle__ctaButton:hover, .peopleArticle__ctaButton:focus {
+  text-decoration: none;
+  transform: scale(96%);
+}
+.peopleArticle__ctaButton, .peopleArticle__ctaButton:active {
+  background-color: var(--color--secondary-deep);
+  color: var(--color--lightest);
+}
+.peopleArticle__ctaButton:hover, .peopleArticle__ctaButton:focus {
+  background-color: var(--color--secondary-deep--active);
+  color: var(--color--darkest);
+}
+.peopleArticle__ctaButton, .peopleArticle__ctaButton:hover, .peopleArticle__ctaButton:focus {
+  text-decoration: none;
+}
+
+/**
  * Project - Post Item
  */
 .postItem__content {
@@ -1708,41 +1927,77 @@ button, input, select, textarea {
 
 /**
  * Project - Post Index
+ * 個別記事サイドバーの「この町の人」一覧
  */
 .postIndex {
   list-style: none;
   padding-inline-start: 0;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: var(--spacing--medium);
+  display: grid;
+  gap: var(--spacing--small);
+  margin-block: 0 var(--spacing--large);
 }
-.postIndex > * {
-  flex: 0 1 calc(50% - var(--spacing--medium) / 2);
+@media (min-width: 600px) and (max-width: 799.9px) {
+  .postIndex {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.postIndex__heading {
+  margin-block: var(--spacing--large) var(--spacing--small);
+  font-size: var(--font-size--large);
 }
 @media (min-width: 800px) {
-  .postIndex {
-    display: block;
+  .postIndex__heading {
+    margin-block-start: var(--spacing--medium);
   }
 }
 .postIndex__item {
-  display: block;
-  margin: var(--spacing--medium) 0;
+  margin: 0;
 }
-@media (min-width: 1200px) {
-  .postIndex__item {
-    margin-block-end: var(--spacing--large);
-  }
+.postIndex__item a {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  align-items: center;
+  gap: var(--spacing--small);
+  padding: var(--spacing--x-small);
+  border-radius: var(--spacing--small);
+  color: inherit;
+  text-decoration: none;
+}
+.postIndex__item a:hover, .postIndex__item a:focus {
+  background-color: rgba(80.58, 169.898, 225.42, 0.1);
+  text-decoration: none;
+}
+.postIndex__item.is-current a {
+  background-color: rgba(80.58, 169.898, 225.42, 0.15);
 }
 .postIndex__image {
-  margin-block-end: var(--spacing--small);
-}
-.postIndex__date, .postIndex__title {
   display: block;
-  margin-block-end: var(--spacing--x-small);
+  width: 5rem;
+  aspect-ratio: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: var(--spacing--small);
+}
+.postIndex__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.postIndex__vol {
+  color: var(--color--primary-deep);
+  font-family: "Klee One", cursive;
   font-size: var(--font-size--small);
-  line-height: 1;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.postIndex__title {
+  font-weight: 700;
+  line-height: 1.5;
+}
+.postIndex__summary {
+  color: var(--color--darker);
+  font-size: var(--font-size--x-small);
+  line-height: 1.5;
 }
 
 /**
