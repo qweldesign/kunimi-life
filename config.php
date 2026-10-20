@@ -9,56 +9,60 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // サイト名 (<title> の「記事タイトル | サイト名」と og:site_name に使う)
-const SITE_NAME = 'SIMPLE CMS | QWEL in Action';
+const SITE_NAME = '国見 海・人・暮らし相談室';
+// トップページの <title>
+const SITE_HOME_TITLE = '国見 海・人・暮らし相談室 | 福井の海沿いで暮らしを体験する空き家マッチングツアー';
 // サイトの URL (末尾のスラッシュなし. OGP, canonical の絶対URLに使う)
-const SITE_URL = 'https://qwel.design';
+const SITE_URL = 'https://kunimi.life';
 // サイトのルートのパス (ドメイン直下なら '/'. 例: /tools/simple-cms/ に置く場合)
-const SITE_ROOT = '/tools/simple-cms/';
+const SITE_ROOT = '/';
 // サイトの説明 (description の既定値)
-const SITE_DESCRIPTION = 'Markdown ファイルを記事として読み込み、HTML に変換して表示するシンプルな PHP エンジンのデモです。';
-// OGP 画像の既定値 (サイトのルートからのパス)
-const SITE_OGP_IMAGE = 'content/images/about/fig_story.jpg';
+const SITE_DESCRIPTION = '福井市・越前海岸沿いの町、国見地区。空き家を見学しながら、海辺の暮らしや地域の人とふれあう「空き家マッチングツアー」を開催しています。';
+// OGP 画像の既定値 (サイトのルートからのパス. 1200 × 630. 個別に画像を指定したページ・記事はそちらを使う)
+const SITE_OGP_IMAGE = 'assets/ogp.jpg';
+// OGP 画像の既定値の代替テキスト (トップページに使う)
+const SITE_OGP_IMAGE_ALT = '国見 海・人・暮らし相談室 ― 海辺に暮らそう 空き家マッチングツアー';
 // 記事一覧のサムネイルの既定値 (記事にアイキャッチがない場合)
-const SITE_THUMBNAIL_IMAGE = 'content/images/about/fig_story.jpg';
+const SITE_THUMBNAIL_IMAGE = 'assets/ogp.jpg';
 // Google Fonts などの読み込み (不要なら空文字)
-const SITE_FONTS_URL = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Noto+Sans:wght@100..900&family=Noto+Serif:wght@100..900&display=swap';
+const SITE_FONTS_URL = 'https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap';
 // 言語
 const SITE_LANG = 'ja';
+// Google アナリティクスの測定 ID (不要なら空文字)
+const SITE_GA_ID = 'G-V1K5PYTB00';
 
-// ヘッダーのロゴ (画像のパスとリンク先. 画像がなければ SITE_NAME を文字で出す)
-const SITE_LOGO = 'assets/logo.svg';
-const SITE_LOGO_LINK = 'https://qwel.design/';
+// ヘッダーのロゴ (画像のパスとリンク先)
+const SITE_LOGO = 'assets/logo_kunimi-life.png';
+const SITE_LOGO_LINK = '';
 
-// ヘッダーのナビ (サイトのルートからのパス => 表示名. 不要なら空の配列)
+// ヘッダーのナビ (トップページのセクションの id => 表示名. トップでは #xxx, ほかのページでは /#xxx にする)
+// モバイルではドロワーメニューに同じ項目を出す
 const SITE_NAV = [
-  'blog/'       => 'Blog',
-  'page/about/' => 'About',
+  'banner'  => '空き家ツアー開催概要',
+  'intro'   => '当相談室について',
+  'flow'    => '空き家マッチングまでの流れ',
+  'people'  => 'この町の人',
+  'faq'     => 'よくある質問',
+  'contact' => '相談室へのお問い合わせ',
 ];
 
 // パンくずの先頭の階層 (path はサイトのルートからのパス, または http から始まる URL)
 const SITE_BREADCRUMB = [
-  ['label' => 'QWEL in Action: Creative Tools', 'path' => 'https://qwel.design/tools/'],
-  ['label' => 'Simple CMS', 'path' => ''],
+  ['label' => '国見 海・人・暮らし相談室', 'path' => ''],
 ];
 
-// フッターのリンク (サイトのルートからのパス => 表示名)
-const SITE_FOOTER_LINKS = [
-  ''            => 'Top',
-  'blog/'       => 'Blog',
-  'page/'       => 'Pages',
-  'contact/'    => 'Contact',
-  'sitemap.xml' => 'Sitemap',
-];
-
-// フッターの SNS など (url は http から始まる URL, またはサイトのルートからのパス. icon は icons.svg の symbol の id)
+// ナビの SNS など (url は http から始まる URL, またはサイトのルートからのパス. icon は icons.svg の symbol の id)
 const SITE_SNS = [
-  ['label' => 'GitHub', 'url' => 'https://github.com/qweldesign', 'icon' => 'si-github'],
-  ['label' => 'Contact Me', 'url' => 'contact/', 'icon' => 'si-mail'],
+  ['label' => 'Instagram', 'url' => 'https://instagram.com/kunimi.life', 'icon' => 'si-instagram'],
 ];
 
-// 著作権表示 (開始年 - 今年 運営者)
-const SITE_OWNER = 'QWEL.DESIGN';
-const SITE_START_YEAR = 2019;
+// フッターの主催・協力など (見出し => 内容)
+const SITE_CREDITS = [
+  '主催'     => '国見 海・人・暮らし相談室 (国見移住促進委員会)',
+  '協力'     => '国見地区自治会連合会、国見公民館、越前海岸盛り上げ隊',
+  '特別協力' => 'ふるさと福井サポートセンター',
+  '後援'     => '福井市',
+];
 
 /**
  * 投稿タイプ
@@ -70,24 +74,19 @@ const SITE_START_YEAR = 2019;
  * count: 一覧の1ページあたりの件数 (null で全件)
  * show_date: 日付を表示するか
  * lead: 一覧の見出しの下の文
+ * description: 一覧の description (規定で lead)
  */
 const SITE_POST_TYPES = [
-  'blog' => [
-    'label'     => 'Blog',
-    'path'      => 'blog/',
-    'dir'       => 'content/blog',
-    'count'     => 10,
-    'show_date' => true,
-    'lead'      => 'Markdown で書いた記事のサンプルです。',
-  ],
-  // 固定ページ (日付を出さず, 一覧は全件を1ページに出す)
-  'page' => [
-    'label'     => 'Pages',
-    'path'      => 'page/',
-    'dir'       => 'content/page',
-    'count'     => null,
-    'show_date' => false,
-    'lead'      => '',
+  // この町の人 (インタビュー. slug が連番 vol.01, 02, … を兼ねる. 並びは slug 順)
+  // frontmatter: slug, catch, name, summary, img, website, note, instagram
+  'people' => [
+    'label'       => 'この町の人',
+    'path'        => 'people/',
+    'dir'         => 'content/people',
+    'count'       => 10,
+    'show_date'   => false,
+    'lead'        => '国見には、いろいろな人が暮らしています。ここでは、そんな「この町の人」に話を聞きながら、国見での暮らしや、この町の魅力をご紹介します。',
+    'description' => '国見地区で暮らす人、移住してきた人、地域に関わる人。「この町の人」に話を聞きながら、国見での暮らしや町の魅力を紹介します。',
   ],
 ];
 
@@ -95,32 +94,33 @@ const SITE_POST_TYPES = [
 const SITE_PRETTY_URLS = true;
 
 // 投稿タイプ以外のページ (サイトのルートからのパス. サイトマップに載せる)
-const SITE_PAGES = [
-  'contact/',
-];
+const SITE_PAGES = [];
 
 /**
- * お問い合わせフォーム (/contact/)
+ * お問い合わせフォーム (入力: トップページの #contact-form, 確認・完了: /contact/confirm/, /contact/thanks/)
  * SMTP のパスワードなど秘密の値は inc/.env に書く (inc/.env.example を参照)
+ * ※ ツアーのお申込みフォーム (/entry/) は別のリポジトリ (kunimi-life-form)
  *
  * path: フォームの URL (サイトのルートからのパス. 同じ名前のディレクトリに index.php, confirm/, thanks/ を置く. 送信は api/send.php)
+ * form_url: 入力画面を別の場所 (トップページのセクションなど) に置く場合の URL (サイトのルートからのパス)
  * title: ページのタイトル
- * lead: フォームの上の説明文 (HTML 可)
+ * form_title: 入力画面の見出し
  * interval: 同じ人 (セッション) が続けて送信できるまでの秒数 (0 で制限しない)
  * reply_footer: 自動返信メールの末尾に付ける文
  * env: .env の場所 (公開ディレクトリの外に置く場合は, このパスを書き換える)
  */
 const SITE_CONTACT = [
   'path'         => 'contact/',
+  'form_url'     => '#contact-form',
   'title'        => 'お問い合わせ',
-  'lead'         => 'このページは、<strong>QWEL.DESIGN</strong> へのお問い合わせフォームです。<br>お気軽にお問い合わせください。',
+  'form_title'   => 'メールフォーム',
   'interval'     => 60,
   'reply_footer' => "
 後日ご返信致しますので今しばらくお待ちください。
 
 ────────────────────────────────────────────────
-福井の物作りのためのweb制作&プログラミング教室
-QWEL.DESIGN (クヴェル・デザイン)
+国見 海・人・暮らし相談室
+お問い合わせ: 0776-88-2004 (国見公民館)
 ────────────────────────────────────────────────
 ",
   'env'          => __DIR__ . '/inc/.env',
@@ -133,11 +133,11 @@ QWEL.DESIGN (クヴェル・デザイン)
  *       (email の最初の項目を, 自動返信の宛先と管理者宛メールの返信先にする)
  * required: 必須か
  * options: select, radio, checkbox の選択肢
- * placeholder, autocomplete: 入力欄の属性 (任意)
+ * placeholder, autocomplete, rows: 入力欄の属性 (任意)
  */
 const SITE_CONTACT_FIELDS = [
   'name' => [
-    'label'        => 'お名前',
+    'label'        => '代表者様氏名',
     'type'         => 'text',
     'required'     => true,
     'autocomplete' => 'name',
@@ -148,14 +148,19 @@ const SITE_CONTACT_FIELDS = [
     'required'     => true,
     'autocomplete' => 'email',
   ],
+  'tel' => [
+    'label'        => '電話番号',
+    'type'         => 'tel',
+    'autocomplete' => 'tel',
+  ],
   'subject' => [
     'label'   => '件名',
     'type'    => 'select',
-    'options' => ['ご質問・お問い合わせ', 'その他'],
+    'options' => ['ご質問・ご意見', 'その他'],
   ],
   'message' => [
-    'label'    => 'メッセージ本文',
-    'type'     => 'textarea',
-    'required' => true,
+    'label' => '備考',
+    'type'  => 'textarea',
+    'rows'  => 6,
   ],
 ];

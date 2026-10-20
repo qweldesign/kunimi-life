@@ -28,7 +28,6 @@
 
 // Layout
 @import "header";
-@import "main";
 @import "footer";
 
 // Components
@@ -39,15 +38,22 @@
 @import "pagination";
 @import "backToTop";
 @import "drawerMenu";
-@import "fader";
-@import "modal";
+//@import "fader";
+//@import "modal";
 @import "slider";
+@import "personCard";
 
 // Projects
+@import "main";
+@import "banner";
+@import "intro";
+@import "flow";
+@import "faq";
+@import "people";
 @import "postItem";
-@import "postList";
 @import "postIndex";
-@import "postNav";
+@import "postList";
+@import "contact";
 @import "form";
 
 // Utility

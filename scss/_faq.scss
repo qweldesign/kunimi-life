@@ -1,0 +1,81 @@
+/**
+ * Project - Faq
+ * details / summary によるアコーディオン
+ */
+
+.faq {
+  @extend %__section;
+
+  &__title {
+    margin-block-end: space("medium");
+    text-align: center;
+  }
+
+  &__item {
+    border-block-end: 1px solid theme-color("lighter");
+
+    &:first-child {
+      border-block-start: 1px solid theme-color("lighter");
+    }
+
+    &[open] .faq__question::after {
+      transform: rotate(-135deg);
+    }
+  }
+
+  &__question {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: space();
+    padding: space() space("large") space() 0;
+    font-weight: 700;
+    line-height: 1.5;
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    // 開閉アイコン
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: space();
+      width: 0.625rem;
+      height: 0.625rem;
+      margin-block-start: -0.375rem;
+      border-block-end: 2px solid theme-color("primary");
+      border-inline-end: 2px solid theme-color("primary");
+      transform: rotate(45deg);
+      transition: transform 0.35s ease;
+    }
+
+    &:hover, &:focus-visible {
+      color: theme-color("primary");
+    }
+  }
+
+  &__mark {
+    flex-shrink: 0;
+    font-family: $font-family-display;
+    font-size: font-size("x-large");
+    line-height: 1;
+    color: theme-color("primary");
+
+    &.is-answer {
+      color: theme-color("secondary");
+    }
+  }
+
+  &__answer {
+    display: flex;
+    align-items: baseline;
+    gap: space();
+    margin: 0;
+    padding: 0 space("medium") space("medium") 0;
+    text-align: justify;
+  }
+}

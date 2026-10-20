@@ -87,9 +87,17 @@ $spacing-values:   (
   padding-inline: container-pad($key);
 }
 
+// $max-width は内寸 (ガターを含まない)。左右のガターを足した幅を上限とする
 @mixin container($key: "lg", $max-width: container-width($key)) {
-  width: min(100%, #{$max-width});
+  width: min(100%, calc(#{$max-width} + 2 * #{container-pad($key)}));
   @include make-container($key);
+}
+
+// padding を使えない要素 (絶対配置の子を持つ地図など) 用
+// 外側の余白でガター分をあけ、内寸をコンテナにそろえる
+@mixin container-content($key: "lg", $max-width: container-width($key)) {
+  width: min(calc(100% - 2 * #{container-pad($key)}), #{$max-width});
+  margin-inline: auto;
 }
 
 // 行生成

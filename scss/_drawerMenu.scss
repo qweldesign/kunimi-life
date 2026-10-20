@@ -94,7 +94,7 @@ $drawer-site-brand-width:    6rem !default;
     height: 100%;
     margin: 0;
     padding-inline-start: 0;
-    text-align: left;
+    text-align: center;
     opacity: 1;
     
     &.is-hidden {
@@ -115,9 +115,9 @@ $drawer-site-brand-width:    6rem !default;
 
   &__socialMenu {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    padding-inline-start: 20%;
+    //padding-inline-start: 20%;
   }
 
   &__item {
@@ -128,7 +128,7 @@ $drawer-site-brand-width:    6rem !default;
     a {
       display: block;
       padding-block: space("x-small");
-      padding-inline-start: 20%;
+      //padding-inline-start: 20%;
       color: $drawer-color;
       fill: $drawer-color;
       text-decoration: none;
@@ -145,12 +145,13 @@ $drawer-site-brand-width:    6rem !default;
       padding-block: 1rem;
       font-size: $h1-font-size;
 
-      a {
-        padding: 0 0 0 20%;
-      }
+      //a {
+      //  padding: 0 0 0 20%;
+      //}
 
       img {
         width: $drawer-site-brand-width;
+        filter: $drawer-site-brand-filter;
       }
     }
 

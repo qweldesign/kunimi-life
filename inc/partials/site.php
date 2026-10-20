@@ -13,21 +13,26 @@ require_once dirname(__DIR__, 2) . '/config.php';
 require_once dirname(__DIR__) . '/helpers.php';
 
 /**
- * <head> ~ ヘッダーまで出力
+ * <head> ~ ヘッダー・ナビまで出力
  * $page:
  *   title: ページのタイトル (<title> は「title | サイト名」. 省略するとサイト名だけ)
  *   full_title: <title> をそのまま指定する (トップページなど)
  *   description: description (規定で SITE_DESCRIPTION)
  *   path: このページのサイトのルートからのパス (canonical, og:url に使う)
  *   image: OGP 画像 (規定で SITE_OGP_IMAGE)
+ *   image_alt, image_width, image_height: OGP 画像の代替テキストと大きさ
  *   type: og:type (規定で article)
  *   noindex: 検索結果に出さない (404 など)
+ *   home: トップページか (ナビをページ内リンクにする)
+ *   head: </head> の前に足す HTML (トップページのコンバージョン計測など)
+ *   header: ナビの前に出すヘッダー (関数. トップページと下層ページで中身が違う)
  */
 function render_header(array $page = []): void {
   $title = $page['full_title'] ?? (!empty($page['title']) ? $page['title'] . ' | ' . SITE_NAME : SITE_NAME);
   $description = ($page['description'] ?? '') ?: SITE_DESCRIPTION;
   $url = absolute_url($page['path'] ?? '');
   $image = absolute_url(($page['image'] ?? '') ?: SITE_OGP_IMAGE);
+  $home = !empty($page['home']);
   ?>
 <!DOCTYPE html>
 <html lang="<?= e(SITE_LANG) ?>">
@@ -53,6 +58,14 @@ function render_header(array $page = []): void {
     <meta property="og:description" content="<?= e($description) ?>">
     <meta property="og:url" content="<?= e($url) ?>">
     <meta property="og:image" content="<?= e($image) ?>">
+<?php if (!empty($page['image_width'])) { ?>
+    <meta property="og:image:width" content="<?= e((string)$page['image_width']) ?>">
+    <meta property="og:image:height" content="<?= e((string)$page['image_height']) ?>">
+<?php } ?>
+<?php if (!empty($page['image_alt'])) { ?>
+    <meta property="og:image:alt" content="<?= e($page['image_alt']) ?>">
+<?php } ?>
+    <meta property="og:locale" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
 <?php if (SITE_FONTS_URL) { ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,26 +74,66 @@ function render_header(array $page = []): void {
 <?php } ?>
     <link rel="stylesheet" href="<?= path('style.css') ?>">
     <link rel="icon" href="<?= path('favicon.ico') ?>">
+<?php if (SITE_GA_ID) { ?>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= e(SITE_GA_ID) ?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '<?= e(SITE_GA_ID) ?>');
+    </script>
+<?php } ?>
   </head>
   <body>
-    <header class="header">
-      <p id="logo" class="header__logo">
-        <a href="<?= e(SITE_LOGO_LINK ?: path()) ?>">
-<?php if (SITE_LOGO) { ?>
-          <img src="<?= path(SITE_LOGO) ?>" alt="<?= e(SITE_NAME) ?>">
-<?php } else { ?>
-          <?= e(SITE_NAME) ?>
-<?php } ?>
-        </a>
-      </p>
+<?php if (isset($page['header'])) $page['header'](); ?>
+    <nav class="gNav hidden">
 <?php if (SITE_NAV) { ?>
-      <nav class="header__nav" aria-label="グローバルナビゲーション">
-        <ul>
-<?php foreach (SITE_NAV as $navPath => $label) { ?>
-          <li><a href="<?= e(path($navPath)) ?>"><?= e($label) ?></a></li>
+      <ul class="gNav__primaryMenu visible-md" data-primary-menu>
+<?php foreach (SITE_NAV as $id => $label) { ?>
+        <li class="gNav__menuItem">
+          <a href="<?= $home ? '#' . e($id) : path() . '#' . e($id) ?>"><?= e($label) ?></a>
+        </li>
 <?php } ?>
-        </ul>
-      </nav>
+      </ul>
+<?php } ?>
+<?php if (SITE_SNS) { ?>
+      <ul class="gNav__socialMenu visible-md" data-social-menu>
+<?php foreach (SITE_SNS as $sns) { ?>
+<?php $external = (bool)preg_match('#^https?://#', $sns['url']); ?>
+        <li class="gNav__menuItem is-social">
+          <a href="<?= e(path($sns['url'])) ?>" aria-label="<?= e($sns['label']) ?>"<?= $external ? ' target="_blank" rel="noopener"' : '' ?>>
+            <svg class="icon is-<?= e($sns['icon'] ?? '') ?> is-md" width="36" height="36" aria-hidden="true">
+              <use href="<?= path('icons.svg') ?>#<?= e($sns['icon'] ?? '') ?>"></use>
+            </svg>
+          </a>
+        </li>
+<?php } ?>
+      </ul>
+<?php } ?>
+    </nav>
+<?php
+}
+
+// 下層ページのヘッダー (.pageHeader)
+// $title: 見出し, $titleUrl: 見出しをリンクにする場合の URL (個別記事で一覧へ戻るリンクにする), $lead: 見出しの下の文
+function render_page_header(string $title, ?string $titleUrl = null, string $lead = ''): void {
+  ?>
+    <header class="pageHeader">
+      <div class="hidden" data-site-brand>
+        <a href="<?= e(SITE_LOGO_LINK ?: path()) ?>">
+          <img src="<?= path(SITE_LOGO) ?>" alt="<?= e(SITE_NAME) ?>">
+        </a>
+      </div>
+      <p class="pageHeader__eyebrow"><a href="<?= e(path()) ?>"><?= e(SITE_NAME) ?></a></p>
+<?php if ($titleUrl !== null) { ?>
+      <p class="pageHeader__title"><a href="<?= e($titleUrl) ?>"><?= e($title) ?></a></p>
+<?php } else { ?>
+      <h1 class="pageHeader__title"><?= e($title) ?></h1>
+<?php } ?>
+<?php if ($lead !== '') { ?>
+      <p class="pageHeader__lead"><?= e($lead) ?></p>
 <?php } ?>
     </header>
 <?php
@@ -90,31 +143,18 @@ function render_header(array $page = []): void {
 function render_footer(): void {
   ?>
     <footer id="footer" class="footer">
-<?php if (SITE_FOOTER_LINKS) { ?>
-      <nav class="footer__nav" aria-label="サイト内のページ">
-        <ul>
-<?php foreach (SITE_FOOTER_LINKS as $linkPath => $label) { ?>
-          <li><a href="<?= e(path($linkPath)) ?>"><?= e($label) ?></a></li>
-<?php } ?>
-        </ul>
-      </nav>
-<?php } ?>
-<?php if (SITE_SNS) { ?>
       <div class="footer__inner">
-<?php foreach (SITE_SNS as $sns) { ?>
-<?php $external = (bool)preg_match('#^https?://#', $sns['url']); ?>
-        <a class="footer__item" href="<?= e(path($sns['url'])) ?>"<?= $external ? ' target="_blank" rel="noopener"' : '' ?>>
-<?php if (!empty($sns['icon'])) { ?>
-          <svg class="icon is-md" width="36" height="36" aria-hidden="true">
-            <use href="<?= path('assets/icons.svg') ?>#<?= e($sns['icon']) ?>"></use>
-          </svg>
+<?php if (SITE_CREDITS) { ?>
+        <table class="footer__table">
+<?php foreach (SITE_CREDITS as $label => $value) { ?>
+          <tr>
+            <td><?= e($label) ?>:</td>
+            <td><?= e($value) ?></td>
+          </tr>
 <?php } ?>
-          <span><?= e($sns['label']) ?></span>
-        </a>
+        </table>
 <?php } ?>
       </div>
-<?php } ?>
-      <small class="footer__copyright">&copy; <?= e(copyright_years()) ?> <?= e(SITE_OWNER) ?></small>
     </footer>
     <script src="<?= path('init.js') ?>" type="module"></script>
   </body>

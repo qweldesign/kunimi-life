@@ -1,9 +1,10 @@
 /**
- * Form
+ * Component - Form
  */
 
 .form {
   @include form();
+  margin-block: space("large");
   text-align: center;
 
   table {
@@ -15,10 +16,33 @@
       width: 12rem;
     }
 
+    th, td {
+      vertical-align: middle;
+    }
+
+    // スマホ: ラベルと入力欄を詰めて1組に見せる
+    @media (max-width: breakpoint("sm") - 0.1px) {
+      th {
+        width: auto;
+        padding-block-end: 0;
+      }
+
+      td {
+        padding-block-start: space("x-small");
+      }
+    }
+
     input, select, textarea {
-      border: none;
+      border: 1px solid theme-color("light");
       border-radius: space("x-small");
-      background-color: rgba(map-get($colors, $theme-accent), 0.05);
+      background-color: #fff;
+      font-size: max(1rem, 16px); // iOS の自動ズーム防止
+
+      &:focus {
+        border-color: theme-color("primary");
+        outline: 2px solid rgba(map-get($colors, "primary"), 0.5);
+        outline-offset: 0;
+      }
     }
   }
 
@@ -28,8 +52,23 @@
     height: 3.5rem;
     line-height: 3.5rem;
     margin-inline: space();
+    font-size: max(1.125rem, 20px);
+    font-weight: 700;
     @include make-button();
-    @include make-button-color-normal("primary");
+    @include make-button-color-normal("secondary");
+  }
+
+  label span.is-required {
+    display: inline-block;
+    margin-inline-start: space("x-small");
+    padding: 0 space("x-small");
+    border-radius: space("x-small");
+    background-color: theme-color("secondary");
+    color: #fff;
+    font-size: font-size("x-small");
+    font-weight: 700;
+    line-height: 1.6;
+    vertical-align: middle;
   }
 }
 
@@ -58,29 +97,14 @@
   overflow: hidden;
 }
 
-// 確認画面
-.confirm {
+// お問い合わせの確認画面・完了画面
+.confirm, .thanks {
+  width: min(100%, 48rem);
+  margin: space("large") auto;
   text-align: center;
+}
 
-  .main__lead {
-    text-align: left;
-  }
-
-  table {
-    @include table();
-    margin-block-end: space("medium");
-    text-align: left;
-
-    th {
-      width: 12rem;
-    }
-
-    td {
-      white-space: pre-wrap; // 本文の改行をそのまま表示する
-      overflow-wrap: anywhere;
-    }
-  }
-
+.confirm {
   // 送信エラーなどのメッセージ
   &__message {
     margin-block: 0 space("medium");
@@ -90,30 +114,35 @@
     white-space: pre-line;
   }
 
+  table {
+    @include table();
+    margin-block-end: space("large");
+
+    th {
+      width: 12rem;
+    }
+
+    td {
+      text-align: left;
+      white-space: pre-wrap; // 本文の改行をそのまま表示する
+      overflow-wrap: anywhere;
+    }
+  }
+
   [type="submit"], [type="button"] {
     display: inline-block;
     width: 14rem;
     height: 3.5rem;
     line-height: 3.5rem;
-    margin: 0 space() space();
+    margin-inline: space();
     @include make-button();
   }
 
   [type="submit"] {
-    @include make-button-color-normal("primary");
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: wait;
-    }
-  }
-
-  [type="button"] {
     @include make-button-color-normal("secondary");
   }
-}
-
-// 完了画面
-.thanks {
-  text-align: center;
+  
+  [type="button"] {
+    @include make-button-color-normal("primary");
+  }
 }

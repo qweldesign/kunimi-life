@@ -5,6 +5,8 @@ $font-family-sans:       "\"Noto Sans JP\"", "\"游ゴシック\"", "\"Yu Gothic
 $font-family-serif:      "\"Noto Serif JP\"", "\"游明朝\"", "\"Yu Mincho\"", serif !default;
 $font-weight-sans:       400 !default; // 游ゴシック固有
 $font-weight-serif:      400 !default;
+$font-family-display:    $font-family-sans !default; // 見出し・キャッチ用
+$font-weight-heading:    $font-weight-sans !default;
 
 // フォントサイズ
 $font-sizes:             (
@@ -26,7 +28,7 @@ $font-sizes:             (
 $body-typography:        (
   font-family:             $font-family-sans,
   font-weight:             $font-weight-sans,
-  line-height:             28.8 / ($font-size-base / ($font-size-base * 0 + 1)), // 単位除去
+  line-height:             2, // custom
   letter-spacing:          0
 ) !default;
 
@@ -43,8 +45,8 @@ $default-margin:         space() !default;
 $heading-typography:     (
   margin-block-start:      space("medium"),
   margin-block-end:        $default-margin,
-  font-family:             $font-family-sans,
-  font-weight:             $font-weight-sans,
+  font-family:             $font-family-display,
+  font-weight:             $font-weight-heading,
   line-height:             1.2,
   letter-spacing:          0
 ) !default;
