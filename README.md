@@ -1,9 +1,10 @@
-# QWEL Markdown Engine (Simple CMS)
+# 国見 海・人・暮らし相談室
 
-Markdown ファイルを記事として読み込み、HTML に変換して表示するためのシンプルな PHP エンジン。  
-データベース不要で、作品集やブログなどの**軽量なサイト向けの CMS として利用可能**。
+国見 海・人・暮らし相談室 ― 海辺に暮らそう 空き家マッチングツアー  
 
-▶ Sample DEMO: [https://qwel.design/tools/simple-cms/]
+[https://kunimi.life](https://kunimi.life)  
+
+※ このリポジトリは、[QWEL Markdown Engine (Simple CMS)](https://github.com/qweldesign/qwel-tools-md-engine) を使用して制作しています。  
 
 ---
 
@@ -110,26 +111,6 @@ slug に `page` は使えない (ページ送りの `/blog/page/2/` と重なる
 
 - 一覧: `api/posts.php?type=blog&page=1&count=10` → `{ type, page, totalPages, total, posts: [{ title, slug, date, summary, img, url }] }`
 - 個別記事: `api/posts.php?type=blog&slug=xxx` → `{ title, slug, date, summary, img, url, content }`
-
----
-
-## 目的・背景 | Purpose & Background
-
-- 環境構築を手軽に行える, 軽量な CMS が欲しかった
-- UIの実装・運用・保守に伴うコストとセキュリティリスクを抑えたかった
-- クライアントから文章と画像を提供してもらい, 更新自体はエンジニアが行う運用方針でOK
-- Markdown をそのまま運用することで, Git 管理による保守が可能な環境を試してみたかった
-- 外部依存は最小限 (Markdown パーサーと, お問い合わせフォームのメール送信の PHPMailer (Composer) のみ) に抑え, シンプルな設計を目指す
-
----
-
-## 設計・実装 | Design & Implementation
-
-- 構成をなるべく小さく, 理解し易く保つ
-- 記事管理は Markdown + frontmatter を基本とする
-- Loader (読み込み) と Navigation (UI補助) を責務分離
-- CMS というより「コンテンツエンジン」として扱う
-- 機能よりも可搬性を重視 (ベーシック認証や記事編集画面は作らない)
 
 ---
 
