@@ -1,0 +1,174 @@
+/**
+ * Project - People Article
+ * 「この町の人」個別記事 (インタビュー)
+ */
+
+.peopleArticle {
+  // 冒頭の写真 (Markdown の画像は <p><img></p> で出力される)
+  & > p:first-child {
+    margin-block: space("medium") 0;
+
+    img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: space("medium");
+    }
+  }
+
+  // タイトル
+  h2 {
+    margin-block: space("medium") space();
+    color: theme-color("primary");
+    font-size: clamp(1.2rem, 4.8vw, 1.8rem);
+    line-height: 1.5;
+  }
+
+  // タイトル直後のプロフィール文
+  h2 + p {
+    margin-block: 0 space("large");
+    padding: space() space("medium");
+    border-radius: space();
+    background-color: rgba(map-get($colors, "primary-light"), 0.15);
+    line-height: 1.8;
+  }
+
+  p {
+    line-height: 2;
+  }
+
+  // 質問 (main__article h3 の ● を上書き)
+  h3 {
+    position: relative;
+    margin-block: space("large") space();
+    padding-inline-start: 2.75rem;
+    font-size: font-size("large");
+    font-weight: 600;
+    line-height: 1.5;
+
+    &::before {
+      content: "Q";
+      position: absolute;
+      top: -0.125rem;
+      left: 0;
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      margin: 0;
+      border-radius: 50%;
+      background-color: theme-color("primary");
+      color: #fff;
+      font-family: $font-family-display;
+      font-size: font-size("medium");
+      line-height: 1;
+    }
+  }
+
+  // 本文中のリンク
+  & > p a {
+    color: theme-color("primary");
+    text-decoration: underline;
+  }
+
+  // 外部リンク
+  &__links {
+    margin-block: space("large") 0;
+    padding: space("medium");
+    border-radius: space();
+    border: 1px solid theme-color("lighter");
+
+    h3.peopleArticle__linksTitle {
+      margin-block: 0 space();
+      padding: 0;
+      font-size: font-size("normal");
+      font-weight: 700;
+
+      &::before {
+        content: none;
+      }
+    }
+
+  }
+
+  // 前後の記事
+  &__pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: space();
+    margin-block: space("large") 0;
+  }
+
+  &__pagerItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: space() space("medium");
+    border-radius: space();
+    background-color: rgba(map-get($colors, "primary-light"), 0.15);
+    line-height: 1.5;
+
+    &, &:hover, &:focus {
+      color: theme-color("darkest");
+      text-decoration: none;
+    }
+
+    &:hover, &:focus {
+      background-color: rgba(map-get($colors, "primary-light"), 0.3);
+    }
+
+    &.is-next {
+      text-align: right;
+    }
+
+    &.is-empty {
+      background: none;
+    }
+  }
+
+  &__pagerLabel {
+    color: theme-color("primary");
+    font-size: font-size("small");
+    font-weight: 700;
+
+    .is-prev &::before { content: "← "; }
+    .is-next &::after  { content: " →"; }
+  }
+
+  &__pagerName {
+    font-size: font-size("small");
+  }
+
+  // ツアーへの導線
+  &__cta {
+    margin-block: space("large") 0;
+    padding: space("medium");
+    border-radius: space("medium");
+    background-color: theme-color("primary-light");
+    text-align: center;
+  }
+
+  &__ctaLead {
+    margin-block: 0 space();
+    font-family: $font-family-display;
+    font-size: font-size("medium");
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  &__ctaButton {
+    display: inline-block;
+    width: min(100%, 16.5rem);
+    height: 3.5rem;
+    line-height: 3.5rem;
+    font-size: max(1.125rem, 20px);
+    font-weight: 700;
+    @include make-button();
+    @include make-button-color-normal("secondary");
+
+    &, &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+}

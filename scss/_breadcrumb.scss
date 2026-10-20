@@ -9,7 +9,7 @@
   padding: 0;
 
   &__item {
-    flex: 0 0 auto;
+    //flex: 0 0 auto;
     margin: 0;
 
     &:not(.is-current)::after {
@@ -29,7 +29,7 @@
     }
 
     span {
-      background-color: rgba(map-get($theme-colors, "primary"), 0.1);
+      background-color: rgba(map-get($theme-colors, "primary-light"), 0.15);
     }
   }
 }
