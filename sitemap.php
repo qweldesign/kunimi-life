@@ -10,19 +10,23 @@ require_once __DIR__ . '/inc/ContentLoader.php';
 
 $urls = [];
 $latestAll = '';
+$today = date('Y-m-d');
+
+// 記事の更新日 (日付が未来の記事は, これから開催するツアーなどなので更新日にしない)
+$lastmod = fn(array $post): string => ($post['date'] ?? '') <= $today ? ($post['date'] ?? '') : '';
 
 foreach (array_keys(SITE_POST_TYPES) as $type) {
   $config = post_type($type);
   $posts = (new ContentLoader(__DIR__ . '/' . trim($config['dir'], '/')))->load();
-  // 記事は日付の新しい順なので, 先頭が一覧の更新日になる
-  $latest = $posts[0]['date'] ?? '';
+  // 一覧の更新日は, 記事の更新日のうち最も新しいもの
+  $latest = max(array_merge([''], array_map($lastmod, $posts)));
   if ($latest > $latestAll) $latestAll = $latest;
 
   if ($config['list']) {
     $urls[] = ['path' => type_path($type), 'date' => $latest];
   }
   foreach ($posts as $post) {
-    $urls[] = ['path' => post_path($type, $post), 'date' => $post['date'] ?? ''];
+    $urls[] = ['path' => post_path($type, $post), 'date' => $lastmod($post)];
   }
 }
 

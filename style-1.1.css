@@ -1103,6 +1103,180 @@ button, input, select, textarea {
 }
 
 /**
+ * Component - Tour Card
+ * ツアーのカード (/tour/ の一覧) と, 実績の数値 (.tourMetrics. トップページの開催概要・個別記事でも使う)
+ * 状態は各カードの .is-open (募集中) / .is-closed (受付終了) / .is-done (開催済み) で出し分ける
+ */
+.tourGrid {
+  list-style: none;
+  padding-inline-start: 0;
+  display: grid;
+  gap: var(--spacing--medium);
+  margin-block: var(--spacing--medium);
+}
+@media (min-width: 675px) {
+  .tourGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .tourGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tourCard {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--spacing--medium);
+  background-color: #fff;
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.15);
+}
+.tourCard__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.tourCard__body, .tourCard__body:hover, .tourCard__body:focus {
+  color: inherit;
+  text-decoration: none;
+}
+.tourCard__body:is(a):hover .tourCard__image img, .tourCard__body:is(a):focus-visible .tourCard__image img {
+  transform: scale(1.05);
+}
+.tourCard__body:is(a):hover .tourCard__heading, .tourCard__body:is(a):focus-visible .tourCard__heading {
+  color: var(--color--primary);
+}
+.tourCard__image {
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 3/2;
+  background-color: rgba(27, 102, 152, 0.15);
+}
+.tourCard__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.35s ease;
+}
+.tourCard__text {
+  position: relative;
+  flex: 1;
+  padding: var(--spacing--medium) var(--spacing--medium) var(--spacing--small);
+}
+.tourCard__status {
+  position: absolute;
+  top: -1rem;
+  left: var(--spacing--medium);
+  margin: 0;
+  line-height: 1.5;
+}
+.tourCard__badge {
+  display: inline-block;
+  padding: 0.125rem 1rem;
+  border-radius: var(--spacing--small);
+  background-color: var(--color--secondary);
+  color: #fff;
+  font-size: var(--font-size--small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.tourCard__badge.is-closed {
+  background-color: var(--color--darker);
+}
+.tourCard__badge.is-done {
+  background-color: var(--color--primary);
+}
+.tourCard__heading {
+  margin-block: var(--spacing--x-small) 0;
+  font-size: var(--font-size--medium);
+  line-height: 1.5;
+  word-break: auto-phrase;
+  text-wrap: balance;
+  transition: color 0.25s ease;
+}
+.tourCard__meta {
+  margin-block: 0 var(--spacing--small);
+  color: var(--color--darker);
+  font-family: "Klee One", cursive;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.tourCard__summary {
+  margin-block: var(--spacing--small) 0;
+  color: var(--color--darker);
+  font-size: var(--small-font-size);
+  line-height: var(--small-line-height);
+  letter-spacing: var(--small-letter-spacing);
+  line-height: 1.6;
+}
+.tourCard__more {
+  display: inline-block;
+  margin-block-start: var(--spacing--small);
+  color: var(--color--primary);
+  font-size: var(--font-size--small);
+  font-weight: 700;
+}
+.tourCard__more::after {
+  content: " →";
+}
+
+.tourMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing--x-small) var(--spacing--medium);
+  margin: 0;
+}
+.tourMetrics__item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing--x-small);
+}
+.tourMetrics__label {
+  color: var(--color--darker);
+  font-size: var(--font-size--small);
+}
+.tourMetrics__value {
+  margin: 0;
+  font-size: var(--font-size--small);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.tourMetrics__number {
+  margin-inline-end: 0.125em;
+  color: var(--color--primary);
+  font-family: "Klee One", cursive;
+  font-size: var(--font-size--large);
+  font-weight: 600;
+  line-height: 1;
+}
+.tourMetrics--banner, .tourMetrics--article {
+  justify-content: center;
+  gap: var(--spacing--small) var(--spacing--large);
+}
+.tourMetrics--banner .tourMetrics__item, .tourMetrics--article .tourMetrics__item {
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.tourMetrics--banner .tourMetrics__number, .tourMetrics--article .tourMetrics__number {
+  font-size: clamp(2.25rem, 9vw, 3rem);
+}
+.tourMetrics--banner {
+  margin-block-end: var(--spacing--medium);
+}
+.tourMetrics--article {
+  margin-block: var(--spacing--medium);
+  padding: var(--spacing--small) var(--spacing--medium);
+  border-radius: var(--spacing--small);
+  background-color: rgba(168, 211, 240, 0.15);
+}
+
+/**
  * Project - Main
  */
 .faq, .intro, .banner {
@@ -1159,8 +1333,9 @@ button, input, select, textarea {
 
 /**
  * Project - Banner
- * ツアー開催概要をカードで表示する
- * 開催後は section に .is-closed を付けると、申込ボタンを隠して「受付終了」表示になる
+ * ツアー開催概要をカードで表示する (中身は content/tour/ の記事から作る)
+ * 状態はカードの .is-open (募集中) / .is-closed (受付終了) / .is-done (開催済み) で出し分ける
+ * カードの下に, 開催報告の一覧 (/tour/) へのボタンを置く
  */
 .banner {
   padding-block: var(--spacing--large);
@@ -1187,8 +1362,10 @@ button, input, select, textarea {
   letter-spacing: 0.08em;
 }
 .banner__badge.is-closed {
-  display: none;
   background-color: var(--color--darker);
+}
+.banner__badge.is-done {
+  background-color: var(--color--primary);
 }
 .banner__title {
   margin-block: 0 var(--spacing--small);
@@ -1204,6 +1381,8 @@ button, input, select, textarea {
 }
 .banner__name {
   font-size: clamp(1.5rem, 6vw, 2.25rem);
+  word-break: auto-phrase;
+  text-wrap: balance;
 }
 .banner__date {
   display: flex;
@@ -1259,7 +1438,7 @@ button, input, select, textarea {
   color: var(--color--darker);
   line-height: 1.5;
 }
-.banner__listItem br + small {
+.banner__listItem small.is-block {
   display: block;
 }
 .banner__actions {
@@ -1300,18 +1479,64 @@ button, input, select, textarea {
   background-color: var(--color--secondary--active);
   color: var(--color--darkest);
 }
+.banner__button.is-report, .banner__button.is-report:active {
+  background-color: var(--color--primary);
+  color: var(--color--lightest);
+}
+.banner__button.is-report:hover, .banner__button.is-report:focus {
+  background-color: var(--color--primary--active);
+  color: var(--color--darkest);
+}
+.banner__next {
+  margin: 0;
+  font-size: var(--font-size--small);
+  line-height: 1.5;
+}
 .banner__link {
   font-size: var(--font-size--small);
   text-decoration: underline;
 }
-.banner.is-closed .banner__badge.is-open {
-  display: none;
+.banner__buttonWrapper {
+  padding-block: var(--spacing--medium) 0;
+  text-align: center;
 }
-.banner.is-closed .banner__badge.is-closed {
-  display: inline-block;
+.banner__more {
+  display: block;
+  width: 16.5rem;
+  height: 3.5rem;
+  line-height: 3.5rem;
+  margin-inline: auto;
 }
-.banner.is-closed .banner__button {
-  display: none;
+.banner__more, .banner__more:active {
+  border: 0;
+  border-radius: var(--spacing--x-small);
+  text-align: center;
+  text-decoration: none;
+  word-break: break-word;
+  outline: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.banner__more:hover, .banner__more:focus {
+  text-decoration: none;
+  transform: scale(96%);
+}
+.banner__more, .banner__more:active {
+  background-color: var(--color--primary);
+  color: var(--color--lightest);
+}
+.banner__more:hover, .banner__more:focus {
+  background-color: var(--color--primary--active);
+  color: var(--color--darkest);
+}
+.banner__more:hover, .banner__more:focus {
+  box-shadow: 0 0 var(--spacing--small) var(--color--primary);
+}
+.banner__more {
+  font-weight: 700;
 }
 
 /**
@@ -1820,6 +2045,170 @@ button, input, select, textarea {
   color: var(--color--darkest);
 }
 .peopleArticle__ctaButton, .peopleArticle__ctaButton:hover, .peopleArticle__ctaButton:focus {
+  text-decoration: none;
+}
+
+/**
+ * Project - Tour Article
+ * ツアーの個別記事 (開催報告. 開催前は開催概要)
+ */
+.tourArticle__header {
+  margin-block: var(--spacing--medium) 0;
+}
+.tourArticle__status {
+  margin-block: 0 var(--spacing--small);
+  line-height: 1.5;
+}
+.tourArticle__badge {
+  display: inline-block;
+  padding: 0.125rem 1rem;
+  border-radius: var(--spacing--small);
+  background-color: var(--color--secondary);
+  color: #fff;
+  font-size: var(--font-size--small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.tourArticle__badge.is-closed {
+  background-color: var(--color--darker);
+}
+.tourArticle__badge.is-done {
+  background-color: var(--color--primary);
+}
+.tourArticle__title {
+  margin-block: 0;
+  color: var(--color--primary);
+  font-size: clamp(1.4rem, 5.6vw, 2rem);
+  line-height: 1.5;
+  word-break: auto-phrase;
+}
+.tourArticle__titleSub {
+  display: block;
+  font-size: 0.6em;
+}
+.tourArticle__meta {
+  margin-block: var(--spacing--x-small) 0;
+  color: var(--color--darker);
+  font-family: "Klee One", cursive;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.tourArticle__image {
+  margin: var(--spacing--medium) 0 0;
+}
+.tourArticle__image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3/2;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: var(--spacing--medium);
+}
+.tourArticle__body h2 {
+  margin-block: var(--spacing--large) var(--spacing--small);
+  color: var(--color--primary);
+  font-size: var(--font-size--x-large);
+  line-height: 1.5;
+}
+.tourArticle__body p {
+  line-height: 2;
+}
+.tourArticle__body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--spacing--small);
+}
+.tourArticle__body p a {
+  color: var(--color--primary);
+  text-decoration: underline;
+}
+.tourArticle__empty {
+  margin-block: var(--spacing--large);
+  color: var(--color--darker);
+  text-align: center;
+}
+.tourArticle__details {
+  margin-block: var(--spacing--large) 0;
+}
+.tourArticle__detailsTitle {
+  margin-block: 0 var(--spacing--small);
+  font-size: var(--font-size--large);
+}
+.tourArticle__list {
+  display: grid;
+  gap: var(--spacing--x-small);
+  margin: 0;
+  padding: var(--spacing--small) var(--spacing--medium);
+  border-radius: var(--spacing--small);
+  background-color: rgba(168, 211, 240, 0.15);
+}
+.tourArticle__listItem {
+  display: grid;
+  grid-template-columns: 7.5em 1fr;
+}
+.tourArticle__listItem dt {
+  color: var(--color--primary);
+  font-weight: 700;
+}
+.tourArticle__listItem dd {
+  margin: 0;
+  line-height: 1.5;
+}
+.tourArticle__listItem small {
+  color: var(--color--darker);
+}
+.tourArticle__listItem small.is-block {
+  display: block;
+}
+.tourArticle__cta {
+  margin-block: var(--spacing--large) 0;
+  padding: var(--spacing--medium);
+  border-radius: var(--spacing--medium);
+  background-color: var(--color--primary-light);
+  text-align: center;
+}
+.tourArticle__ctaLead {
+  margin-block: 0 var(--spacing--small);
+  font-family: "Klee One", cursive;
+  font-size: var(--font-size--medium);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.tourArticle__ctaButton {
+  display: inline-block;
+  width: min(100%, 16.5rem);
+  height: 3.5rem;
+  line-height: 3.5rem;
+  font-size: max(1.125rem, 20px);
+  font-weight: 700;
+}
+.tourArticle__ctaButton, .tourArticle__ctaButton:active {
+  border: 0;
+  border-radius: var(--spacing--x-small);
+  text-align: center;
+  text-decoration: none;
+  word-break: break-word;
+  outline: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.tourArticle__ctaButton:hover, .tourArticle__ctaButton:focus {
+  text-decoration: none;
+  transform: scale(96%);
+}
+.tourArticle__ctaButton, .tourArticle__ctaButton:active {
+  background-color: var(--color--secondary);
+  color: var(--color--lightest);
+}
+.tourArticle__ctaButton:hover, .tourArticle__ctaButton:focus {
+  background-color: var(--color--secondary--active);
+  color: var(--color--darkest);
+}
+.tourArticle__ctaButton, .tourArticle__ctaButton:hover, .tourArticle__ctaButton:focus {
   text-decoration: none;
 }
 

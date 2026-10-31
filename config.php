@@ -77,6 +77,18 @@ const SITE_CREDITS = [
  * description: 一覧の description (規定で lead)
  */
 const SITE_POST_TYPES = [
+  // ツアー (1回のツアー = 1記事. frontmatter に開催要項, 本文に開催後の報告を書く. slug が回数 01, 02, … を兼ねる)
+  // frontmatter: slug, title, date, time, deadline, meeting, meeting_note, fee, fee_note,
+  //              summary, img, participants, inquiries, status
+  'tour' => [
+    'label'       => '空き家マッチングツアー',
+    'path'        => 'tour/',
+    'dir'         => 'content/tour',
+    'count'       => 12,
+    'show_date'   => true,
+    'lead'        => 'これまでに開催した空き家マッチングツアーの様子と記録をご報告します。',
+    'description' => '福井市国見地区で開催している「空き家マッチングツアー」の開催報告。当日の様子や参加者数、ツアー後のお問い合わせ件数をまとめています。',
+  ],
   // この町の人 (インタビュー. slug が連番 vol.01, 02, … を兼ねる. 並びは slug 順)
   // frontmatter: slug, catch, name, summary, img, website, note, instagram
   'people' => [
@@ -88,6 +100,20 @@ const SITE_POST_TYPES = [
     'lead'        => '国見には、いろいろな人が暮らしています。ここでは、そんな「この町の人」に話を聞きながら、国見での暮らしや、この町の魅力をご紹介します。',
     'description' => '国見地区で暮らす人、移住してきた人、地域に関わる人。「この町の人」に話を聞きながら、国見での暮らしや町の魅力を紹介します。',
   ],
+];
+
+/**
+ * ツアーの共通項目 (トップページの開催概要 #banner と /tour/ で使う)
+ * area: ツアー名の上に出す地域名
+ * entry_url: お申込みフォームの URL (サイトのルートからのパス. フォームは別のリポジトリ kunimi-life-form)
+ * line_url: 次回のお知らせを受け取る LINE 友だち追加の URL (開催済みで次回が未定のときに出す)
+ * contact: お問い合わせ先 (label: 表示, tel: 発信用の番号, note: 補足)
+ */
+const SITE_TOUR = [
+  'area'      => '福井県福井市 国見地区',
+  'entry_url' => 'entry/',
+  'line_url'  => 'https://lin.ee/YsVWzb6W',
+  'contact'   => ['label' => '0776-88-2004', 'tel' => '0776882004', 'note' => '国見公民館'],
 ];
 
 // URL の形式 (false: ?slug=xxx, ?page=2 / true: xxx/, page/2/ ※ .htaccess のリライトが必要)

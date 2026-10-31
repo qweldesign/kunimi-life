@@ -1,7 +1,8 @@
 /**
  * Project - Banner
- * ツアー開催概要をカードで表示する
- * 開催後は section に .is-closed を付けると、申込ボタンを隠して「受付終了」表示になる
+ * ツアー開催概要をカードで表示する (中身は content/tour/ の記事から作る)
+ * 状態はカードの .is-open (募集中) / .is-closed (受付終了) / .is-done (開催済み) で出し分ける
+ * カードの下に, 開催報告の一覧 (/tour/) へのボタンを置く
  */
 
 .banner {
@@ -33,8 +34,11 @@
     letter-spacing: 0.08em;
 
     &.is-closed {
-      display: none;
       background-color: theme-color("darker");
+    }
+
+    &.is-done {
+      background-color: theme-color("primary");
     }
   }
 
@@ -55,6 +59,8 @@
 
   &__name {
     font-size: clamp(1.5rem, 6vw, 2.25rem);
+    word-break: auto-phrase; // 日本語を文節で折り返す (対応ブラウザのみ)
+    text-wrap: balance;
   }
 
   // 日付を大きく
@@ -116,10 +122,10 @@
     small {
       color: theme-color("darker");
       line-height: 1.5;
-    }
 
-    br + small {
-      display: block;
+      &.is-block {
+        display: block;
+      }
     }
   }
 
@@ -139,6 +145,17 @@
     font-weight: 700;
     @include make-button();
     @include make-button-color-normal("secondary");
+
+    // 開催済み (次回が未定の間) の「開催報告を読む」
+    &.is-report {
+      @include make-button-color-normal("primary");
+    }
+  }
+
+  &__next {
+    margin: 0;
+    font-size: font-size("small");
+    line-height: 1.5;
   }
 
   &__link {
@@ -146,15 +163,14 @@
     text-decoration: underline;
   }
 
-  // 受付終了
-  &.is-closed {
-    .banner__badge {
-      &.is-open { display: none; }
-      &.is-closed { display: inline-block; }
-    }
+  // 開催報告の一覧へ (「この町の人をもっと見る」と同じボタン)
+  &__buttonWrapper {
+    padding-block: space("medium") 0;
+    text-align: center;
+  }
 
-    .banner__button {
-      display: none;
-    }
+  &__more {
+    @include button("primary", 16.5rem, 3.5rem);
+    font-weight: 700;
   }
 }

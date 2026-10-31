@@ -1,0 +1,200 @@
+/**
+ * Component - Tour Card
+ * ツアーのカード (/tour/ の一覧) と, 実績の数値 (.tourMetrics. トップページの開催概要・個別記事でも使う)
+ * 状態は各カードの .is-open (募集中) / .is-closed (受付終了) / .is-done (開催済み) で出し分ける
+ */
+
+.tourGrid {
+  @include list-unstyled();
+  display: grid;
+  gap: space("medium");
+  margin-block: space("medium");
+
+  @media (min-width: breakpoint("sm")) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: breakpoint("md")) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tourCard {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  border-radius: space("medium");
+  background-color: #fff;
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.15);
+
+  // カード全体がリンク (報告がまだない開催済みのツアーはリンクにしない)
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    &, &:hover, &:focus {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    &:is(a):hover, &:is(a):focus-visible {
+      .tourCard__image img {
+        transform: scale(1.05);
+      }
+
+      .tourCard__heading {
+        color: theme-color("primary");
+      }
+    }
+  }
+
+  &__image {
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 3 / 2;
+    background-color: rgba(map-get($colors, "primary"), 0.15);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+  }
+
+  &__text {
+    position: relative;
+    flex: 1;
+    padding: space("medium") space("medium") space();
+  }
+
+  // 状態バッジ (写真に少しかける)
+  &__status {
+    position: absolute;
+    top: -1rem;
+    left: space("medium");
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: 0.125rem 1rem;
+    border-radius: space("small");
+    background-color: theme-color("secondary");
+    color: #fff;
+    font-size: font-size("small");
+    font-weight: 700;
+    letter-spacing: 0.08em;
+
+    &.is-closed {
+      background-color: theme-color("darker");
+    }
+
+    &.is-done {
+      background-color: theme-color("primary");
+    }
+  }
+
+  &__heading {
+    margin-block: space("x-small") 0;
+    font-size: font-size("medium");
+    line-height: 1.5;
+    word-break: auto-phrase; // 日本語を文節で折り返す (対応ブラウザのみ)
+    text-wrap: balance;
+    transition: color 0.25s ease;
+  }
+
+  &__meta {
+    margin-block: 0 space("small");
+    color: theme-color("darker");
+    font-family: $font-family-display;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  &__summary {
+    margin-block: space("small") 0;
+    color: theme-color("darker");
+    @include small-text();
+    line-height: 1.6;
+  }
+
+  &__more {
+    display: inline-block;
+    margin-block-start: space("small");
+    color: theme-color("primary");
+    font-size: font-size("small");
+    font-weight: 700;
+
+    &::after {
+      content: " →";
+    }
+  }
+}
+
+// 実績の数値 (参加者数・事後のお問い合わせ件数)
+.tourMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: space("x-small") space("medium");
+  margin: 0;
+
+  &__item {
+    display: flex;
+    align-items: baseline;
+    gap: space("x-small");
+  }
+
+  &__label {
+    color: theme-color("darker");
+    font-size: font-size("small");
+  }
+
+  &__value {
+    margin: 0;
+    font-size: font-size("small");
+    font-weight: 700;
+    white-space: nowrap; // 数字と単位を離さない
+  }
+
+  &__number {
+    margin-inline-end: 0.125em;
+    color: theme-color("primary");
+    font-family: $font-family-display;
+    font-size: font-size("large");
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  // トップページの開催概要と個別記事では大きく
+  &--banner,
+  &--article {
+    justify-content: center;
+    gap: space() space("large");
+
+    .tourMetrics__item {
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .tourMetrics__number {
+      font-size: clamp(2.25rem, 9vw, 3rem);
+    }
+  }
+
+  &--banner {
+    margin-block-end: space("medium");
+  }
+
+  &--article {
+    margin-block: space("medium");
+    padding: space() space("medium");
+    border-radius: space();
+    background-color: rgba(map-get($colors, "primary-light"), 0.15);
+  }
+}

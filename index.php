@@ -1,10 +1,11 @@
 <?php
 /**
  * トップページ (空き家マッチングツアーのランディングページ)
- * 「この町の人」は content/people/ の記事からカードを並べる
+ * ツアーの開催概要 (#banner) は content/tour/, 「この町の人」は content/people/ の記事から作る
  * お問い合わせのメールフォームは, 項目を config.php の SITE_CONTACT_FIELDS で設定する (確認・完了画面は contact/)
  * ※ ツアーのお申込みフォーム (/entry/) は別のリポジトリ (kunimi-life-form)
  */
+require_once __DIR__ . '/inc/templates/tour.php';
 require_once __DIR__ . '/inc/templates/people.php';
 require_once __DIR__ . '/inc/templates/contact.php';
 
@@ -34,40 +35,7 @@ render_header([
 ]);
 ?>
     <main class="main">
-      <section id="banner" class="banner">
-        <div class="banner__card">
-          <p class="banner__status">
-            <span class="banner__badge is-open">参加者募集中</span>
-            <span class="banner__badge is-closed">受付終了</span>
-          </p>
-          <h2 class="banner__title">
-            <span class="banner__eyebrow">福井県福井市 国見地区</span>
-            <span class="banner__name">第3回 空き家マッチングツアー</span>
-          </h2>
-          <p class="banner__date">
-            <time class="banner__dateMain" datetime="2027-04-17">4.17</time>
-            <span class="banner__dateSub">2027 / SAT<br>10:00 - 16:00</span>
-          </p>
-          <dl class="banner__list">
-            <div class="banner__listItem">
-              <dt>集合</dt>
-              <dd>国見公民館 10:00<br><small>福井駅 9:00 発のお迎えバスもあります</small></dd>
-            </div>
-            <div class="banner__listItem">
-              <dt>参加費</dt>
-              <dd>無料<small> (昼食代は実費)</small></dd>
-            </div>
-            <div class="banner__listItem">
-              <dt>お問い合わせ</dt>
-              <dd><a href="tel:0776882004">0776-88-2004</a><small> (国見公民館)</small></dd>
-            </div>
-          </dl>
-          <div class="banner__actions">
-            <a class="banner__button" href="./entry/" onclick="return gtag_report_conversion('./entry/');">参加を申し込む</a>
-            <a class="banner__link" href="#flow">ツアーの流れを見る</a>
-          </div>
-        </div>
-      </section>
+<?php render_tour_banner(); ?>
       <section id="intro" class="intro">
         <h2 class="intro__title">当相談室について</h2>
         <div class="intro__content">

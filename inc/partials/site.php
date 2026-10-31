@@ -72,7 +72,7 @@ function render_header(array $page = []): void {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="<?= e(SITE_FONTS_URL) ?>">
 <?php } ?>
-    <link rel="stylesheet" href="<?= path('style-1.0.css') ?>">
+    <link rel="stylesheet" href="<?= path('style-1.1.css') ?>">
     <link rel="icon" href="<?= path('assets/favicon.ico') ?>" sizes="32x32">
     <link rel="icon" href="<?= path('assets/favicon.svg') ?>" type="image/svg+xml">
     <link rel="apple-touch-icon" href="<?= path('assets/apple-touch-icon.png') ?>">

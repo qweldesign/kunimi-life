@@ -1,0 +1,173 @@
+/**
+ * Project - Tour Article
+ * ツアーの個別記事 (開催報告. 開催前は開催概要)
+ */
+
+.tourArticle {
+  &__header {
+    margin-block: space("medium") 0;
+  }
+
+  &__status {
+    margin-block: 0 space("small");
+    line-height: 1.5;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: 0.125rem 1rem;
+    border-radius: space("small");
+    background-color: theme-color("secondary");
+    color: #fff;
+    font-size: font-size("small");
+    font-weight: 700;
+    letter-spacing: 0.08em;
+
+    &.is-closed {
+      background-color: theme-color("darker");
+    }
+
+    &.is-done {
+      background-color: theme-color("primary");
+    }
+  }
+
+  &__title {
+    margin-block: 0;
+    color: theme-color("primary");
+    font-size: clamp(1.4rem, 5.6vw, 2rem);
+    line-height: 1.5;
+    word-break: auto-phrase;
+  }
+
+  &__titleSub {
+    display: block;
+    font-size: 0.6em;
+  }
+
+  &__meta {
+    margin-block: space("x-small") 0;
+    color: theme-color("darker");
+    font-family: $font-family-display;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  &__image {
+    margin: space("medium") 0 0;
+
+    img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: space("medium");
+    }
+  }
+
+  // 報告の本文 (Markdown)
+  &__body {
+    h2 {
+      margin-block: space("large") space();
+      color: theme-color("primary");
+      font-size: font-size("x-large");
+      line-height: 1.5;
+    }
+
+    p {
+      line-height: 2;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: space();
+    }
+
+    p a {
+      color: theme-color("primary");
+      text-decoration: underline;
+    }
+  }
+
+  &__empty {
+    margin-block: space("large");
+    color: theme-color("darker");
+    text-align: center;
+  }
+
+  // 開催概要 (開催前)
+  &__details {
+    margin-block: space("large") 0;
+  }
+
+  &__detailsTitle {
+    margin-block: 0 space();
+    font-size: font-size("large");
+  }
+
+  &__list {
+    display: grid;
+    gap: space("x-small");
+    margin: 0;
+    padding: space() space("medium");
+    border-radius: space();
+    background-color: rgba(map-get($colors, "primary-light"), 0.15);
+  }
+
+  &__listItem {
+    display: grid;
+    grid-template-columns: 7.5em 1fr;
+
+    dt {
+      color: theme-color("primary");
+      font-weight: 700;
+    }
+
+    dd {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    small {
+      color: theme-color("darker");
+
+      &.is-block {
+        display: block;
+      }
+    }
+  }
+
+  // ツアーへの導線
+  &__cta {
+    margin-block: space("large") 0;
+    padding: space("medium");
+    border-radius: space("medium");
+    background-color: theme-color("primary-light");
+    text-align: center;
+  }
+
+  &__ctaLead {
+    margin-block: 0 space();
+    font-family: $font-family-display;
+    font-size: font-size("medium");
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  &__ctaButton {
+    display: inline-block;
+    width: min(100%, 16.5rem);
+    height: 3.5rem;
+    line-height: 3.5rem;
+    font-size: max(1.125rem, 20px);
+    font-weight: 700;
+    @include make-button();
+    @include make-button-color-normal("secondary");
+
+    &, &:hover, &:focus {
+      text-decoration: none;
+    }
+  }
+}
