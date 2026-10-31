@@ -14,6 +14,7 @@
  *   deadline: 申込締切日 (任意. 書かない場合は開催日の終わりまで募集中)
  *   meeting, meeting_note: 集合場所とその補足
  *   fee, fee_note: 参加費とその補足
+ *   price: 参加費の金額 (数字のみ. 任意. 構造化データに使う. 書かない場合は fee が「無料」なら 0 円とみなす)
  *   summary: 一覧やカード, description に使う要約
  *   img: アイキャッチ (サイトのルートからのパス)
  *   participants: 参加者数 (数字のみ. 開催後に書く)
@@ -233,6 +234,72 @@ function render_tour_card(array $tour): void {
             </<?= $url ? 'a' : 'div' ?>>
           </li>
 <?php
+}
+
+/**
+ * トップページのイベントの構造化データ (schema.org/Event の JSON-LD)
+ * #banner と同じツアー (次に開催するツアー) を出す. 開催済みのツアーしかない間は出さない
+ * 戻り値は render_header の head にそのまま渡せる <script> 要素 (出さない場合は空文字)
+ */
+function tour_event_json_ld(): string {
+  $tours = content_engine('tour', ['slug' => null, 'page' => 1])->get_posts(1, PHP_INT_MAX);
+  $tour  = tour_featured($tours);
+  if (!$tour || empty($tour['date'])) return '';
+  $status = tour_status($tour);
+  if ($status === 'done') return '';
+
+  // 時間 (例: 10:00 - 16:00) があれば日時に, なければ日付のみ
+  $startDate = $endDate = date('Y-m-d', strtotime($tour['date']));
+  if (preg_match('/(\d{1,2}):(\d{2})\s*[-–~〜]\s*(\d{1,2}):(\d{2})/u', $tour['time'] ?? '', $m)) {
+    $offset    = date('P', strtotime($tour['date']));
+    $startDate = sprintf('%sT%02d:%02d:00%s', $startDate, $m[1], $m[2], $offset);
+    $endDate   = sprintf('%sT%02d:%02d:00%s', $endDate, $m[3], $m[4], $offset);
+  }
+
+  $place = SITE_TOUR['place'];
+  $data = [
+    '@context'            => 'https://schema.org',
+    '@type'               => 'Event',
+    'name'                => tour_title($tour),
+    'description'         => ($tour['summary'] ?? '') ?: SITE_DESCRIPTION,
+    'startDate'           => $startDate,
+    'endDate'             => $endDate,
+    'eventStatus'         => 'https://schema.org/EventScheduled',
+    'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+    'location'            => [
+      '@type'   => 'Place',
+      'name'    => $place['name'],
+      'address' => [
+        '@type'           => 'PostalAddress',
+        'postalCode'      => $place['postal_code'],
+        'addressRegion'   => $place['region'],
+        'addressLocality' => $place['locality'],
+        'streetAddress'   => $place['street'],
+        'addressCountry'  => 'JP',
+      ],
+    ],
+    'image'               => [absolute_url(($tour['img'] ?? '') ?: SITE_OGP_IMAGE)],
+    'organizer'           => [
+      '@type' => 'Organization',
+      'name'  => SITE_NAME,
+      'url'   => SITE_URL,
+    ],
+  ];
+
+  // 参加費 (金額が分かるときだけ). 受付終了なら売り切れ扱い
+  $price = ($tour['price'] ?? '') !== '' ? $tour['price'] : (($tour['fee'] ?? '') === '無料' ? '0' : null);
+  if ($price !== null) {
+    $data['offers'] = [
+      '@type'         => 'Offer',
+      'url'           => absolute_url(SITE_TOUR['entry_url']),
+      'price'         => $price,
+      'priceCurrency' => 'JPY',
+      'availability'  => $status === 'open' ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+    ];
+  }
+
+  $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_PRETTY_PRINT);
+  return $json === false ? '' : '    <script type="application/ld+json">' . "\n" . $json . "\n" . '    </script>';
 }
 
 // 一覧と個別記事 (報告)

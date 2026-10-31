@@ -108,12 +108,21 @@ const SITE_POST_TYPES = [
  * entry_url: お申込みフォームの URL (サイトのルートからのパス. フォームは別のリポジトリ kunimi-life-form)
  * line_url: 次回のお知らせを受け取る LINE 友だち追加の URL (開催済みで次回が未定のときに出す)
  * contact: お問い合わせ先 (label: 表示, tel: 発信用の番号, note: 補足)
+ * place: 会場 (トップページのイベントの構造化データ (JSON-LD) に使う)
+ *        name: 会場名, postal_code: 郵便番号, region: 都道府県, locality: 市区町村, street: 町名・番地
  */
 const SITE_TOUR = [
   'area'      => '福井県福井市 国見地区',
   'entry_url' => 'entry/',
   'line_url'  => 'https://lin.ee/YsVWzb6W',
   'contact'   => ['label' => '0776-88-2004', 'tel' => '0776882004', 'note' => '国見公民館'],
+  'place'     => [
+    'name'        => '国見公民館',
+    'postal_code' => '910-3402',
+    'region'      => '福井県',
+    'locality'    => '福井市',
+    'street'      => '鮎川町第133号1番地3',
+  ],
 ];
 
 // URL の形式 (false: ?slug=xxx, ?page=2 / true: xxx/, page/2/ ※ .htaccess のリライトが必要)

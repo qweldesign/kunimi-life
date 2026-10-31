@@ -87,6 +87,9 @@ function render_header(array $page = []): void {
       gtag('config', '<?= e(SITE_GA_ID) ?>');
     </script>
 <?php } ?>
+<?php if (!empty($page['head'])) { ?>
+<?= $page['head'] . "\n" ?>
+<?php } ?>
   </head>
   <body>
 <?php if (isset($page['header'])) $page['header'](); ?>

@@ -19,6 +19,8 @@ render_header([
   'image_height' => 630,
   'image_alt'    => SITE_OGP_IMAGE_ALT,
   'home'         => true,
+  // 次に開催するツアーのイベントの構造化データ (JSON-LD)
+  'head'         => tour_event_json_ld(),
   'header'       => function () {
 ?>
     <header class="header">
